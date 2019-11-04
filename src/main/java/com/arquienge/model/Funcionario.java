@@ -1,9 +1,6 @@
 package com.arquienge.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,7 +8,7 @@ import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
 public class Funcionario extends Usuario {
 
@@ -24,7 +21,7 @@ public class Funcionario extends Usuario {
     private String cargo;
 
     @OneToOne
-    @JoinColumn(unique = true, name = "id_endereco")
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @OneToOne
@@ -32,7 +29,7 @@ public class Funcionario extends Usuario {
     private CarteiradeTrabalho carteira;
 
     @ManyToOne
-    @JoinColumn(unique = true, name = "id_obra")
+    @JoinColumn(name = "id_obra")
     private Obra obra;
 
 }

@@ -26,7 +26,7 @@ public class Maquina {
     private String placa;
 
     @ManyToOne
-    @JoinColumn(unique = true, name = "id_obra")
+    @JoinColumn(name = "id_obra")
     private Obra obra;
 
 

@@ -24,4 +24,6 @@ public interface EngenheiroRepository extends JpaRepository<Engenheiro, Integer>
     @Query(value = "SELECT ENGENHEIRO.* FROM ENGENHEIRO WHERE ENGENHEIRO.NOME = ?1 AND ENGENHEIRO.SOBRENOME = ?2", nativeQuery = true)
     Engenheiro findEngenheiroByNomeAndSobrenome(String nome, String sobrenome);
 
+    @Query(value = "UPDATE ENGENHEIRO SET ENGENHEIRO.EMAIL = ?1, ENGENHEIRO.SENHA = ?2 WHERE ENGENHEIRO.ID = ?3", nativeQuery = true)
+    Engenheiro updateEngenheiroById(String email,String senha,Integer id);
 }

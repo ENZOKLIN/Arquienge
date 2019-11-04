@@ -23,9 +23,10 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     @Query(value = "SELECT FUNCIONARIO.* WHERE FUNCIONARIO.CARGO = ?1", nativeQuery = true)
     List<Funcionario> findFuncionariosByCargo(String cargo);
 
-    @Query(value = "SELECT FUNCIONARIO.* WHERE FUNCIONARIO.ID_CARTEIRA = CARTEIRADE_TRABALHO.ID AND CARTEIRADE_TRABALHO.CARTEIRA = ?1", nativeQuery = true)
+    @Query(value = "SELECT FUNCIONARIO.* WHERE CARTEIRADE_TRABALHO.CARTEIRA = ?1 AND FUNCIONARIO.ID_CARTEIRA = CARTEIRADE_TRABALHO.ID", nativeQuery = true)
     Funcionario findFuncionarioByCarteira(String numerodacarteira);
 
     @Query(value = "SELECT FUNCIONARIO.* WHERE FUNCIONARIO.ID_ENDERECO = ENDERECO.ID AND ENDERECO.CEP = ?", nativeQuery = true)
     List<Funcionario> findFuncionariosByCep(String cep);
+
 }
