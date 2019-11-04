@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -11,7 +12,6 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-
 public class Endereco {
 
     @Id
@@ -38,7 +38,6 @@ public class Endereco {
 
     @OneToOne(mappedBy = "endereco")
     private Obra obra;
-
 
 
 }

@@ -21,7 +21,11 @@ public class Obra {
 
     @Id
     @GeneratedValue
+    @Column(unique = true, name = "ID")
     private Integer id_obra;
+
+    @Column(unique = true, name = "Nome_Obra")
+    private String nome_obra;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy", iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "Data de inicio da obra não pode estar vazia!")
@@ -35,9 +39,20 @@ public class Obra {
     private List<Etapa> etapas;
 
     @OneToOne
-    @JoinColumn(unique = true, name = "id_endereco")
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
+    @OneToOne
+    @JoinColumn(name = "id_engenheiro")
+    private Engenheiro engenheiro;
 
+    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL)
+    private List<Ferramenta> ferramentas;
+
+    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL)
+    private List<Maquina> maquinas;
+
+    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL)
+    private List<Funcionario> funcionarios;
 
 }

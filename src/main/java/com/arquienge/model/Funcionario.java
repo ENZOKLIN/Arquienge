@@ -18,14 +18,21 @@ public class Funcionario extends Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Pattern(regexp = "[0-9]{4},[0-9]{2}", message = "Salário não está correto!")
     private double salario;
     @DateTimeFormat(pattern = "dd/MM/yyyy", iso = DateTimeFormat.ISO.DATE)
     private Date dt_admissao;
     private String cargo;
 
     @OneToOne
-    @JoinColumn(unique = true, name = "endereco_id")
+    @JoinColumn(unique = true, name = "id_endereco")
     private Endereco endereco;
-    // CarteiraTrabalho carteira;
+
+    @OneToOne
+    @JoinColumn(unique = true, name = "id_carteira")
+    private CarteiradeTrabalho carteira;
+
+    @ManyToOne
+    @JoinColumn(unique = true, name = "id_obra")
+    private Obra obra;
+
 }

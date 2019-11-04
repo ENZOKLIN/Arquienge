@@ -17,6 +17,7 @@ public class Proprietario extends Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true)
     private Integer id_proprietario;
 
     @OneToOne

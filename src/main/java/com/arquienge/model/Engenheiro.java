@@ -18,7 +18,9 @@ public class Engenheiro extends Usuario{
     private Integer id_engenheiro;
 
     @OneToOne
-    @JoinColumn(unique = true, name = "endereco_id")
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
+    @OneToOne(mappedBy = "engenheiro")
+    private Obra obra;
 }

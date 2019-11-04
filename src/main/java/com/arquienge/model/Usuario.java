@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Usuario {
+
     @Email(message = "Email não cumpre os requisitos")
     String email;
 
@@ -22,7 +24,7 @@ public class Usuario {
     @NotEmpty(message = "Senha não pode estar vazia!")
     String senha;
 
-    @Size(max = 14, min = 14)
+    @Size(max = 14, min = 12)
     @Pattern(regexp = ("[0-9]{2} [0-9]{5}-[0-9]{4}"))
     @NotNull(message = "O telefone não estar vazio!")
     private String telefone;

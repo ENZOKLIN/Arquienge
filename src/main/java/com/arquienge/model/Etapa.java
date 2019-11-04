@@ -22,8 +22,8 @@ public class Etapa {
     @NotEmpty(message = "Descrição da etapa é obrigatória!")
     String descricao;
 
-    @ManyToOne
-    @JoinColumn(unique = true, name = "cod_obra")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = false, name = "id_obra")
     private Obra obra;
 
     //0 = Não Iniciado

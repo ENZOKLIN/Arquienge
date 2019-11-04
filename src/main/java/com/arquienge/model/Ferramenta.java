@@ -27,6 +27,10 @@ public class Ferramenta {
     @Column(nullable = false)
     private int quantidade;
 
+    @ManyToOne
+    @JoinColumn(unique = true, name = "id_obra")
+    private Obra obra;
+
     @Override
     public String toString()
     {

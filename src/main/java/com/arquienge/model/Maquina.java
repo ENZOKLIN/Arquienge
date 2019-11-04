@@ -21,8 +21,14 @@ public class Maquina {
     private int quantidade;
     private String tipoMaquina;
 
+    @Column(length = 8, unique = true)
     @Pattern(regexp = "[A-Za-z]{3}-[0-9]{4}", message = "Placa Inválida")
     private String placa;
+
+    @ManyToOne
+    @JoinColumn(unique = true, name = "id_obra")
+    private Obra obra;
+
 
     @Override
     public String toString()
