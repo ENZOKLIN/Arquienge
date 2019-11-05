@@ -3,7 +3,9 @@ package com.arquienge.repository;
 import com.arquienge.ArquiengeApplication;
 import com.arquienge.model.*;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -73,11 +75,9 @@ class ArquiengeRepositoryTest {
         Optional<Endereco> endereco1 = enderecoRepository.findById(endereco.getId());
         Assert.assertNotNull(endereco1);
         Assert.assertEquals(endereco.getCidade(), endereco1.get().getCidade());
-        if(endereco.getCidade() == endereco1.get().getCidade())
-        {
+        if (endereco.getCidade() == endereco1.get().getCidade()) {
             System.out.println("Endereço Recuperado do BD igual ao salvo Localmente!");
-        }
-        else{
+        } else {
             System.out.println("Endereço Recuperado Inválido!");
         }
     }
@@ -138,7 +138,7 @@ class ArquiengeRepositoryTest {
     @Test
     void cadastrarFuncionarioeLogarCorretamente() {
         Endereco endereco = new Endereco();
-        endereco.setId(1);
+        endereco.setId(null);
         endereco.setRua("Rua Tal");
         endereco.setNumero(89);
         endereco.setCidade("Florianopolis");
@@ -148,7 +148,7 @@ class ArquiengeRepositoryTest {
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
-        engenheiro.setId_engenheiro(1);
+        engenheiro.setId_engenheiro(null);
         engenheiro.setEmail("enzo.klin@gmail.com");
         engenheiro.setCpf("122.148.189-03");
         Date date = new Date(2019, 10, 10);
@@ -163,17 +163,17 @@ class ArquiengeRepositoryTest {
         obra.setDt_inicio(date);
         obra.setEndereco(endereco);
         obra.setEngenheiro(engenheiro);
-        obra.setNome_obra("Obra do Shopping");
-        obra.setId_obra(1);
+        obra.setNome_obra("Obra da Vila");
+        obra.setId_obra(null);
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
-        carteira.setCod_carteira(1);
-        carteira.setNumero_carteira("4994884");
-        carteira.setPis("393.40400.22-1");
-        carteira.setSerie("320-1");
+        carteira.setCod_carteira(null);
+        carteira.setNumero_carteira("4953884");
+        carteira.setPis("393.40400.22-9");
+        carteira.setSerie("420-1");
         carteira.setUf("SC");
         carteiradeTrabalhoRepository.save(carteira);
 
@@ -181,7 +181,7 @@ class ArquiengeRepositoryTest {
         funcionario.setCargo("Pintor");
         funcionario.setDt_admissao(date);
         funcionario.setEndereco(endereco);
-        funcionario.setId(1);
+        funcionario.setId(null);
         funcionario.setObra(obra);
         funcionario.setCpf("448.459.322-49");
         funcionario.setEmail("enzo.klin@gmail.com");
@@ -207,7 +207,7 @@ class ArquiengeRepositoryTest {
     void cadastrarFuncionarioELogarIncorretamente() {
 
         Endereco endereco = new Endereco();
-        endereco.setId(1);
+        endereco.setId(null);
         endereco.setRua("Rua Tal");
         endereco.setNumero(89);
         endereco.setCidade("Florianopolis");
@@ -217,13 +217,13 @@ class ArquiengeRepositoryTest {
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
-        engenheiro.setId_engenheiro(1);
+        engenheiro.setId_engenheiro(null);
         engenheiro.setEmail("enzo.klin@gmail.com");
-        engenheiro.setCpf("122.148.189-03");
+        engenheiro.setCpf("122.142.189-03");
         Date date = new Date(2019, 10, 10);
         engenheiro.setNascimento(date);
-        engenheiro.setNome("Enzo");
-        engenheiro.setSobrenome("Klin");
+        engenheiro.setNome("Barbara");
+        engenheiro.setSobrenome("Martins");
         engenheiro.setSenha("enzo2008");
         engenheiro.setTelefone("48 99925-5250");
 
@@ -232,17 +232,17 @@ class ArquiengeRepositoryTest {
         obra.setDt_inicio(date);
         obra.setEndereco(endereco);
         obra.setEngenheiro(engenheiro);
-        obra.setNome_obra("Obra do Shopping");
-        obra.setId_obra(1);
+        obra.setNome_obra("Obra de Teste");
+        obra.setId_obra(null);
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
-        carteira.setCod_carteira(1);
-        carteira.setNumero_carteira("4994884");
-        carteira.setPis("393.40400.22-1");
-        carteira.setSerie("320-1");
+        carteira.setCod_carteira(null);
+        carteira.setNumero_carteira("4954884");
+        carteira.setPis("393.40500.22-1");
+        carteira.setSerie("325-1");
         carteira.setUf("SC");
         carteiradeTrabalhoRepository.save(carteira);
 
@@ -250,16 +250,16 @@ class ArquiengeRepositoryTest {
         funcionario.setCargo("Pintor");
         funcionario.setDt_admissao(date);
         funcionario.setEndereco(endereco);
-        funcionario.setId(1);
+        funcionario.setId(null);
         funcionario.setObra(obra);
-        funcionario.setCpf("448.459.322-49");
-        funcionario.setEmail("enzo.klin@gmail.com");
+        funcionario.setCpf("448.403.322-49");
+        funcionario.setEmail("enzo.klin33@gmail.com");
         funcionario.setNascimento(date);
-        funcionario.setNome("Enzo");
-        funcionario.setSenha("enzo2008");
-        funcionario.setSobrenome("Klin");
-        funcionario.setTelefone("48 99925-5250");
-        funcionario.setSalario(2000.00);
+        funcionario.setNome("Linhares");
+        funcionario.setSenha("linhares09");
+        funcionario.setSobrenome("Silva");
+        funcionario.setTelefone("48 94925-5250");
+        funcionario.setSalario(2050.00);
         funcionario.setCarteira(carteira);
         funcionarioRepository.save(funcionario);
 
@@ -267,7 +267,7 @@ class ArquiengeRepositoryTest {
         funcionariodb.setCargo("Pintor");
         funcionariodb.setDt_admissao(date);
         funcionariodb.setEndereco(endereco);
-        funcionariodb.setId(1);
+        funcionariodb.setId(null);
         funcionariodb.setObra(obra);
         funcionariodb.setCpf("448.459.322-49");
         funcionariodb.setEmail("enzo.klin3@gmail.com");
@@ -322,7 +322,7 @@ class ArquiengeRepositoryTest {
         engenheiro.setObra(obra);
 
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
-        carteira.setCod_carteira(1);
+        carteira.setCod_carteira(null);
         carteira.setNumero_carteira("4994884");
         carteira.setPis("393.40400.22-1");
         carteira.setSerie("320-1");
@@ -403,12 +403,13 @@ class ArquiengeRepositoryTest {
         } else {
             System.out.println("Máquinas Vinculadas a Obra não Encontradas!");
         }
+
     }
 
     @Test
     void UpdateEngenheiro() {
         Endereco endereco = new Endereco();
-        endereco.setId(1);
+        endereco.setId(null);
         endereco.setRua("Rua Tal");
         endereco.setNumero(89);
         endereco.setCidade("Florianopolis");
@@ -418,7 +419,79 @@ class ArquiengeRepositoryTest {
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
-        engenheiro.setId_engenheiro(1);
+        engenheiro.setId_engenheiro(null);
+        engenheiro.setEmail("enzo.klin@gmail.com");
+        engenheiro.setCpf("122.148.189-04");
+        Date date = new Date(2019, 10, 10);
+        engenheiro.setNascimento(date);
+        engenheiro.setNome("Enzo");
+        engenheiro.setSobrenome("Klin");
+        engenheiro.setSenha("enzo2008");
+        engenheiro.setTelefone("48 99925-5250");
+
+        Obra obra = new Obra();
+        obra.setDt_entrega(date);
+        obra.setDt_inicio(date);
+        obra.setEndereco(endereco);
+        obra.setEngenheiro(engenheiro);
+        obra.setNome_obra("Obra do Elevado");
+        obra.setId_obra(null);
+        engenheiroRepository.save(engenheiro);
+        obraRepository.save(obra);
+        engenheiro.setObra(obra);
+
+        Engenheiro engenheirodb = engenheiroRepository.findEngenheiroByCpf("122.148.189-04");
+        engenheirodb.setNome("Lucas");
+        engenheirodb.setSobrenome("Bueno");
+        engenheirodb.setEmail("lucasbueno@gmail.com");
+        engenheirodb.setSenha("lucas0908");
+        engenheiroRepository.save(engenheirodb);
+
+        Optional<Engenheiro> engenheiro1 = engenheiroRepository.findById(engenheirodb.getId_engenheiro());
+        Assert.assertEquals(engenheiro1.get().getId_engenheiro(), engenheirodb.getId_engenheiro());
+        if (engenheiro1.get().getNome() == "Lucas") {
+            System.out.println("Dados de Engenheiro alterados com Sucesso!");
+        }
+    }
+
+    @Test
+    void searchFerramentasObra() {
+        Obra obra = obraRepository.findObraByName("Obra do Shopping");
+        Ferramenta ferramenta = new Ferramenta(1, "Alicate", 10, obra);
+        Ferramenta ferramenta1 = new Ferramenta(2, "Betoneira", 10, obra);
+        Ferramenta ferramenta2 = new Ferramenta(3, "Chave de Fenda", 5, obra);
+
+        ferramentaRepository.save(ferramenta);
+        ferramentaRepository.save(ferramenta1);
+        ferramentaRepository.save(ferramenta2);
+
+        List<Ferramenta> ferramentas = ferramentaRepository.findFerramentasByObraId(obra.getId_obra());
+        System.out.println(ferramentas.toString());
+    }
+
+    @Test
+    void searchFuncionariosdeObra() {
+        ferramentaRepository.deleteAll();
+        funcionarioRepository.deleteAll();
+        maquinaRepository.deleteAll();
+        obraRepository.deleteAll();
+        engenheiroRepository.deleteAll();
+        enderecoRepository.deleteAll();
+        carteiradeTrabalhoRepository.deleteAll();
+
+
+        Endereco endereco = new Endereco();
+        endereco.setId(null);
+        endereco.setRua("Rua Tal");
+        endereco.setNumero(89);
+        endereco.setCidade("Florianopolis");
+        endereco.setCep("88058-490");
+        endereco.setBairro("Ingleses");
+        enderecoRepository.save(endereco);
+
+        Engenheiro engenheiro = new Engenheiro();
+        engenheiro.setEndereco(endereco);
+        engenheiro.setId_engenheiro(null);
         engenheiro.setEmail("enzo.klin@gmail.com");
         engenheiro.setCpf("122.148.189-03");
         Date date = new Date(2019, 10, 10);
@@ -434,39 +507,87 @@ class ArquiengeRepositoryTest {
         obra.setEndereco(endereco);
         obra.setEngenheiro(engenheiro);
         obra.setNome_obra("Obra do Shopping");
-        obra.setId_obra(1);
+        obra.setId_obra(null);
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
-        Engenheiro engenheirodb = engenheiroRepository.findEngenheiroByNomeAndSobrenome("Enzo", "Klin");
-        engenheirodb.setNome("Lucas");
-        engenheirodb.setSobrenome("Bueno");
-        engenheirodb.setEmail("lucasbueno@gmail.com");
-        engenheirodb.setSenha("lucas0908");
-        engenheiroRepository.save(engenheirodb);
+        CarteiradeTrabalho carteira = new CarteiradeTrabalho();
+        carteira.setCod_carteira(null);
+        carteira.setNumero_carteira("4994884");
+        carteira.setPis("393.40400.22-1");
+        carteira.setSerie("320-1");
+        carteira.setUf("SC");
+        carteiradeTrabalhoRepository.save(carteira);
 
-        Optional<Engenheiro> engenheiro1 = engenheiroRepository.findById(engenheirodb.getId_engenheiro());
-        Assert.assertEquals(engenheiro1.get().getId_engenheiro(), engenheirodb.getId_engenheiro());
-        if (engenheiro1.get().getId_engenheiro() == engenheirodb.getId_engenheiro()) {
-            System.out.println("Dados de Engenheiro alterados com Sucesso!");
-        }
-    }
+        CarteiradeTrabalho carteira2 = new CarteiradeTrabalho();
+        carteira2.setCod_carteira(null);
+        carteira2.setNumero_carteira("4994394");
+        carteira2.setPis("392.40400.22-1");
+        carteira2.setSerie("320-0");
+        carteira2.setUf("SC");
+        carteiradeTrabalhoRepository.save(carteira2);
 
-    @Test
-    void searchFerramentasObra() {
-        Obra obra = obraRepository.findObraByName("Obra do Shopping");
-        Engenheiro engenheiro = engenheiroRepository.findEngenheiroByNomeAndSobrenome("Lucas", "Bueno");
-        Endereco endereco = enderecoRepository.findEnderecoByObraId(obra.getId_obra());
-        Ferramenta ferramenta = new Ferramenta(1, "Alicate", 10, obra);
-        Ferramenta ferramenta1 = new Ferramenta(2, "Betoneira", 10, obra);
-        Ferramenta ferramenta2 = new Ferramenta(3, "Chave de Fenda", 5, obra);
+        CarteiradeTrabalho carteira3 = new CarteiradeTrabalho();
+        carteira3.setCod_carteira(null);
+        carteira3.setNumero_carteira("4994134");
+        carteira3.setPis("393.40301.22-1");
+        carteira3.setSerie("330-1");
+        carteira3.setUf("SC");
+        carteiradeTrabalhoRepository.save(carteira3);
 
-        ferramentaRepository.save(ferramenta);
-        ferramentaRepository.save(ferramenta1);
-        ferramentaRepository.save(ferramenta2);
+        Funcionario funcionario = new Funcionario();
+        funcionario.setCargo("Pintor");
+        funcionario.setDt_admissao(date);
+        funcionario.setEndereco(endereco);
+        funcionario.setId(null);
+        funcionario.setObra(obra);
+        funcionario.setCpf("448.459.322-49");
+        funcionario.setEmail("enzo.klin@gmail.com");
+        funcionario.setNascimento(date);
+        funcionario.setNome("Enzo");
+        funcionario.setSenha("enzo2008");
+        funcionario.setSobrenome("Klin");
+        funcionario.setTelefone("48 99925-5250");
+        funcionario.setSalario(2000.00);
+        funcionario.setCarteira(carteira);
+        funcionarioRepository.save(funcionario);
 
-        List<Ferramenta> ferramentas = ferramentaRepository.findFerramentasByObraId(obra.getId_obra());
-        System.out.println(ferramentas.toString());
+
+        Funcionario funcionario2 = new Funcionario();
+        funcionario2.setCargo("Gerente de Projetos");
+        funcionario2.setDt_admissao(date);
+        funcionario2.setEndereco(endereco);
+        funcionario2.setId(null);
+        funcionario2.setObra(obra);
+        funcionario2.setCpf("448.440.322-49");
+        funcionario2.setEmail("enzo.klin3@gmail.com");
+        funcionario2.setNascimento(date);
+        funcionario2.setNome("Lucas");
+        funcionario2.setSenha("lucas2008");
+        funcionario2.setSobrenome("Bueno");
+        funcionario2.setTelefone("48 99926-5250");
+        funcionario2.setSalario(2001.00);
+        funcionario2.setCarteira(carteira2);
+        funcionarioRepository.save(funcionario2);
+
+        Funcionario funcionario3 = new Funcionario();
+        funcionario3.setCargo("Fiscal de Obra");
+        funcionario3.setDt_admissao(date);
+        funcionario3.setEndereco(endereco);
+        funcionario3.setId(null);
+        funcionario3.setObra(obra);
+        funcionario3.setCpf("459.459.322-49");
+        funcionario3.setEmail("enzo22.klin@gmail.com");
+        funcionario3.setNascimento(date);
+        funcionario3.setNome("Barbara");
+        funcionario3.setSenha("barbara0908");
+        funcionario3.setSobrenome("Martins");
+        funcionario3.setTelefone("48 99945-5250");
+        funcionario3.setSalario(2010.00);
+        funcionario3.setCarteira(carteira3);
+        funcionarioRepository.save(funcionario3);
+
+
     }
 }
