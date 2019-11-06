@@ -46,8 +46,8 @@ public class FuncionarioService {
         funcionarioRepository.delete(funcionario);
     }
 
-    public List<Funcionario> findFuncionariosByObraId(Integer id) {
-        return funcionarioRepository.findFuncionariosByObraId(id);
+    public List<Funcionario> findFuncionariosByObraId(Integer id, String nomeobra) {
+        return funcionarioRepository.findFuncionariosByObraId(id, nomeobra);
     }
 
     public Funcionario findFuncionarioByName(String nome, String sobrenome) {

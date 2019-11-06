@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface MaquinaRepository extends JpaRepository<Maquina, Integer> {
 
-    @Query(value = "SELECT MAQUINA.* FROM MAQUINA,OBRA WHERE MAQUINA.ID_OBRA = ?1", nativeQuery = true)
+    @Query(value = "SELECT MAQUINA.* FROM MAQUINA,OBRA WHERE MAQUINA.ID_OBRA = ?1 and OBRA.ID = ?1", nativeQuery = true)
     List<Maquina> findMaquinasByObraId(Integer id);
 
     @Query(value = "SELECT MAQUINA.* FROM MAQUINA WHERE MAQUINA.TIPO_MAQUINA = ?1", nativeQuery = true)

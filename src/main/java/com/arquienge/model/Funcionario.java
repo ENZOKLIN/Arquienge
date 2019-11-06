@@ -1,5 +1,6 @@
 package com.arquienge.model;
 
+import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,12 +9,16 @@ import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
 @Entity
-@Getter @Setter @ToString
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Funcionario extends Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true)
     private Integer id;
     private double salario;
     @DateTimeFormat(pattern = "dd/MM/yyyy", iso = DateTimeFormat.ISO.DATE)

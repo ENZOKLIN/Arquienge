@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
 
-    @Query(value = "SELECT FUNCIONARIO.* FROM FUNCIONARIO,OBRA WHERE FUNCIONARIO.ID_OBRA = ?1", nativeQuery = true)
-    List<Funcionario> findFuncionariosByObraId(Integer id);
+    @Query(value = "SELECT FUNCIONARIO.* FROM FUNCIONARIO,OBRA WHERE FUNCIONARIO.ID_OBRA = ?1 AND OBRA.ID = ?1", nativeQuery = true)
+    List<Funcionario> findFuncionariosByObraId(Integer id, String nomeobra);
 
     @Query(value = "SELECT * FROM FUNCIONARIO WHERE FUNCIONARIO.NOME= ?1 AND FUNCIONARIO.SOBRENOME = ?2", nativeQuery = true)
     Funcionario findFuncionarioByName(String nome, String sobrenome);

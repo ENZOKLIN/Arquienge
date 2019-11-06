@@ -20,7 +20,7 @@ import java.util.List;
 public class Obra {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, name = "ID")
     private Integer id_obra;
 

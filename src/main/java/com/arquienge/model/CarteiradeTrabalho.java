@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 public class CarteiradeTrabalho {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, name = "ID")
     private Integer cod_carteira;
 

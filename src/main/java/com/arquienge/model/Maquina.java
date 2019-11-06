@@ -1,15 +1,12 @@
 package com.arquienge.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Getter @Setter
+@Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
 public class Maquina {
     @Id

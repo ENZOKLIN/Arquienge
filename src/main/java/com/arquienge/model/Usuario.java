@@ -17,6 +17,7 @@ import java.util.Date;
 public class Usuario {
 
     @Email(message = "Email não cumpre os requisitos")
+    @Column(unique = true)
     String email;
 
     @Column(length = 16, nullable = false)
@@ -33,6 +34,7 @@ public class Usuario {
     private String nome;
 
     @NotEmpty(message = "CPF não pode estar vazio!")
+    @Column(unique = true)
     @Size(max = 14, min = 14, message = "CPF incorreto!")
     private String cpf;
 
