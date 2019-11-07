@@ -8,7 +8,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor @AllArgsConstructor @ToString
+@NoArgsConstructor @AllArgsConstructor
 public class Endereco {
 
     @Id

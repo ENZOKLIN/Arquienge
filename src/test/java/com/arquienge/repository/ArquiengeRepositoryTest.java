@@ -3,29 +3,19 @@ package com.arquienge.repository;
 import com.arquienge.ArquiengeApplication;
 import com.arquienge.model.*;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.swing.text.html.Option;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
@@ -48,8 +38,14 @@ class ArquiengeRepositoryTest {
     @Autowired
     private FerramentaRepository ferramentaRepository;
 
+
+    /*   1 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO ATRAVÉS DA CLASSE ENDEREÇO BASEADA NO JPAREPOSITORY E
+       DEPOIS EFETUAR O RESGATE DESSE OBJETO ENDEREÇO DO BD PARA VERIFICAR SE FOI INSERIDO CORRETAMENTE.
+    */
     @Test
     void insertEndereco() {
+
+        //INSTANCIANDO UM OBJETO DA CLASSE ENDEREÇO
         Endereco endereco = new Endereco();
         endereco.setId(null);
         endereco.setRua("Rua Tol");
@@ -57,15 +53,30 @@ class ArquiengeRepositoryTest {
         endereco.setCidade("Floripa");
         endereco.setCep("88058-480");
         endereco.setBairro("Rio Vermelho");
+
+/*    USANDO A CLASSE REPOSITÓRIO DO ENDEREÇO E CHAMANDO ATRAVÉS DELA O METÓDO SAVE(SALVAR)
+      PARA SALVAR NO BANCO DE DADOS, PASSANDO COMO PARÂMETRO O OBJETO ENDEREÇO
+*/
         enderecoRepository.save(endereco);
+
+        //RESGATANDO O OBJETO ENDEREÇO QUE FOI SALVO NO BANCO DE DADOS
         Optional<Endereco> endereco1 = enderecoRepository.findById(endereco.getId());
+
+/*      CHAMANDO OS METÓDOS DO JUNIT PARA VERIFICAR SE O OBJETO NÃO ESTÁ NULO(VAZIO)
+        E O METÓDO DE COMPARAÇÃO PARA VERIFICAR SE O OBJETO CORRESPONDE AO INSTANCIADO LOCALMENTE
+*/
         Assert.assertNotNull(endereco1);
         Assert.assertEquals("Rua Tol", endereco1.get().getRua());
+
         System.out.print(endereco1.get().getRua());
     }
 
+    /*   2 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO ATRAVÉS DA CLASSE ENDEREÇO BASEADA NO JPAREPOSITORY E
+        DEPOIS EFETUAR O RESGATE DESSE OBJETO ENDEREÇO DO BD ATRAVÉS DO METÓDO DE BUSCAR PELO CEP PARA VERIFICAR SE FOI INSERIDO CORRETAMENTE.
+    */
     @Test
     void findByCep() {
+//      INSTANCIANDO OBJETO DA CLASSE ENDEREÇO COM SEUS RESPECTIVOS ATRIBUTOS:
         Endereco endereco = new Endereco();
         endereco.setId(null);
         endereco.setRua("Rua Tal");
@@ -73,40 +84,59 @@ class ArquiengeRepositoryTest {
         endereco.setCidade("Florianopolis");
         endereco.setCep("88058-490");
         endereco.setBairro("Ingleses");
+//      CHAMANDO O METÓDO SAVE DO REPOSITÓRIO PARA EFETUAR O REGISTRO DO ENDEREÇO NO BD:
         enderecoRepository.save(endereco);
-        Optional<Endereco> endereco1 = enderecoRepository.findById(endereco.getId());
+
+//      CHAMANDO O METÓDO FINDBYCEP(ACHAR PELO CEP) PARA BUSCAR O ENDEREÇO QUE FOI SALVO PELO SEU RESPECTIVO CEP
+        List<Endereco> endereco1 = enderecoRepository.findByCep("88058-490");
+
+//      UTILIZANDO OS METÓDOS DA CLASSE JUNIT PARA VERIFICAR SE O OBJETO ESTÁ NULO(ATRAVÉS DO NOT NULL), E SE CORRESPONDE AO OBJETO SALVO LOCALMENTE(ATRAVÉS DO EQUALS):
         Assert.assertNotNull(endereco1);
-        Assert.assertEquals(endereco.getCidade(), endereco1.get().getCidade());
-        if (endereco.getCidade() == endereco1.get().getCidade()) {
+        Assert.assertEquals(endereco.getCidade(), endereco1.get(0).getCidade());
+
+//      VERIFICANDO COM CONDIÇÕES(IF) SE O OBJETO CORRESPONDE AO MESMO SALVO LOCALMENTE, PARA ASSIM EFETUAR UM RETORNO ATRAVÉS DO PRINT:
+        if (endereco.getCidade().equals(endereco1.get(0).getCidade())) {
             System.out.println("Endereço Recuperado do BD igual ao salvo Localmente!");
         } else {
             System.out.println("Endereço Recuperado Inválido!");
         }
     }
 
+
+/*  3 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM ENDEREÇO, UM ENGENHEIRO(PARA A OBRA), UMA OBRA ATRAVÉS DA CLASSE ENDEREÇO,ENGENHEIRO,OBRA BASEADAS NO JPAREPOSITORY E
+    DEPOIS EFETUAR O RESGATE DESSES OBJETOS (ENDEREÇO,ENGENHEIRO,OBRA) DO BD PARA VERIFICAR SE FOI INSERIDO CORRETAMENTE.
+*/
+
     @Test
     void findEnderecoByObraId() {
 
+//      INSTANCIANDO O OBJETO ENDEREÇO COM SEUS RESPECTIVOS ATRIBUTOS :
         Endereco endereco = new Endereco();
         endereco.setId(null);
         endereco.setRua("Rua Tey");
         endereco.setNumero(99);
         endereco.setCidade("Floripa");
-        endereco.setCep("88058-490");
+        endereco.setCep("81925-420");
         endereco.setBairro("Santinho");
+
+//    CHAMANDO O METÓDO SAVE DO REPOSITÓRIO E PASSANDO COMO PARAMÊTRO O OBJETO ENDEREÇO CONSTRUÍDO LOCALMENTE:
         enderecoRepository.save(endereco);
+
+//     INSTANCIANDO O OBJETO ENGENHEIRO COM SEUS RESPECTIVOS ATRIBUTOS:
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
         engenheiro.setId_engenheiro(null);
         engenheiro.setEmail("enzo.klin@gmail.com");
         engenheiro.setCpf("122.148.189-03");
-        Date date = new Date(2020, 05, 11);
+        Date date = new Date(2020, 5, 11);
         engenheiro.setNascimento(date);
         engenheiro.setNome("Enzo");
         engenheiro.setSobrenome("Klin");
         engenheiro.setSenha("enzo2008");
         engenheiro.setTelefone("48 99925-5250");
+
+//      INSTANCIANDO O OBJETO OBRA COM SEUS RESPECTIVOS ATRIBUTOS:
 
         Obra obra = new Obra();
         obra.setDt_entrega(date);
@@ -115,16 +145,29 @@ class ArquiengeRepositoryTest {
         obra.setEngenheiro(engenheiro);
         obra.setNome_obra("Obra do Sanatório");
         obra.setId_obra(null);
+
+/*     CHAMANDO O METÓDO SAVE DAS CLASSES REPOSITÓRIO DE ENGENHEIRO E DA OBRA,
+       PRIMEIRAMENTE UMA OBRA (POIS UMA OBRA NÃO PODE EXISTIR SEM UM ENGENHEIRO) E DEPOIS O ENGENHEIRO:
+*/
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
+//      RECUPERANDO OS OBJETOS NO BANCO DE DADOS COM SEUS RESPECTIVOS METÓDOS DOS REPOSITÓRIOS:
+
+//      BUSCAR OBRA POR ID:
         Optional<Obra> obradb = obraRepository.findById(obra.getId_obra());
+
+//      BUSCAR ENGENHEIRO POR ID:
         Optional<Engenheiro> engenheirodb = engenheiroRepository.findById(engenheiro.getId_engenheiro());
+
+//      BUSCAR ENDEREÇO POR ID DA OBRA:
         Endereco enderecodb = enderecoRepository.findEnderecoByObraId(obradb.get().getId_obra());
 
-        Assert.assertNotNull("Obra encontrada no banco de dados!", obradb);
-        if (obradb != null && engenheirodb != null && enderecodb != null) {
+/*     VERIFICANDO SE OS OBJETOS ESTÃO NULOS
+       OBS: OBJETOS OPTIONAL NÃO PRECISAM SER VERIFICADOS POIS NÃO ACEITAM SER INSTANCIADOS COM VALORES NULOS:
+*/
+        if (enderecodb != null) {
             System.out.print("Obra encontrada no banco de dados!");
             System.out.print("Engenheiro encontrado no banco de dados!");
             System.out.println("Endereço encontrado no banco de dados!");
@@ -132,21 +175,34 @@ class ArquiengeRepositoryTest {
             System.out.println("Algum Objeto do Banco de Dados não foi encontrado!");
         }
 
-        Assert.assertNotNull("Engenheiro encontrado no banco de dados!", engenheirodb);
-        Assert.assertNotNull("Endereço encontrado no banco de dados!", enderecodb);
-        Assert.assertEquals("Endereço do Banco de dados e do objeto instanciado localmente são iguais!", endereco.getCidade(), enderecodb.getCidade());
+/*      CHAMANDO OS METÓDOS DE VERIFICAÇÃO DO JUNIT (ASSERTNOTNULL PARA VERIFICAR SE O OBJETO NÃO ESTÁ NULO, ASSERTEQUALS PARA VERIFICAR
+      SE O ENDEREÇO PERTENCENTE A OBRA LOCALMENTE, ESTÁ VINCULADO NO BD:
+*/
+        Assert.assertNotNull("Obra não encontrada no banco de dados!", obradb);
+        Assert.assertNotNull("Engenheiro não encontrado no banco de dados!", engenheirodb);
+        Assert.assertNotNull("Endereço não encontrado no banco de dados!", enderecodb);
+        Assert.assertEquals("Endereço  do Banco de dados e do objeto instanciado localmente não são iguais!", endereco.getCidade(), enderecodb.getCidade());
     }
 
+/*  4 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM USUARIO, ASSIM COMO AS CLASSES AS QUAIS ELE DEPENDE NO BANCO DE DADOS,
+    E DEPOIS SIMULAR A AÇÃO DE LOGIN ATRAVÉS DE UM SELECT NO BANCO DE DADOS QUE É FEITO ATRAVÉS DOS REPOSITÓRIOS JPA DE CADA ENTIDADE
+    SE OS DADOS FOREM VÁLIDOS(ESPERADO) O TESTE EXIBE UMA MENSAGEM(PRINT) : "BEM VINDO AO SISTEMA DO ARQUIENGE"
+*/
     @Test
     void cadastrarFuncionarioeLogarCorretamente() {
+
+//      INSTANCIANDO UM OBJETO ENDEREÇO COM SEUS RESPECTIVOS ATRIBUTOS:
+
         Endereco endereco = new Endereco();
         endereco.setId(null);
         endereco.setRua("Rua Tewtew");
         endereco.setNumero(70);
         endereco.setCidade("Curitiba");
-        endereco.setCep("88058-490");
+        endereco.setCep("81925-420");
         endereco.setBairro("Trindade");
         enderecoRepository.save(endereco);
+
+//      INSTANCIANDO UM OBJETO ENGENHEIRO COM SEUS RESPECTIVOS ATRIBUTOS:
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
@@ -160,6 +216,8 @@ class ArquiengeRepositoryTest {
         engenheiro.setSenha("linhares1234");
         engenheiro.setTelefone("48 99828-9399");
 
+//      INSTANCIANDO UM OBJETO OBRA COM SEUS RESPECTIVOS ATRIBUTOS:
+
         Obra obra = new Obra();
         obra.setDt_entrega(date);
         obra.setDt_inicio(date);
@@ -167,9 +225,15 @@ class ArquiengeRepositoryTest {
         obra.setEngenheiro(engenheiro);
         obra.setNome_obra("Obra da Vila");
         obra.setId_obra(null);
+
+/*     CHAMANDO O METÓDO SAVE DAS CLASSES REPOSITÓRIO DE ENGENHEIRO E DA OBRA,
+       PRIMEIRAMENTE UMA OBRA (POIS UMA OBRA NÃO PODE EXISTIR SEM UM ENGENHEIRO) E DEPOIS O ENGENHEIRO:
+*/
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
+
+//     INSTANCIANDO UM OBJETO CARTEIRA COM SEUS RESPECTIVOS ATRIBUTOS:
 
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
         carteira.setCod_carteira(null);
@@ -177,8 +241,13 @@ class ArquiengeRepositoryTest {
         carteira.setPis("393.40400.22-9");
         carteira.setSerie("420-1");
         carteira.setUf("SC");
+
+/*     CHAMANDO O METÓDO SAVE DO REPOSITÓRIO DE CARTEIRA, PARA REGISTRAR ESTE OBJETO NO BANCO DE DADOS
+      (COMO PARÂMETRO DO METÓDO O OBJETO CONSTRUÍDO ANTERIORMENTE):
+*/
         carteiradeTrabalhoRepository.save(carteira);
 
+// INSTANCIANDO UM SEGUNDO OBJETO FUNCIONÁRIO (COM SEUS ATRIBUTOS) LOCALMENTE, PARA EFETUAR A COMPARAÇÃO COM O DO BANCO DE DADOS:
         Funcionario funcionario = new Funcionario();
         funcionario.setCargo("Pintor");
         funcionario.setDt_admissao(date);
@@ -194,16 +263,30 @@ class ArquiengeRepositoryTest {
         funcionario.setTelefone("48 99925-5250");
         funcionario.setSalario(2000.00);
         funcionario.setCarteira(carteira);
+
+//      CHAMANDO O METÓDO SAVE DO REPOSITÓRIO FUNCIONÁRIO, PARA REGISTRAR O MESMO NO BANCO DE DADOS
         funcionarioRepository.save(funcionario);
 
+//      CHAMANDO O METÓDO FINDBYID(BUSCAR PELO ID) DO REPOSITÓRIO FUNCIONÁRIO PARA RECUPERAR O OBJETO REGISTRADO ACIMA:
         Optional<Funcionario> funcionariodb = funcionarioRepository.findById(funcionario.getId());
-        Assert.assertTrue("Bem vindo ao Arquienge!", funcionariodb.get().getSenha().equals(funcionario.getSenha()));
-        if (funcionariodb.get().getSenha() == funcionario.getSenha() && funcionariodb.get().getEmail() == funcionario.getEmail()) {
+
+/*      CHAMANDO OS METÓDOS DE VERIFICAÇÃO DO JUNIT (ASSERTTRUE (VERIFICAR SE É VERDADE), PARA VERIFICAR
+        SE A SENHA DO USUÁRIO DO BANCO DE DADOS CORRESPONDE AO OBJETO INSTANCIADO LOCALMENTE:
+*/
+        Assert.assertTrue("Credenciais Inválidas!", funcionariodb.get().getSenha().equals(funcionario.getSenha()));
+
+//      CONDIÇÃO (IF) PARA VERIFICAR SE AS SENHAS E EMAILS CORRESPONDEM, SOMENTE PARA GERAR UMA MENSAGEM(PRINT) QUE SIRVA DE RETORNO PARA O TESTE:
+        if (funcionariodb.get().getSenha().equals(funcionario.getSenha()) && funcionariodb.get().getEmail().equals(funcionario.getEmail())) {
             System.out.print("Bem vindo ao Sistema do Arquienge");
         } else {
             System.out.print("Credenciais Inválidas!");
         }
     }
+
+/*  5 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM USUARIO, ASSIM COMO AS CLASSES AS QUAIS ELE DEPENDE NO BANCO DE DADOS,
+    E DEPOIS SIMULAR A AÇÃO DE LOGIN ATRAVÉS DE UM SELECT NO BANCO DE DADOS QUE É FEITO ATRAVÉS DOS REPOSITÓRIOS JPA DE CADA ENTIDADE
+    SE OS DADOS FOREM VÁLIDOS(ESPERADO) O TESTE EXIBE UMA MENSAGEM(PRINT) : "BEM VINDO AO SISTEMA DO ARQUIENGE"
+*/
 
     @Test
     void cadastrarFuncionarioELogarIncorretamente() {
@@ -282,7 +365,7 @@ class ArquiengeRepositoryTest {
         funcionariodb.setCarteira(carteira);
 
         Assert.assertFalse("Credenciais Incorretas!", funcionariodb.getSenha().equals(funcionario.getSenha()));
-        if (funcionariodb.getSenha() == funcionario.getSenha() && funcionariodb.getEmail() == funcionario.getEmail()) {
+        if (funcionariodb.getSenha().equals(funcionario.getSenha()) && funcionariodb.getEmail().equals(funcionario.getEmail())) {
             System.out.print("Bem vindo ao Sistema do Arquienge");
         } else {
             System.out.print("Credenciais Inválidas!");
@@ -505,13 +588,13 @@ class ArquiengeRepositoryTest {
 
     @Test
     void searchFuncionariosdeObra() {
-//        ferramentaRepository.deleteAll();
-//        funcionarioRepository.deleteAll();
-//        maquinaRepository.deleteAll();
-//        obraRepository.deleteAll();
-//        engenheiroRepository.deleteAll();
-//        enderecoRepository.deleteAll();
-//        carteiradeTrabalhoRepository.deleteAll();
+        ferramentaRepository.deleteAll();
+        funcionarioRepository.deleteAll();
+        maquinaRepository.deleteAll();
+        obraRepository.deleteAll();
+        engenheiroRepository.deleteAll();
+        enderecoRepository.deleteAll();
+        carteiradeTrabalhoRepository.deleteAll();
 
 
         Endereco endereco = new Endereco();
@@ -541,26 +624,45 @@ class ArquiengeRepositoryTest {
         endereco.setBairro("Palmeira de Fora");
         enderecoRepository.save(endereco3);
 
+        Endereco endereco4 = new Endereco();
+        endereco.setId(null);
+        endereco.setRua("Avenida Holanda");
+        endereco.setNumero(56);
+        endereco.setCidade("Ji-Paraná");
+        endereco.setCep("76913-834");
+        endereco.setBairro("Jardim São Cristóvão");
+        enderecoRepository.save(endereco4);
+
+        Endereco endereco5 = new Endereco();
+        endereco.setId(null);
+        endereco.setRua("Quadra Quadra 119");
+        endereco.setNumero(89);
+        endereco.setCidade("Santo Antônio do Descoberto");
+        endereco.setCep("72900-142");
+        endereco.setBairro("Centro");
+        enderecoRepository.save(endereco5);
+
+
         Engenheiro engenheiro = new Engenheiro();
-        engenheiro.setEndereco(endereco);
         engenheiro.setId_engenheiro(null);
         engenheiro.setEmail("vvitorbernardonogueira@depotit.com.br");
         engenheiro.setCpf("869.844.265-02");
         Date date = new Date(2011, 11, 10);
         engenheiro.setNascimento(date);
+        engenheiro.setEndereco(endereco2);
         engenheiro.setNome("Vitor Bernardo");
         engenheiro.setSobrenome("Nogueira");
         engenheiro.setSenha("vitor2008");
         engenheiro.setTelefone("83 99920-6556");
+        engenheiroRepository.save(engenheiro);
 
         Obra obra = new Obra();
         obra.setDt_entrega(date);
         obra.setDt_inicio(date);
-        obra.setEndereco(endereco);
+        obra.setEndereco(endereco4);
         obra.setEngenheiro(engenheiro);
         obra.setNome_obra("Obra da Casan");
         obra.setId_obra(null);
-        engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
@@ -591,7 +693,7 @@ class ArquiengeRepositoryTest {
         Funcionario funcionario = new Funcionario();
         funcionario.setCargo("Carregador de Tijolos");
         funcionario.setDt_admissao(date);
-        funcionario.setEndereco(endereco);
+        funcionario.setEndereco(endereco4);
         funcionario.setId(null);
         funcionario.setObra(obra);
         funcionario.setCpf("039.967.769-00");
@@ -640,15 +742,17 @@ class ArquiengeRepositoryTest {
         funcionario3.setCarteira(carteira3);
         funcionarioRepository.save(funcionario3);
 
-       System.out.println(funcionario.toString());
-       System.out.println(funcionario2.toString());
+        System.out.println(funcionario.toString());
+        System.out.println(funcionario2.toString());
         System.out.println(funcionario3.toString());
 
         List<Funcionario> funcionarios = funcionarioRepository.findFuncionariosByObraId(obra.getId_obra(), obra.getNome_obra());
 
         Assert.assertNotNull(funcionarios);
 
-        System.out.println(funcionarios.toString());
-
+        for (Funcionario funcionaryo : funcionarios) {
+            System.out.println("Funcionário :[" + "Nome =" + funcionaryo.getNome() + ",Sobrenome = " + funcionaryo.getSobrenome() + ",ID do Funcionário =" + funcionaryo.getId());
+            System.out.println("Este Funcionário Pertence a Obra:" + " OBRA =[" + "Nome da Obra =" + funcionaryo.getObra().getNome_obra() + ", ID da Obra =" + funcionaryo.getObra().getId_obra());
+        }
     }
 }
