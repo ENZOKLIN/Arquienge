@@ -44,6 +44,9 @@ public class ObraService {
     public void saveObra(Obra obra) {
         obraRepository.save(obra);
     }
+    public Obra selectObrabyId_obra(Integer id){
+        return obraRepository.findObraById_obra(id);
+    }
 
     public Obra selectObrabyName(String nome) {
         return obraRepository.findObraByName(nome);

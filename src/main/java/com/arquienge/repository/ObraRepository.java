@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ObraRepository extends JpaRepository<Obra, Integer> {
+    @Query(value = "SELECT * FROM OBRA WHERE OBRA.ID = ?1", nativeQuery = true)
+    Obra findObraById_obra(Integer id);
 
     @Query(value = "SELECT * FROM OBRA WHERE OBRA.NOME_OBRA = ?1", nativeQuery = true)
     Obra findObraByName(String nome);

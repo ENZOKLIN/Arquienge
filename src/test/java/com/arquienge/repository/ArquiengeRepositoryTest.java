@@ -184,10 +184,10 @@ class ArquiengeRepositoryTest {
         Assert.assertEquals("Endereço  do Banco de dados e do objeto instanciado localmente não são iguais!", endereco.getCidade(), enderecodb.getCidade());
     }
 
-/*  4 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM USUARIO, ASSIM COMO AS CLASSES AS QUAIS ELE DEPENDE NO BANCO DE DADOS,
-    E DEPOIS SIMULAR A AÇÃO DE LOGIN ATRAVÉS DE UM SELECT NO BANCO DE DADOS QUE É FEITO ATRAVÉS DOS REPOSITÓRIOS JPA DE CADA ENTIDADE
-    SE OS DADOS FOREM VÁLIDOS(ESPERADO) O TESTE EXIBE UMA MENSAGEM(PRINT) : "BEM VINDO AO SISTEMA DO ARQUIENGE"
-*/
+    /*  4 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM USUARIO, ASSIM COMO AS CLASSES AS QUAIS ELE DEPENDE NO BANCO DE DADOS,
+        E DEPOIS SIMULAR A AÇÃO DE LOGIN ATRAVÉS DE UM SELECT NO BANCO DE DADOS QUE É FEITO ATRAVÉS DOS REPOSITÓRIOS JPA DE CADA ENTIDADE
+        SE OS DADOS FOREM VÁLIDOS(ESPERADO) O TESTE EXIBE UMA MENSAGEM(PRINT) : "BEM VINDO AO SISTEMA DO ARQUIENGE"
+    */
     @Test
     void cadastrarFuncionarioeLogarCorretamente() {
 
@@ -285,11 +285,13 @@ class ArquiengeRepositoryTest {
 
 /*  5 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM USUARIO, ASSIM COMO AS CLASSES AS QUAIS ELE DEPENDE NO BANCO DE DADOS,
     E DEPOIS SIMULAR A AÇÃO DE LOGIN ATRAVÉS DE UM SELECT NO BANCO DE DADOS QUE É FEITO ATRAVÉS DOS REPOSITÓRIOS JPA DE CADA ENTIDADE
-    SE OS DADOS FOREM VÁLIDOS(ESPERADO) O TESTE EXIBE UMA MENSAGEM(PRINT) : "BEM VINDO AO SISTEMA DO ARQUIENGE"
+    SE OS DADOS FOREM INVÁLIDOS(ESPERADO) O TESTE EXIBE UMA MENSAGEM(PRINT) : "CREDENCIAIS INVÁLIDAS!"
 */
 
     @Test
     void cadastrarFuncionarioELogarIncorretamente() {
+
+//      INSTANCIANDO UM OBJETO ENDEREÇO COM SEUS RESPECTIVOS ATRIBUTOS:
 
         Endereco endereco = new Endereco();
         endereco.setId(null);
@@ -299,6 +301,8 @@ class ArquiengeRepositoryTest {
         endereco.setCep("88053-490");
         endereco.setBairro("Santa Maria");
         enderecoRepository.save(endereco);
+
+//      INSTANCIANDO UM OBJETO ENGENHEIRO COM SEUS RESPECTIVOS ATRIBUTOS:
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
@@ -312,6 +316,8 @@ class ArquiengeRepositoryTest {
         engenheiro.setSenha("lucas1234");
         engenheiro.setTelefone("48 99238-3992");
 
+//      INSTANCIANDO UM OBJETO OBRA COM SEUS RESPECTIVOS ATRIBUTOS:
+
         Obra obra = new Obra();
         obra.setDt_entrega(date);
         obra.setDt_inicio(date);
@@ -319,9 +325,15 @@ class ArquiengeRepositoryTest {
         obra.setEngenheiro(engenheiro);
         obra.setNome_obra("Obra de Teste");
         obra.setId_obra(null);
+
+/*     CHAMANDO O METÓDO SAVE DAS CLASSES REPOSITÓRIO DE ENGENHEIRO E DA OBRA,
+       PRIMEIRAMENTE UMA OBRA (POIS UMA OBRA NÃO PODE EXISTIR SEM UM ENGENHEIRO) E DEPOIS O ENGENHEIRO:
+*/
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
+
+//     INSTANCIANDO UM OBJETO CARTEIRA COM SEUS RESPECTIVOS ATRIBUTOS:
 
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
         carteira.setCod_carteira(null);
@@ -329,7 +341,14 @@ class ArquiengeRepositoryTest {
         carteira.setPis("182.28384.21-4");
         carteira.setSerie("393-2");
         carteira.setUf("PR");
+
+/*     CHAMANDO O METÓDO SAVE DO REPOSITÓRIO DE CARTEIRA, PARA REGISTRAR ESTE OBJETO NO BANCO DE DADOS
+      (COMO PARÂMETRO DO METÓDO O OBJETO CONSTRUÍDO ANTERIORMENTE):
+*/
         carteiradeTrabalhoRepository.save(carteira);
+
+//      INSTANCIANDO UM OBJETO FUNCIONÁRIO (COM SEUS ATRIBUTOS) LOCALMENTE,
+//      PARA EFETUAR A COMPARAÇÃO COM OUTRO OBJETO FUNCIONÁRIO QUE SERÁ INSTANCIADO A SEGUIR:
 
         Funcionario funcionario = new Funcionario();
         funcionario.setCargo("Gerente de Projetos");
@@ -348,6 +367,9 @@ class ArquiengeRepositoryTest {
         funcionario.setCarteira(carteira);
         funcionarioRepository.save(funcionario);
 
+//      INSTANCIANDO UM SEGUNDO OBJETO FUNCIONÁRIO (COM SEUS ATRIBUTOS)
+//      PARA EFETUAR COMPARAÇÃO COM O OBJETO INSTANCIADO ANTERIORMENTE QUE FOI SALVO NO BD:
+
         Funcionario funcionariodb = new Funcionario();
         funcionariodb.setCargo("Gerente de Projetos");
         funcionariodb.setDt_admissao(date);
@@ -364,7 +386,14 @@ class ArquiengeRepositoryTest {
         funcionariodb.setSalario(3000.00);
         funcionariodb.setCarteira(carteira);
 
-        Assert.assertFalse("Credenciais Incorretas!", funcionariodb.getSenha().equals(funcionario.getSenha()));
+//      CHAMANDO O METÓDO ASSERTFALSE DO JUNIT PARA VERIFICAR SE O RESULTADO(COMO ESPERADO)
+//      É QUE A SENHA DO OBJETO LOCAL DIFERE DA SENHA SALVA NO BD:
+
+        Assert.assertFalse("Credenciais Corretas!", funcionariodb.getSenha().equals(funcionario.getSenha()));
+
+//      USANDO A CONDIÇÃO IF(SE) PARA VERIFICAR SE OS DADOS
+//      SALVOS NO BANCO DE DADOS REALMENTE DIFEREM DOS SALVOS LOCALMENTE:
+
         if (funcionariodb.getSenha().equals(funcionario.getSenha()) && funcionariodb.getEmail().equals(funcionario.getEmail())) {
             System.out.print("Bem vindo ao Sistema do Arquienge");
         } else {
@@ -372,8 +401,16 @@ class ArquiengeRepositoryTest {
         }
     }
 
+/*  6 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO DE UM OBJETO FUNCIONÁRIO E UM OBJETO CARTEIRA VINCULADO A ESTE MESMO FUNCIONÁRIO
+E LOGO APÓS A INSERÇÃO, EFETUAR A RECUPERAÇÃO DESTES DADOS, USANDO TANTO PARA INSERÇÃO QUANTO PARA RECUPERAÇÃO AS CLASSES REPOSITÓRIO JPA
+, APÓS A RECUPERAÇÃO DOS OBJETOS, VERIFICAR A QUE FUNCIONÁRIO PERTENCE A CARTEIRA DE TRABALHO.
+*/
+
     @Test
     void buscarCarteiradoFuncionario() {
+
+//      INSTANCIANDO UM OBJETO ENDEREÇO COM SEUS RESPECTIVOS ATRIBUTOS:
+
         Endereco endereco = new Endereco();
         endereco.setId(null);
         endereco.setRua("Rua ACATE");
@@ -382,6 +419,8 @@ class ArquiengeRepositoryTest {
         endereco.setCep("88048-490");
         endereco.setBairro("Centro");
         enderecoRepository.save(endereco);
+
+//      INSTANCIANDO UM OBJETO ENGENHEIRO COM SEUS RESPECTIVOS ATRIBUTOS:
 
         Engenheiro engenheiro = new Engenheiro();
         engenheiro.setEndereco(endereco);
@@ -395,6 +434,8 @@ class ArquiengeRepositoryTest {
         engenheiro.setSenha("sarah1234");
         engenheiro.setTelefone("41 99914-9168");
 
+//      INSTANCIANDO UM OBJETO OBRA COM SEUS RESPECTIVOS ATRIBUTOS:
+
         Obra obra = new Obra();
         obra.setDt_entrega(date);
         obra.setDt_inicio(date);
@@ -402,17 +443,31 @@ class ArquiengeRepositoryTest {
         obra.setEngenheiro(engenheiro);
         obra.setNome_obra("Obra da Ladeira");
         obra.setId_obra(null);
+
+/*     CHAMANDO O METÓDO SAVE DAS CLASSES REPOSITÓRIO DE ENGENHEIRO E DA OBRA,
+       PRIMEIRAMENTE UMA OBRA (POIS UMA OBRA NÃO PODE EXISTIR SEM UM ENGENHEIRO) E DEPOIS O ENGENHEIRO:
+*/
         engenheiroRepository.save(engenheiro);
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
+/*    INSTANCIANDO UM OBJETO CARTEIRA COM SEUS RESPECTIVOS ATRIBUTOS:
+*/
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
         carteira.setCod_carteira(null);
         carteira.setNumero_carteira("9594998");
         carteira.setPis("899.77877.66-9");
         carteira.setSerie("788-5");
         carteira.setUf("RS");
+
+/*     CHAMANDO O METÓDO SAVE DA CLASSE REPOSITÓRIO DA CARTEIRA PARA REGISTRAR
+       O OBJETO E SEUS VALORES NO BANCO DE DADOS:
+
+*/
         carteiradeTrabalhoRepository.save(carteira);
+
+
+//      INSTANCIANDO UM OBJETO FUNCIONÁRIO COM SEUS RESPECTIVOS ATRIBUTOS LOCALMENTE:
 
         Funcionario funcionario = new Funcionario();
         funcionario.setCargo("Empilhador");
@@ -429,12 +484,22 @@ class ArquiengeRepositoryTest {
         funcionario.setTelefone("67 99252-8605");
         funcionario.setSalario(4000.00);
         funcionario.setCarteira(carteira);
+
+//      CHAMANDO O METÓDO SAVE DA CLASSE REPOSITÓRIO JPA DE FUNCIONÁRIO
+//      PARA REGISTRAR O OBJETO NO BANCO DE DADOS:
+
         funcionarioRepository.save(funcionario);
 
+//     RECUPERANDO O OBJETO FUNCIONÁRIO QUE FOI SALVO NO BANCO DE DADOS PELO CPF(BY CPF):
         Funcionario funcionariodb = funcionarioRepository.findFuncionarioByCpf(funcionario.getCpf());
+
+//     RECUPERANDO O OBJETO CARTEIRA CORRESPONDENTE AO FUNCIONÁRIO QUE FOI SALVO NO BANCO DE DADOS ANTERIORMENTE:
         CarteiradeTrabalho carteiradb = carteiradeTrabalhoRepository.findCarteiradeTrabalhoByIdCarteiradoFuncionario(funcionariodb.getCarteira().getCod_carteira());
+
+//      IMPRIMINDO OS DADOS DA CARTEIRA E A QUAL FUNCIONÁRIO A MESMA PERTENCE:
         System.out.println("Carteira de Número: " + carteiradb.getNumero_carteira() + " Encontrada, Ela pertence ao(a) Funcionário(a): " + funcionariodb.getNome() + " " + funcionariodb.getSobrenome());
     }
+
 
     @Test
     void buscarMaquinasObra() {
