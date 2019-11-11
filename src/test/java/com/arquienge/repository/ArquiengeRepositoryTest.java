@@ -68,7 +68,7 @@ class ArquiengeRepositoryTest {
         Assert.assertNotNull(endereco1);
         Assert.assertEquals("Rua Tol", endereco1.get().getRua());
 
-        System.out.print(endereco1.get().getRua());
+        System.out.print("Rua Encontrada no Banco de Dados: " + endereco1.get().getRua());
     }
 
     /*   2 TESTE - ESTE TESTE CONSISTE EM EFETUAR A INSERÇÃO ATRAVÉS DA CLASSE ENDEREÇO BASEADA NO JPAREPOSITORY E
@@ -168,8 +168,8 @@ class ArquiengeRepositoryTest {
        OBS: OBJETOS OPTIONAL NÃO PRECISAM SER VERIFICADOS POIS NÃO ACEITAM SER INSTANCIADOS COM VALORES NULOS:
 */
         if (enderecodb != null) {
-            System.out.print("Obra encontrada no banco de dados!");
-            System.out.print("Engenheiro encontrado no banco de dados!");
+            System.out.println("Obra encontrada no banco de dados!");
+            System.out.println("Engenheiro encontrado no banco de dados!");
             System.out.println("Endereço encontrado no banco de dados!");
         } else {
             System.out.println("Algum Objeto do Banco de Dados não foi encontrado!");
@@ -451,8 +451,8 @@ E LOGO APÓS A INSERÇÃO, EFETUAR A RECUPERAÇÃO DESTES DADOS, USANDO TANTO PA
         obraRepository.save(obra);
         engenheiro.setObra(obra);
 
-/*    INSTANCIANDO UM OBJETO CARTEIRA COM SEUS RESPECTIVOS ATRIBUTOS:
-*/
+        /*    INSTANCIANDO UM OBJETO CARTEIRA COM SEUS RESPECTIVOS ATRIBUTOS:
+         */
         CarteiradeTrabalho carteira = new CarteiradeTrabalho();
         carteira.setCod_carteira(null);
         carteira.setNumero_carteira("9594998");
@@ -649,6 +649,7 @@ E LOGO APÓS A INSERÇÃO, EFETUAR A RECUPERAÇÃO DESTES DADOS, USANDO TANTO PA
 
         List<Ferramenta> ferramentas = ferramentaRepository.findFerramentasByObraId(obra.getId_obra());
         System.out.println(ferramentas.toString());
+        System.out.println("Ferramentas Pertencentes a Obra Encontradas com Sucesso!");
     }
 
     @Test
