@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnTransformer;
 import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -65,4 +67,5 @@ public class Usuario {
     // USANDO A ANOTAÇÃO NOT NULL PARA VALIDAR O ATRIBUTO NO CONSTRUTOR(SE ELE ESTÁ NULO OU NÃO):
     @NotNull(message = "Data de nascimento não pode estar vazia!")
     private Date nascimento;
+
 }

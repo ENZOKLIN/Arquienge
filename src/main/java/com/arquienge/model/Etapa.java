@@ -60,4 +60,5 @@ public class Etapa {
         EmProgresso,
         Concluido
     }
+
 }

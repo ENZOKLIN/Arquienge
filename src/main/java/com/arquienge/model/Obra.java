@@ -64,6 +64,9 @@ public class Obra {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
+    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL)
+    private List<DiarioDeObra> diariosDeObra;
+
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE OBRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UMA OBRA PARA UM ENGENHEIRO):
     // USANDO O JOIN E PASSANDO COMO NOME DA COLUNA "ID_ENGENHEIRO":
