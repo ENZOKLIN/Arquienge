@@ -35,7 +35,7 @@ public class FuncionarioController {
 
     @GetMapping("/cadastroFuncionario")
     public ModelAndView viewRegisterScreen(Funcionario funcionario) {
-        ModelAndView view = new ModelAndView("cadastro/registrar/funcionario");
+        ModelAndView view = new ModelAndView("registrar/funcionario");
         view.addObject("Funcionario", funcionario);
         return view;
     }

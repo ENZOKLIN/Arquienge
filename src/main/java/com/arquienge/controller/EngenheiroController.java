@@ -2,26 +2,17 @@ package com.arquienge.controller;
 
 import com.arquienge.model.Engenheiro;
 import com.arquienge.service.EngenheiroService;
-import com.fasterxml.jackson.databind.ser.Serializers;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 import java.io.IOException;
-import java.text.AttributedString;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 @Controller
@@ -36,14 +27,14 @@ public class EngenheiroController {
 
     @GetMapping("/cadastroEngenheiro")
     public ModelAndView viewRegisterScreen(Engenheiro engenheiro) {
-        ModelAndView view = new ModelAndView("cadastro/engenheiro");
+        ModelAndView view = new ModelAndView("testes/engenheiro");
         view.addObject("Engenheiro", engenheiro);
         return view;
     }
 
     @GetMapping("/login")
     public ModelAndView viewLoginScreen(Engenheiro engenheiro) {
-        ModelAndView view = new ModelAndView("cadastro/login");
+        ModelAndView view = new ModelAndView("testes/login");
         view.addObject("Engenheiro", engenheiro);
         return view;
     }
@@ -68,7 +59,7 @@ public class EngenheiroController {
 
     @GetMapping("/index")
     public ModelAndView viewIndexScreen(Engenheiro engenheiro) {
-        ModelAndView view = new ModelAndView("cadastro/index");
+        ModelAndView view = new ModelAndView("testes/index");
         Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
         view.addObject("engenheiro", logado);
         return view;

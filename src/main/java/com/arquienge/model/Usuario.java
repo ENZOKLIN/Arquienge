@@ -41,7 +41,7 @@ public class Usuario {
     // USANDO A ANOTAÇÃO SIZE PARA DETERMINAR E VALIDAR O TAMANHO DO ATRIBUTO NO CONSTRUTOR(MIN 12, MAX 14):
     @Size(max = 14, min = 12)
     // DETERMINANDO UMA FORMATAÇÃO DE DADOS QUE QUERO RECEBER NESTE ATRIBUTO ATRAVÉS DO REGEX:
-    @Pattern(regexp = ("([0-9]{2}) [0-9]{5}-[0-9]{4}"))
+    @Pattern(regexp = ("[0-9]{2} [0-9]{5}-[0-9]{4}"))
     // USANDO A ANOTAÇÃO NOT NULL PARA VALIDAR O ATRIBUTO NO CONSTRUTOR(SE ELE ESTÁ NULO OU NÃO):
     @NotNull(message = "O telefone não estar vazio!")
     private String telefone;
