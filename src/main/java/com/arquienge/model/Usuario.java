@@ -41,7 +41,7 @@ public class Usuario {
     // USANDO A ANOTAÇÃO SIZE PARA DETERMINAR E VALIDAR O TAMANHO DO ATRIBUTO NO CONSTRUTOR(MIN 12, MAX 14):
     @Size(max = 14, min = 12)
     // DETERMINANDO UMA FORMATAÇÃO DE DADOS QUE QUERO RECEBER NESTE ATRIBUTO ATRAVÉS DO REGEX:
-    @Pattern(regexp = ("[0-9]{2} [0-9]{5}-[0-9]{4}"))
+    @Pattern(regexp = ("([0-9]{2}) [0-9]{5}-[0-9]{4}"))
     // USANDO A ANOTAÇÃO NOT NULL PARA VALIDAR O ATRIBUTO NO CONSTRUTOR(SE ELE ESTÁ NULO OU NÃO):
     @NotNull(message = "O telefone não estar vazio!")
     private String telefone;
@@ -56,7 +56,14 @@ public class Usuario {
     @Column(unique = true)
     // USANDO A ANOTAÇÃO SIZE PARA DETERMINAR E VALIDAR O TAMANHO DO ATRIBUTO NO CONSTRUTOR(MIN 14, MAX 14):
     @Size(max = 14, min = 14, message = "CPF incorreto!")
+    @Pattern(regexp = "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}")
     private String cpf;
+
+    @NotEmpty(message = "RG não pode estar vazio!")
+    @Column(unique = true, name = "rg")
+    @Size(max = 11, min = 11, message = "RG inválido!")
+    @Pattern(regexp = "[0-9]{3}.[0-9]{3}.[0-9]{3}")
+    private String rg;
 
     // USANDO A ANOTAÇÃO NOT EMPTY PARA VALIDAR O ATRIBUTO NO CONSTRUTOR (SE ESTÁ OU NÃO VAZIO):
     @NotEmpty(message = "Sobrenome não pode estar vazio!")
