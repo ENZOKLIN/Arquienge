@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 // ANOTAÇÕES DA CLASSE(LOMBOK,ETC)
 
@@ -39,5 +40,8 @@ public class Proprietario extends Usuario {
     // USANDO O JOIN E DETERMINANDO O NOME DA COLUNA COMO "ENDERECO_ID":
     @JoinColumn(unique = true, name = "endereco_id")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "proprietario")
+    List<Engenheiro> engenheiros;
 
 }

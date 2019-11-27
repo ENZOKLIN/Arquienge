@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.xml.stream.events.EndElement;
+import java.util.List;
 
 public interface EngenheiroRepository extends JpaRepository<Engenheiro, Integer> {
 
@@ -26,4 +27,8 @@ public interface EngenheiroRepository extends JpaRepository<Engenheiro, Integer>
 
     @Query(value = "UPDATE ENGENHEIRO SET ENGENHEIRO.EMAIL = ?1, ENGENHEIRO.SENHA = ?2 WHERE ENGENHEIRO.ID = ?3", nativeQuery = true)
     Engenheiro updateEngenheiroById(String email,String senha,Integer id);
+
+    @Query(value = "SELECT ENGENHEIRO.* FROM ENGENHEIRO, PROPRIETARIO WHERE ENGENHEIRO.ID_PROPRIETARIO = ?1 AND PROPRIETARIO.ID = ?1 AND ENGENHEIRO.ID_PROPRIETARIO = PROPRIETARIO.ID", nativeQuery = true)
+    List<Engenheiro> findEngenheirosByProprietarioId(Integer id);
+
 }

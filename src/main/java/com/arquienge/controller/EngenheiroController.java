@@ -46,17 +46,17 @@ public class EngenheiroController {
     }
 
     @PostMapping("/login")
-    public Object authenticate(@Valid Engenheiro engenheiro, BindingResult result, RedirectAttributes redirectAttributes){
+    public Object authenticate(@Valid Engenheiro engenheiro, BindingResult result, RedirectAttributes redirectAttributes) {
         boolean success = false;
 
-        for(Engenheiro u: engenheiroService.selectAll()) {
-            if (engenheiro.getEmail().equals(u.getEmail()) && engenheiro.getSenha().equals(u.getSenha())){
+        for (Engenheiro u : engenheiroService.selectAll()) {
+            if (engenheiro.getEmail().equals(u.getEmail()) && engenheiro.getSenha().equals(u.getSenha())) {
                 success = true;
                 break;
             }
         }
 
-        if(!success) {
+        if (!success) {
             return this.viewLoginScreen(engenheiro);
         }
         redirectAttributes.addFlashAttribute("engenheiro", engenheiro);
@@ -74,7 +74,7 @@ public class EngenheiroController {
 
     @PostMapping("/cadastroEngenheiro")
     public Object register(@Valid Engenheiro engenheiro, @Valid Endereco endereco, BindingResult result) throws IOException {
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return this.viewRegisterScreen(engenheiro, endereco);
         }
         enderecoService.saveEndereco(endereco);

@@ -21,7 +21,7 @@ public interface ObraRepository extends JpaRepository<Obra, Integer> {
     @Query(value = "SELECT * FROM OBRA WHERE DT_INICIO = ?1", nativeQuery = true)
     List<Obra> findObrasByDatadeInicio(Date date);
 
-    @Query(value = "SELECT * FROM OBRA WHERE ID_ENGENHEIRO = ?1", nativeQuery = true)
-    List<Obra> findObrasByEngenheiro(Integer id);
+    @Query(value = "SELECT * FROM OBRA WHERE OBRA.ID_ENGENHEIRO = ?1", nativeQuery = true)
+    Obra findObraByEngenheiro(Integer id);
 
 }

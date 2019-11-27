@@ -55,6 +55,9 @@ public class ProprietarioService {
     public Proprietario findProprietarioByEmaileSenha(String email, String senha) {
         return proprietarioRepository.findProprietarioByEmailAndSenha(email, senha);
     }
+    public Proprietario findProprietarioByEngenheiroId(Integer id){
+        return proprietarioRepository.findProprietarioByEngenheiroId(id);
+    }
 
     public Proprietario findProprietarioByCpf(String cpf) {
         return proprietarioRepository.findProprietarioByCpf(cpf);

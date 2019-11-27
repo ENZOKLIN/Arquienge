@@ -14,11 +14,13 @@ import javax.persistence.*;
 
 //CHAMANDO ATRAVÉS DE ANOTAÇÕES A CRIAÇÃO DOS METÓDOS FUNDAMENTAIS(GETTER,SETTER E TO STRING)
 // PARA ESTA CLASSE E OS CONTRUTORES(VAZIO E COM TODOS ATRIBUTOS):
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 //CRIANDO A CLASSE PÚBLICA ENGENHEIRO:
-public class Engenheiro extends Usuario{
+public class Engenheiro extends Usuario {
 
     // ATRIBUTOS DA CLASSE CARTEIRA DE TRABALHO:
 
@@ -43,4 +45,8 @@ public class Engenheiro extends Usuario{
     // QUANTO NO BANCO DE DADOS(UM PARA UM):
     @OneToOne(mappedBy = "engenheiro")
     private Obra obra;
+
+    @JoinColumn(name = "id_proprietario")
+    @ManyToOne
+    private Proprietario proprietario;
 }
