@@ -1,0 +1,159 @@
+@import "./variables";
+@import "./config";
+
+    /*
+    background: rgb(77,43,221);
+    background: linear-gradient(linear-gradient(6deg, rgba(77,43,221,1) 0%, rgba(70,96,172,1) 26%, rgba(145,78,238,1) 100%));
+    */
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin box($border) {
+    @include flexCenter();
+    width: 50%;
+    height: 100vh;
+    float: left;
+    font-size: 25px;
+    border-right: $border;
+}
+
+@mixin title{
+    color: $fontTitle;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 23px;
+    margin-bottom: 20px;
+}
+
+@mixin subtitle{
+    color: $fontSubtitle;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 23px;
+    margin-bottom: 20px;
+}
+
+.box-login{
+    @include box(1px solid $borderGrey);
+    .box-login-info{
+        width: 390px;
+        img{
+            margin-bottom: 20px;
+        }
+        h2{
+            @include title();
+        }
+        p{
+            @include subtitle();
+        }
+        .form-login{
+            border: 1px solid $borderGrey;
+            .fake-input{
+                border-bottom: 1px solid $borderGrey;
+                label{
+                    font-size: 18px;
+                    color: $fontSubtitle;
+                    margin: 5px 10px;
+                }
+                input{
+                    border: none;
+                    font-size: 18px;
+                    color: $fontSubtitle;
+                    background-color: none;
+                    &::placeholder{
+                        font-size: 18px;
+                        color: $fontSubtitle;
+                    }
+                    &:focus{
+                        outline: none;
+                        background-color: none;
+                    }
+                }
+            }
+            a{
+                font-size: 18px;
+                color: $fontSubtitle;
+                text-align: center;
+                display: block;
+                margin: 10px 0;
+                &:link{
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+                &:hover{
+                    color: $fontTitle;
+                    text-decoration: underline;
+                }
+            }
+            button{
+                width: 100%;
+                height: 45px;
+                padding: 10px 20px;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                letter-spacing: 0.01em;
+                text-align: left;
+                border: none;
+                background: rgb(58,16,235);
+                background: -moz-linear-gradient(274deg, rgba(58,16,235,1) 0%, rgba(49,89,205,1) 26%, rgba(120,79,177,1) 100%);
+                background: -webkit-linear-gradient(274deg, rgba(58,16,235,1) 0%, rgba(49,89,205,1) 26%, rgba(120,79,177,1) 100%);
+                background: linear-gradient(274deg, rgba(58,16,235,1) 0%, rgba(49,89,205,1) 26%, rgba(120,79,177,1) 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a10eb",endColorstr="#784fb1",GradientType=1);
+                
+                /*
+                    quando o botão for pressionado mudar o text-align para left.
+                    e add via javascript a class running na div.
+                */
+                
+                &:hover{
+                    background: rgb(50, 28, 136);
+                }
+            }
+        }
+    }
+    
+}
+
+.box-info{
+    @include box(none);
+    background: rgb(58,16,235);
+    background: -moz-linear-gradient(274deg, rgba(58,16,235,1) 0%, rgba(49,89,205,1) 26%, rgba(120,79,177,1) 100%);
+    background: -webkit-linear-gradient(274deg, rgba(58,16,235,1) 0%, rgba(49,89,205,1) 26%, rgba(120,79,177,1) 100%);
+    background: linear-gradient(274deg, rgba(58,16,235,1) 0%, rgba(49,89,205,1) 26%, rgba(120,79,177,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a10eb",endColorstr="#784fb1",GradientType=1);
+    .box-apresentacao{
+        width: 500px;
+        h2{
+            font-weight: bold;
+            font-size: 40px;
+            color: #fff;
+            line-height: 33px;
+            margin-bottom: 10px;
+        }
+        h3{
+            font-size: 25px;
+            color: #fff;
+            line-height: 28px;
+            margin-bottom: 10px;
+        }
+        p{
+            font-size: 18px;
+            color: #fff;
+            line-height: 25px;
+            margin-bottom: 10px;
+            a{
+                color: #fff;
+                text-decoration: underline;
+                &:hover{
+                    color: #f0f0f0;
+                }
+            }
+        }
+    }
+}
+

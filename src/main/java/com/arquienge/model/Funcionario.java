@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.List;
 
 // ANOTAÇÕES DA CLASSE(LOMBOK,ETC)
 
@@ -26,7 +27,7 @@ import java.sql.Date;
 
 //CRIANDO A CLASSE PÚBLICA FUNCIONÁRIO QUE HERDA DE USUÁRIO:
 
-public class Funcionario  {
+public class Funcionario {
 
     // ATRIBUTOS DA CLASSE FUNCIONÁRIO:
 
@@ -99,5 +100,8 @@ public class Funcionario  {
     @ManyToOne
     @JoinColumn(name = "id_obra")
     private Obra obra;
+
+    @OneToMany(mappedBy = "funcionario")
+    private List<Presenca> presencas;
 
 }

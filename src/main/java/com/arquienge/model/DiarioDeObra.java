@@ -47,5 +47,13 @@ public class DiarioDeObra {
     @JoinColumn(name = "id_obra")
     private Obra obra;
 
+    @OneToMany(mappedBy = "diarioDeObra")
+    private List<Presenca> presencas;
+
+    @OneToMany(mappedBy = "diarioDeObra")
+    private List<MaquinasUsadas> maquinasUsadas;
+
+    @OneToMany(mappedBy = "diarioDeObra")
+    private List<FerramentasUsadas> ferramentasUsadas;
 
 }

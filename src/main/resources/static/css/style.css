@@ -1,0 +1,243 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+    BARRA TOPO
+*/
+
+.barra-topo{
+    width: 100%;
+    height: 55px;
+    margin-top: -55px;
+    padding: 10px;
+    background-color: #FFF;
+    position: fixed;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    z-index: 997;
+}
+
+.info-local{
+    color: #141121;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 5px;
+    padding: 0;
+}
+
+/*
+    ICONES
+*/
+
+.margin-icone{
+    margin-right: 10px;
+}
+
+/*
+    SIDE NAV
+*/
+
+.sidenav{
+    height: 100%;
+    width: 250px;
+    margin-left: -250px;
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: all 0.4s;
+    background-color: #FFF;
+    border-right: 1px solid rgb(224, 224, 224);
+}
+
+/*
+    SIDE NAV BTN
+*/
+
+.sidenav-btn{
+    height: 100%;
+    width: 325px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+}
+
+/*
+    MENU HAMBURGER
+*/
+.menuHamburger{
+    left: 0;
+    top: 0;
+    transition: all 0.4s;
+    width: 35px;
+    height: 35px;
+    margin: 10px 10px;
+    border-radius: 50%;
+    background-color: #FFF;
+    position: fixed;
+    display: flex;
+    right: 0;
+    top: 0;
+    z-index: 999;
+}
+
+.menuHamburger:hover{
+    background-color: #ebeff3;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+/*
+    INFO PERFIL
+*/
+
+.info-perfil{
+    padding: 10px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    background-color: #fff;
+}
+
+.foto-perfil{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: inline-block;
+}
+
+.foto-perfil img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.nome-perfil h2{ 
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 20px;
+    color: #110F1C;
+}
+
+.cargo-perfil h3{ 
+    font-size: 16px;
+    margin-bottom: 0;
+    color: rgb(68, 65, 90);
+    margin-top: 5px;
+}
+
+/*
+    MENU UL
+*/
+
+.menu-ul{
+    padding: 5px 0px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.menu-ul ul{
+    margin: 0;
+}
+
+.menu-ul ul li{
+    width: 100%;
+}
+
+.menu-ul ul li:hover{
+    background-color: #ebeff3;
+}
+
+.menu-ul ul li a{
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(68, 65, 90);
+    padding: 5px 10px;
+    display: block;
+}
+
+.menu-ul ul li a:hover{
+    text-decoration: none;
+    color: #3A8DCF;
+}
+
+ul li{
+    position: relative;
+}
+
+li ul{
+    display: none;
+}
+
+li:hover ul{
+    display: block; 
+}
+
+.li-selected{
+    width: calc(100% - 3px) !important;
+    background-color: #ebeff3;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+/*
+    OUTROS
+*/
+
+.icone-menu{
+    color: #3A8DCF;
+}
+
+.notificacoes{
+    overflow: auto;
+    display: none;
+    max-height: 100px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.notificacao span{
+    margin: 0;
+    padding: 5px 10px ;
+    display: block;
+    color: rgb(128, 128, 128);
+    background-color: rgb(252, 252, 252);
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+.info-area{
+    padding: 5px 10px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.info-area h5{
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: rgb(68, 65, 90);
+    float: left;
+}
+
+.push-down{
+    float: right;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.push-down:focus{
+    outline: none;
+}
+
+/*
+    CONTEÚDO
+*/
+
+.conteudo{
+    margin-top: 55px;
+    padding: 10px;
+}

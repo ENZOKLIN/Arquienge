@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 // ANOTAÇÕES DA CLASSE(LOMBOK,ETC)
@@ -50,6 +51,9 @@ public class Ferramenta {
     //CHAMANDO O JOIN E DETERMINANDO O NOME DA COLUNA RELACIONADA, "ID_OBRA":
     @JoinColumn(name = "id_obra")
     private Obra obra;
+
+    @OneToMany(mappedBy = "ferramenta")
+    private List<FerramentasUsadas> ferramentasUsadas;
 
     // METÓDO TOSTRING PRÓPRIO DA CLASSE(OPTEI POR NÃO USAR O PADRÃO DO LOMBOK):
 

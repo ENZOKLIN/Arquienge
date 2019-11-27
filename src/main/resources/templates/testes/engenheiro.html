@@ -37,7 +37,7 @@
 <body>
 <div class="vertical-center">
     <div style="width: 400px; height: auto; margin: 0 auto">
-        <form method="POST" th:object="${engenheiro}"
+        <form method="POST" th:object="${engenheiro}" th:action="@{/cadastroEngenheiro}"
               class="h-100 w-100 container"
               style="padding: 15px; border: 1px solid lightgray; border-radius: 5px">
             <div class="w-100" style="padding: 10px; text-align: center">
@@ -45,40 +45,34 @@
             </div>
 
             <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('nome')} ? 'has-error'"
                  style="margin-top: 10px">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{nome}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.nome}"
                        class="form-control no-focus"
                        placeholder="Nome do Engenheiro">
             </div>
 
             <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('sobrenome')} ? 'has-error'"
                  style="margin-top: 10px">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{sobrenome}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.sobrenome}"
                        class="form-control no-focus"
                        placeholder="Sobrenome do Engenheiro">
             </div>
 
             <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('telefone')} ? 'has-error'"
                  style="margin-top: 10px">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{telefone}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.telefone}"
                        class="form-control no-focus"
                        placeholder="Telefone do Engenheiro">
             </div>
@@ -86,64 +80,54 @@
 
 
             <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('email')} ? 'has-error'"
                  style="margin-top: 10px">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{email}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.email}"
                        class="form-control no-focus" placeholder="E-mail do Engenheiro">
             </div>
 
-            <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('senha')} ? 'has-error'">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
                 <input type="password"
-                       th:field="*{senha}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.senha}"
                        class="form-control " placeholder="Senha do Engenheiro">
             </div>
 
-            <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('cpf')} ? 'has-error'">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{cpf}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.cpf}"
                        class="form-control " placeholder="CPF do Engenheiro">
             </div>
 
-            <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('rg')} ? 'has-error'">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{rg}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.rg}"
                        class="form-control " placeholder="RG do Engenheiro">
             </div>
 
 
-            <div class="input-group mb-3"
-                 th:classappend="${#fields.hasErrors('nascimento')} ? 'has-error'">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
                 <input type="text"
-                       th:field="*{nascimento}"
-                       th:errorclass="form-field-error"
+                       th:field="${engenheiro.nascimento}"
                        class="form-control " placeholder="Nascimento Do Engenheiro">
             </div>
 
             <!-- Error messages -->
-            <div class="form-group row" th:if="${#fields.hasAnyErrors()}">
+            <div class="form-group row">
                 <div class="alert alert-danger"
                      style="padding: 5px; text-align: center; padding: 5px; margin: 0 auto; width: 80%">
                     <div th:each="error : ${#fields.detailedErrors()}">
@@ -153,17 +137,19 @@
             </div>
 
             <!-- Button(s) -->
-            <div class="row p-0 m-0 ">
+            <div class="row p-0 m-0 " th:object="${endereco}">
                 <!-- 1ª Coluna -->
                 <div class="col-md-6 p-0">
                     <div class="form-input margin-center">
-                        <label for="CEP">CEP</label>
+                        <label for="cep">CEP</label>
                         <div class="pesquisa-cep">
                             <div class="input-with-btn">
-                                <input class="input-btn" type="text" id="CEP" placeholder="00000-000">
+                                <input id="cep" type="text" name="cep"
+                                       th:field="${endereco.cep}"
+                                       class="form-control " placeholder="Cep do Engenheiro"/>
                             </div>
                             <div class="btn-with-input">
-                                <div class="btn-search" onclick="pesquisacep(CEP.value)">
+                                <div class="btn-search" onclick="pesquisacep(cep.value)">
                                     Pesquisar
                                 </div>
                             </div>
@@ -174,7 +160,9 @@
                             </p>
                         </div>
                         <label for="cidade">Cidade</label>
-                        <input type="text" id="cidade" placeholder="Florianópolis">
+                        <input id="cidade" type="text" name="cidade"
+                               th:field="${endereco.cidade}"
+                               class="form-control " placeholder="RG do Engenheiro">
                         <div class="div-info-input">
                                         <span id="spanCidade">
                                                 O campo cidade precisa ser preenchido!
@@ -182,7 +170,9 @@
                         </div>
                         <div class="select-estado">
                             <label for="rua">Rua</label>
-                            <input type="text" id="rua" placeholder="Rua Tal">
+                            <input id="rua" type="text" name="rua"
+                                   th:field="${endereco.rua}"
+                                   class="form-control " placeholder="Rua do Engenheiro">
                             <div class="div-info-input">
                                         <span id="spanRua">
                                                 O campo rua precisa ser preenchido!
@@ -190,7 +180,9 @@
                             </div>
                             <div class="select-estado">
                                 <label for="bairro">Bairro</label>
-                                <input type="text" id="bairro" placeholder="Rua Tal">
+                                <input id="bairro" type="text" name="bairro"
+                                       th:field="${endereco.bairro}"
+                                       class="form-control " placeholder="Bairro do Engenheiro">
                                 <div class="div-info-input">
                                         <span id="spanBairro">
                                                 O campo bairro precisa ser preenchido!
@@ -198,24 +190,21 @@
                                 </div>
                             <div class="select-estado">
                             <div>
-                                <select name="estado" id="estado" onclick="cliqueSelect('estado')">
-                                    <option value="" selected disabled>Estado</option>
-                                </select>
+                                <input id="estado" name="uf" type="text"
+                                       th:field="${endereco.uf}"
+                                       class="form-control " placeholder="UF do Engenheiro">
                             </div>
-                        </div>
-                        <div class="div-info-input">
-                                        <span id="spanEstado">
-                                                Escolha uma opção.
-                                        </span>
                         </div>
                     </div>
                 </div>
                 <button type="submit" class="w-100 btn btn-primary">Registrar novo</button>
             </div>
+                </div>
+            </div>
         </form>
         </div>
     </div>
-</div>
+
 
 <!-- JavaScript (Opcional) -->
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
@@ -223,7 +212,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="js/cep.js"></script>
-<script src="js/script.js"></script>
+<script src="js/data-nascimento.js"></script>
 <script type="text/javascript"></script>
 </body>
 </html>

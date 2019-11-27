@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 
 //ANOTAÇÕES DA CLASSE(LOMBOK,ETC)
@@ -47,6 +48,9 @@ public class Maquina {
     // USANDO O JOIN E DETERMINANDO O NOME DA COLUNA NO BD "ID_OBRA"
     @JoinColumn(name = "id_obra")
     private Obra obra;
+
+    @OneToMany(mappedBy = "maquina")
+    private List<MaquinasUsadas> maquinasUsadas;
 
     //CRIANDO METÓDO TO STRING PRÓPRIO DA CLASSE(OPTANDO POR NÃO USAR O LOMBOK):
     @Override

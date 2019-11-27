@@ -1,0 +1,380 @@
+@charset "UTF-8";
+* {
+  font-family: 'Helvetica  Neue', 'Helvetica', Neue;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #8195b4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+          box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.info-registro {
+  padding: 10px 0px 15px 0px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.info-registro ul {
+  margin-bottom: 0px;
+}
+
+.info-registro .progress-div {
+  margin-top: 5px;
+  padding: 0px 15px;
+}
+
+.info-registro .progress-div img {
+  margin-right: 10px;
+}
+
+.info-registro .progress-div li {
+  font-size: 18px;
+  color: #8195b4;
+}
+
+.info-registro .progress-div .in-progress {
+  color: #3a8dcf;
+  font-weight: bold;
+}
+
+.info-registro .progress-div .progress-ok {
+  color: #61b65b;
+}
+
+.info-registro .div-in-progress {
+  border-left: 4px solid #3a8dcf;
+  padding-left: 11px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: whitesmoke;
+}
+
+.form-input {
+  padding: 0px 10px 10px 10px;
+  background-color: #fff;
+}
+
+.form-input label {
+  display: block;
+  color: #5d5779;
+  margin: 0;
+}
+
+.form-input input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #ece6ff;
+  padding: 5px 0px;
+  color: #8195b4;
+}
+
+.form-input input::-webkit-input-placeholder {
+  color: #f0f0f0;
+}
+
+.form-input input:-ms-input-placeholder {
+  color: #f0f0f0;
+}
+
+.form-input input::-ms-input-placeholder {
+  color: #f0f0f0;
+}
+
+.form-input input::placeholder {
+  color: #f0f0f0;
+}
+
+.form-input input:focus {
+  outline: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  border-bottom: 1px solid #3a8dcf;
+}
+
+.options-gender {
+  margin-top: 10px;
+}
+
+.options-gender p {
+  color: #3a8dcf;
+  font-weight: bold;
+}
+
+#woman {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #3A8DCF;
+  background-position: center;
+  background-size: cover;
+  float: left;
+  background-color: #fff;
+  background-image: url("../img/woman.png");
+}
+
+#man {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #3A8DCF;
+  background-position: center;
+  background-size: cover;
+  float: left;
+  background-color: #fff;
+  background-image: url("../img/man.png");
+}
+
+.option {
+  width: 100%;
+  background-color: #f6f8fa;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #f0f0f7;
+}
+
+.div-info-input {
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.div-info-input span {
+  color: #e24040;
+  display: none;
+}
+
+.margin-center {
+  margin-right: 2vh;
+}
+
+/*
+    Select
+*/
+.select-data-nasc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+}
+
+.select-data-nasc div {
+  width: 30%;
+  display: inline-block;
+}
+
+.select-data-nasc select {
+  width: 100%;
+  height: 40px;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  color: #767788;
+  border-bottom: 1px solid #ececec;
+  background: url("../img/arrow-down-select.png") no-repeat right;
+  padding: 0;
+}
+
+.select-data-nasc select:hover {
+  cursor: pointer;
+}
+
+.select-estado {
+  margin-top: 10px;
+}
+
+.select-estado div {
+  width: 100%;
+  display: inline-block;
+}
+
+.select-estado select {
+  width: 100%;
+  height: 40px;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  color: #767788;
+  border-bottom: 1px solid #ececec;
+  background: url("../img/arrow-down-select.png") no-repeat right;
+  padding: 0;
+}
+
+.select-estado select:hover {
+  cursor: pointer;
+}
+
+.styled-select select {
+  background: transparent;
+  line-height: 1;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.styled-select {
+  width: 100%;
+  height: 40px;
+  padding: 5px 10px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: url("../img/dropdown-select.png") no-repeat right #3a8dcf;
+}
+
+.styled-select:hover {
+  background-color: #2e71a8;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+select:focus {
+  outline: none;
+}
+
+select:disabled {
+  color: #e7ebf2;
+}
+
+/* For IE10 */
+select::-ms-expand {
+  display: none;
+}
+
+.input-radio label {
+  display: inline-block;
+  width: auto;
+}
+
+.radio label {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.radio input[type=radio] {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  margin-left: 15px;
+}
+
+.pesquisa-cep .input-with-btn {
+  float: left;
+  width: 65%;
+}
+
+.pesquisa-cep .btn-with-input {
+  float: right;
+  width: 30%;
+}
+
+.pesquisa-cep .btn-with-input .btn-search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  background-color: #3a8dcf;
+  color: #fff;
+  height: 35px;
+  border-radius: 2px;
+}
+
+.pesquisa-cep .btn-with-input .btn-search:hover {
+  background-color: #2678bb;
+  cursor: pointer;
+}
+
+/*
+    Formulário com vários formulários
+*/
+.invalid {
+  border-bottom: 1px solid #eb3636 !important;
+}
+
+.tab {
+  display: none;
+}
+
+.span-inline {
+  display: inline !important;
+}
+
+.button-ui {
+  background-color: #3a8dcf;
+  color: #fff;
+  padding: 5px 15px;
+  min-width: 100px;
+  border-radius: 2px;
+  border: none;
+}
+
+.button-ui:focus {
+  outline: none;
+}
+
+.button-ui:hover {
+  background-color: #2678bb;
+}
+
+.upload-photo {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.upload-photo #photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #3A8DCF;
+  float: left;
+  background-image: url("../img/default-icon.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.upload-photo .button-upload {
+  float: right;
+  padding: 5px 10px;
+  width: calc(100% - 80px);
+  background-color: #3A8DCF;
+  color: #fff;
+  border-radius: 2px;
+  cursor: context-menu;
+}
+
+.upload-photo .button-upload:hover {
+  background-color: #2678bb;
+}
+
+.upload-photo span {
+  float: right;
+  margin-top: 6px;
+  width: calc(100% - 80px);
+  color: #3A8DCF;
+}
+/*# sourceMappingURL=form-ui.css.map */

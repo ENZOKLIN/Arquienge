@@ -26,6 +26,16 @@ public class ObraService {
         return obras;
     }
 
+    public List<Obra> selectAllByEngenheiro(Integer id)
+    {
+        List<Obra> obras = new ArrayList<>();
+        for(Obra obra : obraRepository.findObrasByEngenheiro(id))
+        {
+            obras.add(obra);
+        }
+        return obras;
+    }
+
     public Optional<Obra> selectObraById(Integer id) {
         if (obraRepository.findById(id).isPresent()) {
             return obraRepository.findById(id);

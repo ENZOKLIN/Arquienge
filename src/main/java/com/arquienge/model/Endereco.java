@@ -35,6 +35,10 @@ public class Endereco {
     @Pattern(regexp = "[0-9]{5}-[0-9]{3}")
     private String cep;
 
+    @Pattern(regexp = "[A-Z]{2}")
+    @Column(length = 2, name = "uf")
+    private String uf;
+
     //ATRIBUTOS COMUNS:
     private String cidade;
     private String bairro;

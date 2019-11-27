@@ -1,6 +1,8 @@
 package com.arquienge.controller;
 
+import com.arquienge.model.Endereco;
 import com.arquienge.model.Engenheiro;
+import com.arquienge.service.EnderecoService;
 import com.arquienge.service.EngenheiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,15 +22,19 @@ public class EngenheiroController {
 
     @Autowired
     private final EngenheiroService engenheiroService;
+    @Autowired
+    private final EnderecoService enderecoService;
 
-    public EngenheiroController(EngenheiroService engenheiroService) {
+    public EngenheiroController(EngenheiroService engenheiroService, EnderecoService enderecoService) {
         this.engenheiroService = engenheiroService;
+        this.enderecoService = enderecoService;
     }
 
     @GetMapping("/cadastroEngenheiro")
-    public ModelAndView viewRegisterScreen(Engenheiro engenheiro) {
+    public ModelAndView viewRegisterScreen(Engenheiro engenheiro, Endereco endereco) {
         ModelAndView view = new ModelAndView("testes/engenheiro");
         view.addObject("Engenheiro", engenheiro);
+        view.addObject("Endereco", endereco);
         return view;
     }
 
@@ -67,10 +73,12 @@ public class EngenheiroController {
 
 
     @PostMapping("/cadastroEngenheiro")
-    public Object register(@Valid Engenheiro engenheiro, BindingResult result) throws IOException {
+    public Object register(@Valid Engenheiro engenheiro, @Valid Endereco endereco, BindingResult result) throws IOException {
         if(result.hasErrors()) {
-            return this.viewRegisterScreen(engenheiro);
+            return this.viewRegisterScreen(engenheiro, endereco);
         }
+        enderecoService.saveEndereco(endereco);
+        engenheiro.setEndereco(endereco);
         engenheiroService.saveEngenheiro(engenheiro);
         return "redirect:/login";
     }
