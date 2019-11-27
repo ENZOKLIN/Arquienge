@@ -11,7 +11,5 @@ import java.util.List;
 @Repository
 public interface MaquinasUsadasRepository extends JpaRepository<MaquinasUsadas, Integer> {
 
-    @Query
-    List<Maquina> maquinasUsadasByDiarioId(Integer id);
-
+List<Maquina> getMaquinasUsadasByDiarioDeObraId(Integer id);
 }

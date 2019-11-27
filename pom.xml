@@ -11,7 +11,7 @@
 	<groupId>com.arquienge</groupId>
 	<artifactId>Arquienge</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>Arquienge</name>
 	<description>Projeto teste do arquienge</description>

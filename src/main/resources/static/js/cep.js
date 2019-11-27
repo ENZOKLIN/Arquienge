@@ -3,7 +3,7 @@ function limpa_formulário_cep() {
         document.getElementById('rua').value=("");
         document.getElementById('bairro').value=("");
         document.getElementById('cidade').value=("");
-        //document.getElementById('uf').value=("");
+        document.getElementById('estado').value=("");
 }
 
 function meu_callback(conteudo) {
@@ -40,7 +40,7 @@ function pesquisacep(valor) {
             document.getElementById('rua').value="...";
             document.getElementById('bairro').value="...";
             document.getElementById('cidade').value="...";
-            document.getElementById('uf').value="...";
+            document.getElementById('estado').value="...";
             //document.getElementById('uf').value="...";
 
             //Cria um elemento javascript.

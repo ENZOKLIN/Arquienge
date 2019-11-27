@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.mapping.Join;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 //ANOTAÇÕES DA CLASSE(LOMBOK,ETC)
 
@@ -36,9 +39,9 @@ public class Engenheiro extends Usuario {
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE ENGENHEIRO, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UM PARA UM):
-    @OneToOne
     //CHAMANDO O JOIN ATRAVÉS DE ANOTAÇÃO, PASSANDO COMO PARÂMETRO O NOME DA COLUNA "ENDERECO_ID":
-    @JoinColumn(name = "endereco_id")
+    @OneToOne
+    @JoinColumn(unique = true, name = "endereco_id")
     private Endereco endereco;
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE ENGENHEIRO, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
@@ -46,7 +49,7 @@ public class Engenheiro extends Usuario {
     @OneToOne(mappedBy = "engenheiro")
     private Obra obra;
 
-    @JoinColumn(name = "id_proprietario")
+    @JoinColumn(name = "proprietario_id")
     @ManyToOne
     private Proprietario proprietario;
 }

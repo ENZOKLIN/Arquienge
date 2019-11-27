@@ -8,15 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PresencaRepository extends JpaRepository<Presenca, Integer> {
 
 
-    @Query(value = "SELECT DIARIO_DE_OBRA.DATA_CRIACAO FROM DIARIO_DE_OBRA, PRESENCA, FUNCIONARIO WHERE FUNCIONARIO.ID = ?1 AND PRESENCA.ID_FUNCIONARIO = ?1 AND PRESENCA.ID_DIARIO = DIARIO_DE_OBRA.ID AND PRESENCA.PRESENCA = false", nativeQuery = true)
+    @Query(value = "SELECT DIARIO_DE_OBRA.DATA_CRIACAO FROM DIARIO_DE_OBRA, PRESENCA, FUNCIONARIO WHERE FUNCIONARIO.ID = ?1 AND PRESENCA.ID_FUNCIONARIO = ?1 AND PRESENCA.ID_DIARIO = DIARIO_DE_OBRA.ID AND PRESENCA.PRESENCA = 0", nativeQuery = true)
     List<Date> datasDeFaltaByFuncionarioId(Integer idFuncionario);
 
-    @Query(value = "SELECT FUNCIONARIO.* FROM DIARIO_DE_OBRA, PRESENCA, FUNCIONARIO WHERE DIARIO_DE_OBRA.ID = ?1 AND PRESENCA.ID_DIARIO = ?1 AND PRESENCA.ID_FUNCIONARIO = FUNCIONARIO.ID AND PRESENCA.PRESENCA = false", nativeQuery = true)
+    @Query(value = "SELECT FUNCIONARIO.* FROM DIARIO_DE_OBRA, PRESENCA, FUNCIONARIO WHERE DIARIO_DE_OBRA.ID = ?1 AND PRESENCA.ID_DIARIO = ?1 AND PRESENCA.ID_FUNCIONARIO = FUNCIONARIO.ID AND PRESENCA.PRESENCA = 0", nativeQuery = true)
     List<Funcionario> funcionariosAusentesByDiarioId(Integer idDiario);
 
     @Query(value = "SELECT FUNCIONARIO.* FROM DIARIO_DE_OBRA, PRESENCA, FUNCIONARIO WHERE DIARIO_DE_OBRA.DATA_CRIACAO = ?1 AND PRESENCA.ID_DIARIO = DIARIO_DE_OBRA.ID AND PRESENCA.ID_FUNCIONARIO = FUNCIONARIO.ID AND PRESENCA.PRESENCA = false", nativeQuery = true)
@@ -27,4 +28,6 @@ public interface PresencaRepository extends JpaRepository<Presenca, Integer> {
 
     @Query(value = "SELECT DIARIO_DE_OBRA.DATA_CRIACAO FROM DIARIO_DE_OBRA, PRESENCA, FUNCIONARIO WHERE FUNCIONARIO.ID = ?1 AND PRESENCA.ID_FUNCIONARIO = ?1 AND PRESENCA.ID_DIARIO = DIARIO_DE_OBRA.ID AND PRESENCA.PRESENCA = true", nativeQuery = true)
     List<Date> datasDePresencaByFuncionarioId(Integer idFuncionario);
+
+    Optional<Presenca> findPresencaById(Integer id);
 }

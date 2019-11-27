@@ -52,7 +52,7 @@ public class Endereco {
 
     //INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE CARTEIRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UM PARA UM):
-    @OneToOne(mappedBy = "endereco")
+    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private Engenheiro engenheiro;
 
     //INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE ENDEREÇO, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,

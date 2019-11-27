@@ -75,7 +75,8 @@ public class EnderecoService {
     public List<Endereco> findEnderecosByRua(String rua) {
         return enderecoRepository.findEnderecosByRua(rua);
     }
-    public void insertEndereco(Integer id,String bairro,String cep, String cidade, Integer numero, String rua){
-        enderecoRepository.insertEndereco(id,bairro,cep,cidade,numero,rua);
+
+    public void insertEndereco(Integer id, String bairro, String cep, String cidade, Integer numero, String rua) {
+        enderecoRepository.insertEndereco(id, bairro, cep, cidade, numero, rua);
     }
 }
