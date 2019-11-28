@@ -6,11 +6,15 @@ import com.arquienge.service.EnderecoService;
 import com.arquienge.service.EngenheiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 
@@ -24,6 +28,7 @@ public class EngenheiroController {
     private final EngenheiroService engenheiroService;
     @Autowired
     private final EnderecoService enderecoService;
+
 
     public EngenheiroController(EngenheiroService engenheiroService, EnderecoService enderecoService) {
         this.engenheiroService = engenheiroService;
@@ -40,7 +45,7 @@ public class EngenheiroController {
 
     @GetMapping("/login")
     public ModelAndView viewLoginScreen(Engenheiro engenheiro) {
-        ModelAndView view = new ModelAndView("testes/login");
+        ModelAndView view = new ModelAndView("login");
         view.addObject("Engenheiro", engenheiro);
         return view;
     }
@@ -60,12 +65,18 @@ public class EngenheiroController {
             return this.viewLoginScreen(engenheiro);
         }
         redirectAttributes.addFlashAttribute("engenheiro", engenheiro);
-        return viewIndexScreen(engenheiro);
+        return viewIndexScreenRedirect();
+    }
+
+    @GetMapping("redirect:/index")
+    public RedirectView viewIndexScreenRedirect() {
+        RedirectView view = new RedirectView("/index");
+        return view;
     }
 
     @GetMapping("/index")
-    public ModelAndView viewIndexScreen(Engenheiro engenheiro) {
-        ModelAndView view = new ModelAndView("testes/index");
+    public ModelAndView viewIndexScreen(ModelMap modelMap, @ModelAttribute("engenheiro") Engenheiro engenheiro){
+        ModelAndView view = new ModelAndView("index");
         Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
         view.addObject("engenheiro", logado);
         return view;

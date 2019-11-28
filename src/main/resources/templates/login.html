@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <!-- CSS -->
     <link rel="stylesheet" href="css/index.css">
@@ -32,14 +33,14 @@
             <h2>Bem vindo!</h2>
             <p>Inicie uma nova sessão fazendo login.</p>
             <div class="form-login">
-                <form action="" method="GET">
+                <form action="/login" method="POST" th:object="${engenheiro}">
                     <div class="fake-input">
-                        <label for=""><i class="fas fa-envelope"></i></label>
-                        <input type="email" placeholder="E-mail" id="email">
+                        <label for="email"><i class="fas fa-envelope"></i></label>
+                        <input th:field="*{email}" type="email" placeholder="E-mail" id="email">
                     </div>
                     <div class="fake-input">
-                        <label for=""><i style="margin-left: 2px;" class="fas fa-lock"></i></label>
-                        <input type="password" placeholder="Senha" id="senha">
+                        <label for="senha"><i style="margin-left: 2px;" class="fas fa-lock"></i></label>
+                        <input th:field="*{senha}" type="password" placeholder="Senha" id="senha">
                     </div>
                     <div class="esqueci-a-senha">
                         <a href="">Esqueci minha senha</a>

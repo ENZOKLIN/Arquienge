@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -44,10 +45,10 @@
                 <img src="img/user-profile-pic.jpg" alt="">
             </div>
             <div class="nome-perfil" id="nomePerfl">
-                <h2>Enzo Klin</h2>
+                <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}">Engenheiro Não Encontrado</h2>
             </div>
             <div class="cargo-perfil" id="cargoPerfil">
-                <h3>Administrador(a)</h3>
+                <h3>Engenheiro(a)</h3>
             </div>
         </div>
 
