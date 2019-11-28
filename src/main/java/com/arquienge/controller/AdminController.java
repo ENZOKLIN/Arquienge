@@ -30,10 +30,9 @@ public class AdminController {
     }
 
 
-    @GetMapping("/cadastroMaster")
-    public ModelAndView viewFormTest(Proprietario proprietario, Engenheiro engenheiro, Endereco endereco){
+    @GetMapping("/cadastro-admin")
+    public ModelAndView viewFormTest(Proprietario proprietario, Endereco endereco){
         ModelAndView view = new ModelAndView("registrar/cadastromaster");
-        view.addObject("Engenheiro", engenheiro);
         view.addObject("Endereco", endereco);
         view.addObject("Proprietario", proprietario);
         return view;
