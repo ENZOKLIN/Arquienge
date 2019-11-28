@@ -1,0 +1,145 @@
+* {
+  font-family: 'Helvetica  Neue', 'Helvetica', Neue;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #8195b4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+          box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.fake-search {
+  float: right;
+}
+
+.fake-search input {
+  width: 95px;
+  border: none;
+  color: #8195b4;
+  padding: 5px 10px;
+  border: 1px solid #e0e0e0;
+  margin: 0px 0px 10px;
+  border-radius: 3px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.fake-search input::-webkit-input-placeholder {
+  color: #8195b4;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.fake-search input:-ms-input-placeholder {
+  color: #8195b4;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.fake-search input::-ms-input-placeholder {
+  color: #8195b4;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.fake-search input::placeholder {
+  color: #8195b4;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.fake-search input:focus {
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  width: 200px;
+  outline: none;
+}
+
+.fake-search button {
+  padding: 5px 10px;
+  color: #fff;
+  background-color: #3a8dcf;
+  border-radius: 3px;
+  margin-left: 5px;
+  border: none;
+  outline: none;
+}
+
+.fake-search button:hover {
+  background-color: #256ca5;
+}
+
+.fake-search button:focus {
+  outline: none;
+}
+
+.search-area table {
+  width: 100%;
+}
+
+.search-area table tr {
+  margin-bottom: 10px;
+}
+
+.search-area table tr th {
+  padding: 10px;
+}
+
+.search-area table tr td {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.search-area table tr td #nomeObra {
+  color: #141121;
+  font-weight: bold;
+  display: block;
+}
+
+.search-area table tr td #enderecoObra {
+  color: #43434e;
+  display: block;
+}
+
+.search-area table tr td #situacaoObra {
+  color: #43434e;
+}
+
+.search-area table tr td #previsao {
+  color: #43434e;
+}
+
+.search-area table tr td button {
+  background: none;
+  width: 100%;
+  font-weight: bold;
+  color: #3a8dcf;
+  padding: 5px 5px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+}
+
+.search-area table tr td button:hover {
+  background: #e7e9f8;
+  border: none;
+  outline: none;
+}
+
+.search-area table tr .td-button {
+  border: none !important;
+  padding-right: 0px !important;
+}
+/*# sourceMappingURL=obras.css.map */

@@ -68,9 +68,9 @@ function cliqueSelect(id){
     var select = document.getElementById(id)
     if(selectClicked){
         selectClicked = false
-        select.style.backgroundImage = "url('/img/arrow-down-select.png')"
+        select.style.backgroundImage = "url('../img/arrow-down-select.png')"
     } else {
         selectClicked = true
-        select.style.backgroundImage = "url('/img/arrow-top-select.png')"
+        select.style.backgroundImage = "url('../img/arrow-top-select.png')"
     }
 }

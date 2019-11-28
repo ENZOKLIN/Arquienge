@@ -1,0 +1,44 @@
+* {
+  font-family: 'Helvetica  Neue', 'Helvetica', Neue;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #8195b4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+          box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.menu-admin {
+  display: inline-block;
+}
+
+.menu-admin ul li {
+  padding: 10px 15px;
+}
+
+.menu-admin ul li a {
+  color: #b327e6;
+  font-size: 30px;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.menu-admin ul li a:hover {
+  background-color: #f1e6f5;
+  text-decoration: none;
+}
+/*# sourceMappingURL=admin-style.css.map */

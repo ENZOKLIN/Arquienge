@@ -32,7 +32,7 @@ public class AdminController {
 
     @GetMapping("/cadastro-admin")
     public ModelAndView viewFormTest(Proprietario proprietario, Endereco endereco){
-        ModelAndView view = new ModelAndView("registrar/cadastromaster");
+        ModelAndView view = new ModelAndView("admin/cadastro-proprietario.html");
         view.addObject("Endereco", endereco);
         view.addObject("Proprietario", proprietario);
         return view;
@@ -41,7 +41,7 @@ public class AdminController {
     @PostMapping("/cadastroProprietario")
     public Object register(@Valid Proprietario proprietario, @Valid Endereco endereco, BindingResult result) throws IOException {
         if (result.hasErrors()) {
-            return new ModelAndView("registrar/cadastromaster").addObject("Proprietario", proprietario).addObject("Endereco", endereco);
+            return new ModelAndView("admin/cadastro-proprietario").addObject("Proprietario", proprietario).addObject("Endereco", endereco);
         }
         enderecoService.saveEndereco(endereco);
         proprietario.setEndereco(endereco);

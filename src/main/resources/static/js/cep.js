@@ -41,7 +41,6 @@ function pesquisacep(valor) {
             document.getElementById('bairro').value="...";
             document.getElementById('cidade').value="...";
             document.getElementById('estado').value="...";
-            //document.getElementById('uf').value="...";
 
             //Cria um elemento javascript.
             var script = document.createElement('script');
