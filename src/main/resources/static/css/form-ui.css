@@ -108,6 +108,59 @@ select:-webkit-autofill:focus {
   border-bottom: 1px solid #3a8dcf;
 }
 
+.form-input #cont1 .add-input {
+  width: 75%;
+  float: left;
+}
+
+.form-input #cont1 .add-input .material {
+  float: left;
+  width: 75%;
+}
+
+.form-input #cont1 .add-input .qtd {
+  float: right;
+  width: 20%;
+}
+
+.form-input #cont2 .add-input {
+  width: 75%;
+  float: left;
+}
+
+.form-input #cont2 .add-input .material {
+  float: left;
+  width: 75%;
+}
+
+.form-input #cont2 .add-input .qtd {
+  float: right;
+  width: 20%;
+}
+
+.form-input .btn-input {
+  width: 20%;
+  float: left;
+}
+
+.form-input .btn-input .btn-add-input {
+  background-color: #3a8dcf;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 2px;
+  margin: 0px 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.form-input .btn-input .btn-add-input:focus {
+  outline: none;
+}
+
+.form-input .btn-input .btn-add-input:hover {
+  background-color: #2678bb;
+}
+
 .options-gender {
   margin-top: 10px;
 }
@@ -160,6 +213,10 @@ select:-webkit-autofill:focus {
 .div-info-input span {
   color: #e24040;
   display: none;
+}
+
+.div-info-input p {
+  color: #e24040;
 }
 
 .margin-center {

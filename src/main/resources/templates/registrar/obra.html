@@ -1,14 +1,16 @@
-<!DOCTYPE html>
+<!DOCTYPE html
+    xlmns:th="http://thymeleaf.org"
+    xlmns:layout="http://www.ultraq.net.nz./thymeleaf/layout">
 <html lang="en">
 <head>
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/form-ui.css">
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="../img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="../img/favicon-16x16.png" sizes="16x16" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,7 +21,77 @@
     
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
-    <title>Registro de funcionarios | Arquienge</title>
+    <title>Registro de obras | Arquienge</title>
+    <style>
+        /* The container */
+.label-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  padding-bottom: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.label-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.label-checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.label-checkbox input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.label-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.label-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 6px;
+  height: 13px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+    </style>
 </head>
 <body>
 
@@ -42,7 +114,7 @@
             
         <div class="info-perfil">
             <div class="foto-perfil" id="fotoPerfil">
-                <img src="img/user-profile-pic.jpg" alt="">
+                <img src="../img/user-profile-pic.jpg" alt="">
             </div>
             <div class="nome-perfil" id="nomePerfl">
                 <h2>Enzo Klin</h2>
@@ -59,11 +131,11 @@
 
         <div class="menu-ul">
             <ul>
-                <li><a href="index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
+                <li><a href="../index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
                 <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
-                <li><a href="consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li><a href="obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
-                <li><a href="dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
+                <li><a href="../consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+                <li><a href="../obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
+                <li><a href="../dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
             </ul>
         </div>
         <div class="menu-ul">
@@ -100,135 +172,25 @@
                     <div class="info-registro">
                         <ul id="info-registro-ul">
                             <div class="progress-div div-in-progress">
-                                <li class="d-flex align-items-center in-progress"><img src="img/in-progress-1.png" alt="">Dados da obra</li>
+                                <li class="d-flex align-items-center in-progress"><img src="../img/in-progress-1.png" alt="">Local da obra</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-2.png" alt="">Etapas</li>
+                                <li class="d-flex align-items-center"><img src="../img/waiting-2.png" alt="">Dados da obra</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-3.png" alt="">Materiais necessários</li>
+                                <li class="d-flex align-items-center"><img src="../img/waiting-3.png" alt="">Etapas</li>
+                            </div>
+                            <div class="progress-div">
+                                <li class="d-flex align-items-center"><img src="../img/waiting-4.png" alt="">Materiais necessários</li>
                             </div>
                         </ul>
                     </div>
                 </div>
             <form action="" id="regForm" class="col-md-8 p-0">
                 <!-- Formulários -->
-                    <!-- Primeira guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0  ">
-                            <!-- 1ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="nome">Nome</label>
-                                    <input type="text" id="nome" placeholder="Lucas">
-                                    <div class="div-info-input">
-                                        <span id="spanNome">
-                                            O campo nome precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <label for="sobrenome">Sobrenome</label>
-                                    <input type="text" id="sobrenome" placeholder="Bueno">
-                                    <div class="div-info-input">
-                                        <span id="spanSobrenome">
-                                            O campo sobrenome precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <label for="">Data de nascimento</label>
-                                    <div class="select-data-nasc justify-content-between">
-                                        <div>
-                                            <select name="diaNasc" id="diaNasc" onclick="cliqueSelect('diaNasc')">
-                                                <option value="" selected disabled>Dia</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <select name="mesNasc" id="mesNasc" onclick="cliqueSelect('mesNasc')">
-                                                <option value="" selected disabled>Mes</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <select name="anoNasc" id="anoNasc" onclick="cliqueSelect('anoNasc')">
-                                                <option value="" selected disabled>Ano</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="div-info-input">
-                                        <span id="spanDtNasc">
-                                                O campo data de nascimento precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="CPF">CPF</label>
-                                    <input type="text" id="CPF" placeholder="000.000.000-00">
-                                    <div class="div-info-input">
-                                        <span id="spanCPF">
-                                                O campo CPF precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <label for="RG">RG</label>
-                                    <input type="text" id="RG" placeholder="00.000.000-0">
-                                    <div class="div-info-input">
-                                        <span id="spanRG">
-                                                O campo RG precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <div class="options-gender">
-                                        <div class="row">
-                                            <div class="col-6 d-flex align-items-center">
-                                                <div class="option d-flex align-items-center" id="div-check-masc">    
-                                                    <div id="man">
-                                                        
-                                                    </div>
-                                                    <p for="masculino" class="float-left p-0 m-0 ml-3" id="pMan">Masculino</p>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-6 d-flex align-items-center">
-                                                    
-                                                    <div class="option d-flex align-items-center" id="div-check-fem">
-                                                    <div id="woman">
-                                            
-                                                    </div>
-                                                    <p for="feminino" class="float-left p-0 m-0 ml-3" id="pWoman">Feminino</p>
-                                                    
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                        <label for="feminino" id="checkboxFeminino" value="" hidden>feminino</label>
-                                        <input type="radio" name="genero" id="feminino" value="Feminino" hidden>
-                                        <label for="masculino" id="checkboxMasculino" value="" hidden>masculino</label>
-                                        <input type="radio" name="genero" id="masculino" value="Masculino" hidden>
-                                        
-                                    </div>
-                                    <script>
-                                        document.getElementById("div-check-masc").addEventListener("click", function(){
-                                            document.getElementById("checkboxMasculino").click();
-                                            document.getElementById("div-check-fem").style.backgroundColor = "#f6f8fa";
-                                            document.getElementById("div-check-masc").style.backgroundColor = "rgb(240, 240, 247)";
-                                        });
-                                        document.getElementById("div-check-fem").addEventListener("click", function(){
-                                            document.getElementById("checkboxFeminino").click();
-                                            document.getElementById("div-check-masc").style.backgroundColor = "#f6f8fa";
-                                            document.getElementById("div-check-fem").style.backgroundColor = "rgb(240, 240, 247)";
-                                        });
-                                    </script>
-                                    <div class="div-info-input">
-                                        <span id="spanSexo">
-                                                O campo sexo precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Segunda guia -->
-                    <div class="tab">
+
+                <!-- Primeira guia -->
+                <div class="tab">
                         <div class="row p-0 m-0 ">
                             <!-- 1ª Coluna --> 
                             <div class="col-md-6 p-0">
@@ -236,7 +198,7 @@
                                     <label for="CEP">CEP</label>
                                     <div class="pesquisa-cep">
                                         <div class="input-with-btn">
-                                            <input class="input-btn" type="text" id="CEP" placeholder="00000-000">
+                                            <input class="input-btn" type="text" id="CEP" placeholder="00000-000" value="88060231">
                                         </div>
                                         <div class="btn-with-input">
                                             <div class="btn-search" onclick="pesquisacep(CEP.value)">
@@ -256,16 +218,11 @@
                                                 O campo cidade precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <div class="select-estado">
-                                        <div>
-                                            <select name="estado" id="estado" onclick="cliqueSelect('estado')">
-                                                <option value="" selected disabled>Estado</option>
-                                            </select>
-                                        </div>  
-                                    </div>
+                                    <label for="estado">Estado</label>
+                                    <input type="text" id="estado" placeholder="Santa Catarina">
                                     <div class="div-info-input">
                                         <span id="spanEstado">
-                                                Escolha uma opção.
+                                                O campo estado precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -292,25 +249,32 @@
                             </div>
                         </div>
                     </div>
-            
-                    <!-- Terceira guia -->
+
+                    <!-- Segunda guia -->
                     <div class="tab">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna -->
+                        <div class="row p-0 m-0  ">
+                            <!-- 1ª Coluna --> 
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
-                                    <label for="email">E-mail</label>
-                                    <input type="text" id="email" placeholder="exemplo@exemplo.com">
+                                    <label for="dataInicio">Início das obras</label>
+                                    <input type="text" id="dataInicio" placeholder="00/00/0000">
                                     <div class="div-info-input">
-                                        <span id="spanEmail">
-                                                O campo e-mail precisa ser preenchido!
+                                        <span id="spanDataInicio">
+                                            O campo inicio das obras precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <label for="telefone">Telefone</label>
-                                    <input type="text" id="telefone" placeholder="(00) 0000-0000">
+                                    <label for="dataTermino">Previsão de término das obras</label>
+                                    <input type="text" id="dataTermino" placeholder="00/00/0000">
                                     <div class="div-info-input">
-                                        <span id="spanTelefone">
-                                                O campo telefone precisa ser preenchido!
+                                        <span id="spanDataTermino">
+                                            O campo previsão de termino das obras precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="previsaoEntrega">Previsão de entrega das obras</label>
+                                    <input type="text" id="previsaoEntrega" placeholder="00/00/0000">
+                                    <div class="div-info-input">
+                                        <span id="spanPrevisaoEntrega">
+                                            O campo entrega das obras precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -319,13 +283,38 @@
                             <!-- 2ª Coluna --> 
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
-                                    <label for="celular">Celular</label>
-                                    <input type="text" id="celular" placeholder="(00) 00000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanCelular">
-                                                O campo celular precisa ser preenchido!
-                                        </span>
-                                    </div>
+                                    <label for="" style="margin-bottom: 10px;">Adicionar funcionários a obra</label>
+                                    <label class="label-checkbox">Bárbara Martins
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Lucas Bueno
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Enzo Klin
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Terceira guia -->
+                    <div class="tab">
+                        <div class="row p-0 m-0 ">
+                            <!-- 1ª Coluna -->
+                            <div class="col-md-6 p-0">
+                                <div class="form-input margin-center">
+                                    Etapas
+                                </div>
+                            </div>
+            
+                            <!-- 2ª Coluna --> 
+                            <div class="col-md-6 p-0">
+                                <div class="form-input">
+                                   
                                 </div>
                             </div>
                         </div>
@@ -337,19 +326,22 @@
                             <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
-                                    <label for="salario">Salário</label>
-                                    <input type="text" id="salario" placeholder="0.000,00">
-                                    <div class="div-info-input">
-                                        <span id="spanSalario">
-                                                O campo salário precisa ser preenchido!
-                                        </span>
+                                    <label for="">Ferramentas</label>
+                                    <div id="cont1">
+                                        <div class="add-input">
+                                            <div class="material">
+                                                <input type="text" style="margin-bottom: 10px;" id="ferramenta" placeholder="Alicate">
+                                            </div>
+                                            <div class="qtd">
+                                                <input type="number" style="margin-bottom: 10px;" id="qtd-ferramenta" placeholder="0">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label for="dtAdmissao">Data de admissão</label>
-                                    <input type="text" id="dtAdmissao" placeholder="00/00/0000">
-                                    <div class="div-info-input">
-                                        <span id="spanDtAdmissao">
-                                                O campo data de adimissão precisa ser preenchido!
-                                        </span>
+                                    <div class="btn-input">
+                                        <div class="btn-add-input d-flex align-items-center justify-content-center" 
+                                        onclick="addFieldsFerramentas()">
+                                            Add <i class="fas fa-plus"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -357,28 +349,38 @@
                             <!-- 2ª Coluna --> 
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
-                                    <label for="celular">Número da carteira de trabalho</label>
-                                    <input type="text" id="celular" placeholder="(00) 00000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanCelular">
-                                                O campo número da carteira de trabalho precisa ser preenchido!
-                                        </span>
+                                    <label for="">Máquinas</label>
+                                    <div id="cont2">
+                                        <div class="add-input">
+                                            <div class="material">
+                                                <input type="text" style="margin-bottom: 10px;" id="ferramenta" placeholder="Alicate">
+                                            </div>
+                                            <div class="qtd">
+                                                <input type="number" style="margin-bottom: 10px;" id="qtd-ferramenta" placeholder="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-input">
+                                        <div class="btn-add-input d-flex align-items-center justify-content-center" 
+                                        onclick="addFieldsMaquinas()">
+                                            Add <i class="fas fa-plus"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div >
-                            <div style="width: 100%;">
-                                <div style="float: left;">
-                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior</button>
-                                </div>
-                                <div style="float: right;">
-                                    <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo</button>
-                                </div>
-                                <div style="clear: both;"></div>
+                    <div>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior</button>
                             </div>
+                            <div style="float: right;">
+                                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo</button>
+                            </div>
+                            <div style="clear: both;"></div>
                         </div>
+                    </div>
                 </div>
                 
                 <div style="text-align:center;margin-top:40px;">
@@ -392,11 +394,12 @@
     </div>
 
     <!-- Javascript -->
-    <script src="js/script.js"></script>
-    <script src="js/cep.js"></script>
-    <script src="js/data-nascimento.js"></script>
-    <script src="js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery/jquery.mask.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/cep.js"></script>
+    <script src="../js/inputs.js"></script>
+    <script src="../js/data-nascimento.js"></script>
+    <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery/jquery.mask.min.js"></script>
     <script type="text/javascript">
 		$(document).ready(function(){
             $("#CPF").mask("000.000.000-00")
@@ -405,7 +408,10 @@
 			$("#telefone").mask("(00) 0000-0000")
 			$("#salario").mask("999.999.990,00", {reverse: true})
 			$("#CEP").mask("00000-000")
-			$("#dataNascimento").mask("00/00/0000")
+            $("#dataNascimento").mask("00/00/0000")
+            $("#dataInicio").mask("00/00/0000")
+            $("#dataTermino").mask("00/00/0000")
+            $("#previsaoEntrega").mask("00/00/0000")
 			
 			$("#RG").mask("999.999.999-W", {
 				translation: {
