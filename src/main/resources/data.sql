@@ -1,0 +1,1 @@
+INSERT INTO ADMINISTRADOR VALUES(null,'Arquienge','G0ld3nc0d3','Administrador','Arquienge');

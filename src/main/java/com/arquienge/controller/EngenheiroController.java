@@ -1,7 +1,10 @@
 package com.arquienge.controller;
 
-import com.arquienge.model.Endereco;
-import com.arquienge.model.Engenheiro;
+import com.arquienge.DTO.FerramentasDto;
+import com.arquienge.DTO.MaquinasDto;
+import com.arquienge.config.Logado;
+import com.arquienge.config.LogadoEstatico;
+import com.arquienge.model.*;
 import com.arquienge.service.EnderecoService;
 import com.arquienge.service.EngenheiroService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -64,7 +70,9 @@ public class EngenheiroController {
         if (!success) {
             return this.viewLoginScreen(engenheiro);
         }
-        redirectAttributes.addFlashAttribute("engenheiro", engenheiro);
+        Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
+        LogadoEstatico.setEngenheiroLogado(logado);
+        redirectAttributes.addFlashAttribute("engenheiro", logado);
         return viewIndexScreenRedirect();
     }
 
@@ -77,8 +85,9 @@ public class EngenheiroController {
     @GetMapping("/index")
     public ModelAndView viewIndexScreen(ModelMap modelMap, @ModelAttribute("engenheiro") Engenheiro engenheiro){
         ModelAndView view = new ModelAndView("index");
-        Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
-        view.addObject("engenheiro", logado);
+        Logado logado = new Logado(false);
+        Optional<Engenheiro> logged = engenheiroService.selectById(logado.getId());
+        view.addObject("engenheiro", logged);
         return view;
     }
 
@@ -92,6 +101,27 @@ public class EngenheiroController {
         engenheiro.setEndereco(endereco);
         engenheiroService.saveEngenheiro(engenheiro);
         return "redirect:/login";
+    }
+
+    @GetMapping("/cadastroObra")
+    public ModelAndView showCreateForm() {
+        ModelAndView view = new ModelAndView("registrar/obra");
+        MaquinasDto maquinasDto = new MaquinasDto();
+        List<Maquina> maquinas = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            maquinas.add(new Maquina());
+        }
+        maquinasDto.setMaquinas(maquinas);
+
+//        MaquinasDto booksForm = new MaquinasDto();
+//
+//        for (int i = 1; i <= 3; i++) {
+//            booksForm.addMaquina(new Maquina());
+//        }
+//
+//        model.addAttribute("form", booksForm);
+        view.addObject("form", maquinasDto);
+        return view;
     }
 
 }
