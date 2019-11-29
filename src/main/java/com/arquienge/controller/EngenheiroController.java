@@ -107,20 +107,21 @@ public class EngenheiroController {
     public ModelAndView showCreateForm() {
         ModelAndView view = new ModelAndView("registrar/obra");
         MaquinasDto maquinasDto = new MaquinasDto();
+        FerramentasDto ferramentasDto = new FerramentasDto();
         List<Maquina> maquinas = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        List<Ferramenta> ferramentas = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
             maquinas.add(new Maquina());
+            maquinas.get(i-1).setCod_maquina(i);
         }
+        for(int i = 1; i <= 5; i++){
+            ferramentas.add(new Ferramenta());
+            ferramentas.get(i-1).setCod_ferramenta(i);
+        }
+        ferramentasDto.setFerramentas(ferramentas);
         maquinasDto.setMaquinas(maquinas);
-
-//        MaquinasDto booksForm = new MaquinasDto();
-//
-//        for (int i = 1; i <= 3; i++) {
-//            booksForm.addMaquina(new Maquina());
-//        }
-//
-//        model.addAttribute("form", booksForm);
         view.addObject("form", maquinasDto);
+        view.addObject("form2", ferramentasDto);
         return view;
     }
 

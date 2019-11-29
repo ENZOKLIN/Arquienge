@@ -52,4 +52,7 @@ public class Engenheiro extends Usuario {
     @JoinColumn(name = "proprietario_id")
     @ManyToOne
     private Proprietario proprietario;
+
+    @OneToMany(mappedBy = "engenheiro", cascade = CascadeType.ALL)
+    private List<Funcionario> funcionarios;
 }

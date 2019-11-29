@@ -104,4 +104,9 @@ public class Funcionario {
     @OneToMany(mappedBy = "funcionario")
     private List<Presenca> presencas;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "engenheiro_id")
+    private Engenheiro engenheiro;
+
 }

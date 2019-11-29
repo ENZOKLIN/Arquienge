@@ -3,8 +3,8 @@
 >
 <head>
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/form-ui.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/form-ui.css}">
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
@@ -92,7 +92,7 @@
 }
     </style>
 </head>
-<body>
+<body onload="this.ocultarInputsMaquinas()">
 
     <!--
         <i class="fas fa-bars"></i>
@@ -320,25 +320,27 @@
                     </div>
             
                     <!-- Terceira guia -->
-                    <div class="tab" th:object="${form}">
+                    <div class="tab" th:object="${form}" onload="ocultarInputsMaquinas()">
                         <div class="row p-0 m-0 ">
                             <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
-                                    <label for="ferramenta">Ferramentas</label>
+                                    <label th:for="${randomId}">Máquinas</label>
                                     <div id="cont1">
-                                        <div class="add-input" th:each="maquina, itemStat : *{maquinas}">
+                                        <div class="add-input" th:each="maquina, itemStat : *{maquinas}" th:id="'maquina'+ *{maquinas[__${itemStat.index}__].cod_maquina}">
+                                            <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
-                                                <input type="text" style="margin-bottom: 10px;" id="ferramenta" placeholder="Alicate">
+                                                <input type="text" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].modelo}" th:id="${randomId}" placeholder="Alicate">
                                             </div>
                                             <div class="qtd">
-                                                <input type="number" style="margin-bottom: 10px;" id="qtd-ferramenta" placeholder="0">
+                                                <input type="number" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].quantidade}" th:id="${quantidade}" placeholder="0">
                                             </div>
+                                            </th:block>
                                         </div>
                                     </div>
                                     <div class="btn-input">
                                         <div class="btn-add-input d-flex align-items-center justify-content-center" 
-                                        onclick="addFieldsFerramentas()">
+                                        onclick="addFieldsMaquinas()">
                                             Add <i class="fas fa-plus"></i>
                                         </div>
                                     </div>
@@ -347,21 +349,23 @@
             
                             <!-- 2ª Coluna --> 
                             <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="maquina">Máquinas</label>
-                                    <div id="cont2">
-                                        <div class="add-input">
+                                <div class="form-input" th:object="${form2}" onload="ocultarInputsFerramentas()">
+                                    <label th:for="${randomId}">Ferramentas</label>
+                                    <div id="cont2" onload="ocultarInputsFerramentas()">
+                                        <div class="add-input-2" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
+                                            <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
-                                                <input type="text" style="margin-bottom: 10px;" id="maquina" placeholder="Alicate">
+                                                <input type="text" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].ferramenta}" th:id="${randomId}" placeholder="Alicate">
                                             </div>
                                             <div class="qtd">
-                                                <input type="number" style="margin-bottom: 10px;" id="qtd-maquina" placeholder="0">
+                                                <input type="number" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].quantidade}" id="quantidade" th:id="${randomId}" placeholder="0">
                                             </div>
+                                            </th:block>
                                         </div>
                                     </div>
                                     <div class="btn-input">
                                         <div class="btn-add-input d-flex align-items-center justify-content-center" 
-                                        onclick="addFieldsMaquinas()">
+                                        onclick="addFieldsFerramentas()">
                                             Add <i class="fas fa-plus"></i>
                                         </div>
                                     </div>
@@ -394,12 +398,12 @@
     </div>
 
     <!-- Javascript -->
-    <script src="/js/script.js"></script>
-    <script src="/js/cep.js"></script>
-    <script src="/js/inputs.js"></script>
-    <script src="/js/data-nascimento.js"></script>
-    <script src="/js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/js/jquery/jquery.mask.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/cep.js}"></script>
+    <script th:src="@{/js/inputs.js}"></script>
+    <script th:src="@{/js/data-nascimento.js}"></script>
+    <script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/jquery/jquery.mask.min.js}"></script>
     <script type="text/javascript">
 		$(document).ready(function(){
             $("#CPF").mask("000.000.000-00")
@@ -525,6 +529,25 @@
             }
             //... and adds the "active" class on the current step:
             x[n].className += " active";
+        }
+        function ocultarInputsMaquinas()
+        {
+            ocultarInputsFerramentas();
+            for(i = 1; i <= 5; i++) {
+                if(i != 1){
+                var maquina = document.getElementById('maquina'+i);
+                maquina.style.display = 'none';
+                }
+            }
+        }
+        function ocultarInputsFerramentas()
+        {
+            for(i = 1; i <= 5; i++) {
+                if(i != 1){
+                    var ferramenta = document.getElementById('ferramenta'+i);
+                    ferramenta.style.display = 'none';
+                }
+            }
         }
     </script>
 </body>
