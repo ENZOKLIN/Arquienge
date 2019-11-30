@@ -1,5 +1,6 @@
 package com.arquienge.controller;
 
+import com.arquienge.model.Administrador;
 import com.arquienge.model.Endereco;
 import com.arquienge.model.Engenheiro;
 import com.arquienge.model.Proprietario;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -38,14 +40,22 @@ public class AdminController {
         return view;
     }
 
+    @GetMapping("/index-admin")
+    public ModelAndView viewIndexAdmin(Administrador admin){
+        ModelAndView view = new ModelAndView("admin/admin.html");
+        view.addObject("Admin", admin);
+        return view;
+    }
+
     @PostMapping("/cadastroProprietario")
-    public Object register(@Valid Proprietario proprietario, @Valid Endereco endereco, BindingResult result) throws IOException {
+    public Object register(@Valid Proprietario proprietario, @Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
         if (result.hasErrors()) {
-            return new ModelAndView("admin/cadastro-proprietario").addObject("Proprietario", proprietario).addObject("Endereco", endereco);
-        }
+            redirectAttributes.addFlashAttribute("messageFailure", "Erro ao cadastrar proprietário!");
+            return new ModelAndView("admin/cadastro-proprietario").addObject("Proprietario", proprietario).addObject("Endereco", endereco);  }
         enderecoService.saveEndereco(endereco);
         proprietario.setEndereco(endereco);
         proprietarioService.saveProprietario(proprietario);
-        return "redirect:/login";
+        redirectAttributes.addFlashAttribute("messageSucess", "Proprietário cadastrado com sucesso!");
+        return "redirect:/index-admin";
     }
 }

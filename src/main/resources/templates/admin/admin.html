@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <!-- CSS -->
-    <link rel="stylesheet" href="../../../../../../../Documents/Arquienge%20-%20Geral/telas-arquienge/css/style.css">
-    <link rel="stylesheet" href="../../../../../../../Documents/Arquienge%20-%20Geral/telas-arquienge/css/admin-style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-style.css}">
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" th:href="@{img/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" th:href="@{img/favicon-16x16.png}" sizes="16x16" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -37,10 +37,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 d-flex align-items-center justify-content-center ">
-                    <div class="menu-admin">    
+                    <div class="menu-admin">
                         <ul>
                             <li>
-                                <a href=""><i class="fas fa-plus" style="margin-right: 6px;"></i> Novo proprietário</a>
+                                <div th:if="${messageSucess != null}">
+                                   <span class="badge badge-success" th:text="${messageSucess}"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <a th:href="@{/cadastro-admin}"><i class="fas fa-plus" style="margin-right: 6px;"></i> Novo proprietário</a>
                             </li>
                             <li>
                                 <a href=""><i class="fas fa-edit"></i> Editar e excluir</a>
@@ -56,7 +61,7 @@
     </div>
 
     <!-- Javascript -->
-    <script src="../../../../../../../Documents/Arquienge%20-%20Geral/telas-arquienge/js/script.js"></script>
+    <script th:src="@{js/script.js}"></script>
 
 </body>
 </html>

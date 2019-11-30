@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" th:href="@{/img/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="@{/img/favicon-16x16.png}" sizes="16x16" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -113,13 +113,13 @@
             
         <div class="info-perfil">
             <div class="foto-perfil" id="fotoPerfil">
-                <img src="/img/user-profile-pic.jpg" alt="">
+                <img th:src="@{/img/user-profile-pic.jpg}" alt="">
             </div>
             <div class="nome-perfil" id="nomePerfl">
-                <h2>Enzo Klin</h2>
+                <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}"></h2>
             </div>
             <div class="cargo-perfil" id="cargoPerfil">
-                <h3>Administrador(a)</h3>
+                <h3>Engenheiro(a)</h3>
             </div>
         </div>
 
@@ -156,7 +156,7 @@
 
         <div class="notificacoes" id="notificacoes">
             <div class="notificacao">
-                <span>Bem vindo, Enzo!</span>
+                <span th:text="${'Bem vindo, '+ engenheiro.nome"}></span>
             </div>
         </div>
     </div>
@@ -171,16 +171,16 @@
                     <div class="info-registro">
                         <ul id="info-registro-ul">
                             <div class="progress-div div-in-progress">
-                                <li class="d-flex align-items-center in-progress"><img src="/img/in-progress-1.png" alt="">Local da obra</li>
+                                <li class="d-flex align-items-center in-progress"><img th:src="@{/img/in-progress-1.png}" alt="">Local da obra</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="/img/waiting-2.png" alt="">Dados da obra</li>
+                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-2.png}" alt="">Dados da obra</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="/img/waiting-3.png" alt="">Etapas</li>
+                                <li class="d-flex align-items-center"><img src="@{/img/waiting-3.png}" alt="">Etapas</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="/img/waiting-4.png" alt="">Materiais necessários</li>
+                                <li class="d-flex align-items-center"><img src="@{/img/waiting-4.png}" alt="">Materiais necessários</li>
                             </div>
                         </ul>
                     </div>
@@ -189,7 +189,7 @@
                 <!-- Formulários -->
 
                 <!-- Primeira guia -->
-                <div class="tab">
+                <div class="tab" th:object="${endereco}">
                         <div class="row p-0 m-0 ">
                             <!-- 1ª Coluna --> 
                             <div class="col-md-6 p-0">
@@ -197,7 +197,7 @@
                                     <label for="CEP">CEP</label>
                                     <div class="pesquisa-cep">
                                         <div class="input-with-btn">
-                                            <input class="input-btn" type="text" id="CEP" placeholder="00000-000" value="88060231">
+                                            <input class="input-btn" type="text" th:field="${endereco.cep}" id="CEP" placeholder="00000-000" value="88060231">
                                         </div>
                                         <div class="btn-with-input">
                                             <div class="btn-search" onclick="pesquisacep(CEP.value)">
@@ -211,14 +211,14 @@
                                         </p>
                                     </div>
                                     <label for="cidade">Cidade</label>
-                                    <input type="text" id="cidade" placeholder="Florianópolis">
+                                    <input type="text" id="cidade" th:field="${endereco.cidade}" placeholder="Florianópolis">
                                     <div class="div-info-input">
                                         <span id="spanCidade">
                                                 O campo cidade precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="estado">Estado</label>
-                                    <input type="text" id="estado" placeholder="Santa Catarina">
+                                    <input type="text" id="estado" th:field="${endereco.uf}" placeholder="Santa Catarina">
                                     <div class="div-info-input">
                                         <span id="spanEstado">
                                                 O campo estado precisa ser preenchido!
@@ -231,14 +231,14 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="bairro">Bairro</label>
-                                    <input type="text" id="bairro" placeholder="Rio vermelho">
+                                    <input type="text" id="bairro" th:field="${endereco.bairro}" placeholder="Rio vermelho">
                                     <div class="div-info-input">
                                         <span id="spanBairro">
                                                 O campo bairro precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="rua">Rua</label>
-                                    <input type="text" id="rua" placeholder="Maria Luz Silveira">
+                                    <input type="text" id="rua" th:field="${endereco.rua}" placeholder="Maria Luz Silveira">
                                     <div class="div-info-input">
                                         <span id="spanRua">
                                                 O campo rua precisa ser preenchido!
@@ -250,30 +250,30 @@
                     </div>
 
                     <!-- Segunda guia -->
-                    <div class="tab">
+                    <div class="tab" th:object="${obra}">
                         <div class="row p-0 m-0  ">
                             <!-- 1ª Coluna --> 
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
                                     <label for="dataInicio">Início das obras</label>
-                                    <input type="text" id="dataInicio" placeholder="00/00/0000">
+                                    <input type="text" th:field="${obra.dt_inicio}" id="dataInicio" placeholder="00/00/0000">
                                     <div class="div-info-input">
                                         <span id="spanDataInicio">
                                             O campo inicio das obras precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <label for="dataTermino">Previsão de término das obras</label>
-                                    <input type="text" id="dataTermino" placeholder="00/00/0000">
+                                    <label for="dataTermino">Data de Entrega da Obra</label>
+                                    <input type="text" th:field="${obra.dt_entrega}" id="dataTermino" placeholder="00/00/0000">
                                     <div class="div-info-input">
                                         <span id="spanDataTermino">
                                             O campo previsão de termino das obras precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <label for="previsaoEntrega">Previsão de entrega das obras</label>
-                                    <input type="text" id="previsaoEntrega" placeholder="00/00/0000">
+                                    <label for="nomeObra">Nome da Obra</label>
+                                    <input type="text" th:field="${obra.nome_obra}" id="nomeObra" placeholder="Nome da Obra">
                                     <div class="div-info-input">
-                                        <span id="spanPrevisaoEntrega">
-                                            O campo entrega das obras precisa ser preenchido!
+                                        <span id="spanNomeObra">
+                                            O campo nome da obra precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>

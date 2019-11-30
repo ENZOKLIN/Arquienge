@@ -31,4 +31,6 @@ public interface EngenheiroRepository extends JpaRepository<Engenheiro, Integer>
     @Query(value = "SELECT ENGENHEIRO.* FROM ENGENHEIRO, PROPRIETARIO WHERE ENGENHEIRO.ID_PROPRIETARIO = ?1 AND PROPRIETARIO.ID = ?1 AND ENGENHEIRO.ID_PROPRIETARIO = PROPRIETARIO.ID", nativeQuery = true)
     List<Engenheiro> findEngenheirosByProprietarioId(Integer id);
 
+    Engenheiro findEngenheiroByRg(String rg);
+
 }

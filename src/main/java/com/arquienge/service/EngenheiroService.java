@@ -39,6 +39,10 @@ public class EngenheiroService {
         engenheiroRepository.save(engenheiro);
     }
 
+    public Engenheiro findEngenheiroById(String rg){
+       return engenheiroRepository.findEngenheiroByRg(rg);
+    }
+
     public void deleteEngenheiroById(Integer id) {
         engenheiroRepository.deleteById(id);
     }
