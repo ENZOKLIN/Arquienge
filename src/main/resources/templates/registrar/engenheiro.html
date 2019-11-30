@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/form-ui.css">
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
@@ -19,7 +19,7 @@
     
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
-    <title>Registro de usuários | Arquinge</title>
+    <title>Registro de engenheiro | Arquienge</title>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
 
     <!-- BARRA TOPO -->
     <div class="barra-topo">
-        <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de funcionário</h4>
+        <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de engenheiro</h4>
     </div>
 
     <!-- CLOSE MENU BTN -->
@@ -105,12 +105,6 @@
                             <div class="progress-div">
                                 <li class="d-flex align-items-center"><img src="img/waiting-2.png" alt="">Endereço</li>
                             </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-3.png" alt="">Contato</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-4.png" alt="">Dados do funcionário</li>
-                            </div>
                         </ul>
                     </div>
                 </div>
@@ -118,126 +112,124 @@
                 <!-- Formulários -->
                     <!-- Primeira guia -->
                     <div class="tab">
-                        <div class="row p-0 m-0  ">
-                            <!-- 1ª Coluna --> 
+                        <div class="row p-0 m-0">
+                            <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
-                                    <div class="upload-photo">
-                                        <input type="file" name="" id="real-file" accept="image/*" onchange="loadFile(event)" hidden>
-                                        <div id="photo">
-                                            
-                                        </div>
-                                        <div class="button-upload" id="upload-button">
-                                            <i class="fas fa-image" style="margin-right: 4px;"></i> Procurar um arquivo
-                                        </div>
-                                        <span id="caminho-arquivo">
-                                            Nenhum arquivo selecionado.
-                                        </span>
-                                        <div style="clear: both;"></div>
-                                    </div>
-                                    <script type="text/javascript">
-                                        const realFileBtn = document.getElementById("real-file");
-                                        const uploadBtn = document.getElementById("upload-button");
-                                        const caminhoArquivo = document.getElementById("caminho-arquivo");
-                                        const photo = document.getElementById("photo");
-                                        uploadBtn.addEventListener("click", function(){
-                                            realFileBtn.click();
-                                        });
-                                        realFileBtn.addEventListener("change", function(){
-                                            if(realFileBtn.value){
-                                                caminhoArquivo.innerHTML = realFileBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-                                                var photo = document.getElementById('photo');
-                                                photo.style.backgroundImage = "url("+URL.createObjectURL(event.target.files[0])+")";
-                                            }else{
-                                                caminhoArquivo.innerHTML = "Nenhum arquivo selecionado.";
-                                            }
-                                        });
-                                    </script>
                                     <label for="nome">Nome</label>
-                                    <input type="text" id="nome" placeholder="Lucas">
+                                    <input type="text" id="nome" placeholder="Fulano">
                                     <div class="div-info-input">
                                         <span id="spanNome">
                                             O campo nome precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="sobrenome">Sobrenome</label>
-                                    <input type="text" id="sobrenome" placeholder="Bueno">
+                                    <input type="text" id="sobrenome" placeholder="de Tal">
                                     <div class="div-info-input">
                                         <span id="spanSobrenome">
                                             O campo sobrenome precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <label for="">Data de nascimento</label>
-                                    <div class="select-data-nasc justify-content-between">
-                                        <div>
-                                            <select name="diaNasc" id="diaNasc" onclick="cliqueSelect('diaNasc')">
-                                                <option value="" selected disabled>Dia</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <select name="mesNasc" id="mesNasc" onclick="cliqueSelect('mesNasc')">
-                                                <option value="" selected disabled>Mes</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <select name="anoNasc" id="anoNasc" onclick="cliqueSelect('anoNasc')">
-                                                <option value="" selected disabled>Ano</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <label for="telefone">Telefone</label>
+                                    <input type="text" id="telefone" placeholder="(00) 0000-0000">
                                     <div class="div-info-input">
-                                        <span id="spanDtNasc">
-                                                O campo data de nascimento precisa ser preenchido!
+                                        <span id="spanTelefone">
+                                            O campo telefone precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
                             </div>
-            
-                            <!-- 2ª Coluna --> 
+
+                            <!-- 2ª Coluna -->
+                            <div class="col-md-6 p-0">
+                                <div class="form-input">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" id="email" placeholder="example@example.com">
+                                    <div class="div-info-input">
+                                        <span id="spanEmail">
+                                            O campo e-mail precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="senha">Senha</label>
+                                    <input type="password" id="senha" placeholder="example" >
+                                    <div class="div-info-input">
+                                        <span id="spanSenha">
+                                            O campo senha precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
+                    <div class="tab">
+                        <div class="row p-0 m-0  ">
+                            1ª Coluna
+                            <div class="col-md-6 p-0">
+
+                            </div>
+                            2ª Coluna
+                            <div class="col-md-6 p-0">
+
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <div class="tab">
+                        <div class="row p-0 m-0  ">
+                            <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="CPF">CPF</label>
                                     <input type="text" id="CPF" placeholder="000.000.000-00">
                                     <div class="div-info-input">
                                         <span id="spanCPF">
-                                                O campo CPF precisa ser preenchido!
+                                            O campo CPF precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="RG">RG</label>
-                                    <input type="text" id="RG" placeholder="00.000.000-0">
+                                    <input type="text" id="RG" placeholder="000.000.000">
                                     <div class="div-info-input">
                                         <span id="spanRG">
-                                                O campo RG precisa ser preenchido!
+                                            O campo RG precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2ª Coluna -->
+                            <div class="col-md-6 p-0">
+                                <div class="form-input">
+                                    <label for="dataNascimento">Data de nascimento</label>
+                                    <input type="text" id="dataNascimento" placeholder="00/00/0000">
+                                    <div class="div-info-input">
+                                        <span id="spandataNascimento">
+                                            O campo CPF precisa ser preenchido!
                                         </span>
                                     </div>
                                     <div class="options-gender">
                                         <div class="row">
                                             <div class="col-6 d-flex align-items-center">
-                                                <div class="option d-flex align-items-center" id="div-check-masc">    
+                                                <div class="option d-flex align-items-center" id="div-check-masc">
                                                     <div id="man">
-                                                        
+
                                                     </div>
                                                     <p for="masculino" class="float-left p-0 m-0 ml-3" id="pMan">Masculino</p>
-                                                    
                                                 </div>
                                             </div>
                                             <div class="col-6 d-flex align-items-center">
-                                                    
-                                                    <div class="option d-flex align-items-center" id="div-check-fem">
+                                                <div class="option d-flex align-items-center" id="div-check-fem">
                                                     <div id="woman">
-                                            
+
                                                     </div>
                                                     <p for="feminino" class="float-left p-0 m-0 ml-3" id="pWoman">Feminino</p>
-                                                    
                                                 </div>
-                                            
                                             </div>
                                         </div>
                                         <label for="feminino" id="checkboxFeminino" value="" hidden>feminino</label>
                                         <input type="radio" name="genero" id="feminino" value="Feminino" hidden>
                                         <label for="masculino" id="checkboxMasculino" value="" hidden>masculino</label>
                                         <input type="radio" name="genero" id="masculino" value="Masculino" hidden>
-                                        
                                     </div>
                                     <script>
                                         document.getElementById("div-check-masc").addEventListener("click", function(){
@@ -260,11 +252,11 @@
                             </div>
                         </div>
                     </div>
-                
+
                     <!-- Segunda guia -->
                     <div class="tab">
                         <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna --> 
+                            <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
                                     <label for="CEP">CEP</label>
@@ -290,13 +282,8 @@
                                                 O campo cidade precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <div class="select-estado">
-                                        <div>
-                                            <select name="estado" id="estado" onclick="cliqueSelect('estado')">
-                                                <option value="" selected disabled>Estado</option>
-                                            </select>
-                                        </div>  
-                                    </div>
+                                    <label for="estado">Estado</label>
+                                    <input type="text" id="estado" placeholder="SC">
                                     <div class="div-info-input">
                                         <span id="spanEstado">
                                                 Escolha uma opção.
@@ -304,8 +291,8 @@
                                     </div>
                                 </div>
                             </div>
-            
-                            <!-- 2ª Coluna --> 
+
+                            <!-- 2ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="bairro">Bairro</label>
@@ -326,82 +313,7 @@
                             </div>
                         </div>
                     </div>
-            
-                    <!-- Terceira guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna -->
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="email">E-mail</label>
-                                    <input type="text" id="email" placeholder="exemplo@exemplo.com">
-                                    <div class="div-info-input">
-                                        <span id="spanEmail">
-                                                O campo e-mail precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <label for="telefone">Telefone</label>
-                                    <input type="text" id="telefone" placeholder="(00) 0000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanTelefone">
-                                                O campo telefone precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="celular">Celular</label>
-                                    <input type="text" id="celular" placeholder="(00) 00000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanCelular">
-                                                O campo celular precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- Terceira guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna -->
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="salario">Salário</label>
-                                    <input type="text" id="salario" placeholder="0.000,00">
-                                    <div class="div-info-input">
-                                        <span id="spanSalario">
-                                                O campo salário precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <label for="dtAdmissao">Data de admissão</label>
-                                    <input type="text" id="dtAdmissao" placeholder="00/00/0000">
-                                    <div class="div-info-input">
-                                        <span id="spanDtAdmissao">
-                                                O campo data de adimissão precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="celular">Número da carteira de trabalho</label>
-                                    <input type="text" id="celular" placeholder="(00) 00000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanCelular">
-                                                O campo número da carteira de trabalho precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div >
                             <div style="width: 100%;">
                                 <div style="float: left;">
