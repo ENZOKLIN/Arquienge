@@ -6,14 +6,15 @@ import com.arquienge.config.Logado;
 import com.arquienge.config.LogadoEstatico;
 import com.arquienge.model.*;
 import com.arquienge.service.*;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -39,14 +40,17 @@ public class EngenheiroController {
     private final FerramentaService ferramentaService;
     @Autowired
     private final ObraService obraService;
+    @Autowired
+    private final ProprietarioService proprietarioService;
 
 
-    public EngenheiroController(EngenheiroService engenheiroService, EnderecoService enderecoService, MaquinaService maquinaService, ObraService obraService, FerramentaService ferramentaService) {
+    public EngenheiroController(EngenheiroService engenheiroService, EnderecoService enderecoService, MaquinaService maquinaService, ObraService obraService, FerramentaService ferramentaService, ProprietarioService proprietarioService) {
         this.engenheiroService = engenheiroService;
         this.maquinaService = maquinaService;
         this.enderecoService = enderecoService;
         this.obraService = obraService;
         this.ferramentaService = ferramentaService;
+        this.proprietarioService = proprietarioService;
     }
 
     @GetMapping("/cadastroEngenheiro")
@@ -58,29 +62,41 @@ public class EngenheiroController {
     }
 
     @GetMapping("/login")
-    public ModelAndView viewLoginScreen(Engenheiro engenheiro) {
-        ModelAndView view = new ModelAndView("login");
-        view.addObject("Engenheiro", engenheiro);
+    public ModelAndView viewLoginScreen() {
+        ModelAndView view = new ModelAndView("login-new");
+        Engenheiro engenheiro = new Engenheiro();
+        Proprietario proprietario = new Proprietario();
+        view.addObject("engenheiro", engenheiro);
+        view.addObject("proprietario", proprietario);
         return view;
     }
 
     @PostMapping("/login")
-    public Object authenticate(@Valid Engenheiro engenheiro, BindingResult result, RedirectAttributes redirectAttributes) {
+    public Object authenticate(@RequestParam String type, Engenheiro engenheiro, Proprietario proprietario, BindingResult result, RedirectAttributes redirectAttributes) {
         boolean success = false;
-
-        for (Engenheiro u : engenheiroService.selectAll()) {
-            if (engenheiro.getEmail().equals(u.getEmail()) && engenheiro.getSenha().equals(u.getSenha())) {
-                success = true;
-                break;
+        if (type == "engenheiro") {
+            for (Engenheiro u : engenheiroService.selectAll()) {
+                if (engenheiro.getEmail().equals(u.getEmail()) && engenheiro.getSenha().equals(u.getSenha())) {
+                    success = true;
+                    break;
+                }
             }
+            Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
+            LogadoEstatico.setEngenheiroLogado(logado);
+        } else {
+            for (Proprietario p : proprietarioService.selectAll()) {
+                if (proprietario.getEmail().equals(p.getEmail()) && proprietario.getSenha().equals(p.getSenha())) {
+                    success = true;
+                    break;
+                }
+            }
+            Proprietario logado = proprietarioService.findProprietarioByEmaileSenha(proprietario.getEmail(), proprietario.getSenha());
+            LogadoEstatico.setProprietarioLogado(logado);
         }
 
         if (!success) {
-            return this.viewLoginScreen(engenheiro);
+            return this.viewLoginScreen();
         }
-        Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
-        LogadoEstatico.setEngenheiroLogado(logado);
-        redirectAttributes.addFlashAttribute("engenheiro", logado);
         return viewIndexScreenRedirect();
     }
 
@@ -91,12 +107,18 @@ public class EngenheiroController {
     }
 
     @GetMapping("/index")
-    public ModelAndView viewIndexScreen(ModelMap modelMap, @ModelAttribute("engenheiro") Engenheiro engenheiro){
+    public ModelAndView viewIndexScreen() {
         ModelAndView view = new ModelAndView("index");
-        Logado logado = new Logado(false);
-        Optional<Engenheiro> logged = engenheiroService.selectById(logado.getId());
-        Engenheiro engenheiro1 = (Engenheiro) logged.get();
-        view.addObject("engenheiro", engenheiro1);
+        if (LogadoEstatico.prop != true) {
+            Logado logado = new Logado(false);
+            Optional<Engenheiro> logged = engenheiroService.selectById(logado.getId());
+            Engenheiro engenheiro = (Engenheiro) logged.get();
+            view.addObject("engenheiro", engenheiro);
+        }
+        Logado logado = new Logado(true);
+        Optional<Proprietario> logged = proprietarioService.selectById(logado.getId());
+        Proprietario proprietario = (Proprietario) logged.get();
+        view.addObject("proprietario", proprietario);
         return view;
     }
 
@@ -114,7 +136,7 @@ public class EngenheiroController {
 
     @GetMapping("/cadastroObra")
     public ModelAndView showCreateForm() {
-        if(LogadoEstatico.getId() != null) {
+        if (LogadoEstatico.prop != true) {
             ModelAndView view = new ModelAndView("registrar/obra");
             MaquinasDto maquinasDto = new MaquinasDto();
             FerramentasDto ferramentasDto = new FerramentasDto();
@@ -133,40 +155,45 @@ public class EngenheiroController {
             Obra obra = new Obra();
             Endereco endereco = new Endereco();
             Logado logado = new Logado(false);
-            Engenheiro engenheiro = engenheiroService.findEngenheiroById(logado.getRg());
-            view.addObject("Engenheiro", engenheiro);
-            view.addObject("Endereco", endereco);
-            view.addObject("Obra", obra);
+            Optional<Engenheiro> engenheiro = engenheiroService.selectById(LogadoEstatico.getId());
+            Engenheiro engenheiro1 = (Engenheiro) engenheiro.get();
+            view.addObject("engenheiro", engenheiro1);
+            view.addObject("endereco", endereco);
+            view.addObject("obra", obra);
             view.addObject("form", maquinasDto);
             view.addObject("form2", ferramentasDto);
             return view;
+        } else if(LogadoEstatico.prop){
+            return new ModelAndView("/index");
         }
-        else{
-            return new ModelAndView("/login");
-        }
+        return new ModelAndView("/login");
     }
 
     @PostMapping("/cadastroObra")
-    public Object createObra(@ModelAttribute MaquinasDto form, @ModelAttribute FerramentasDto form2, Obra obra, Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes){
-        if(result.hasErrors()){
+    public Object createObra(@ModelAttribute MaquinasDto form, @ModelAttribute FerramentasDto form2, Obra obra, Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
             redirectAttributes.addAttribute("messageFailure", "Obra não pode ser cadastrada!");
             return "redirect:/cadastroObra";
         }
 
-        for(Maquina maquina : form.getMaquinas()){
-            maquinaService.saveMaquina(maquina);
-        }
-        for(Ferramenta ferramenta : form2.getFerramentas()){
-            ferramentaService.saveFerramenta(ferramenta);
-        }
-
         Logado logado = new Logado(false);
-        if(LogadoEstatico.getId() != null) {
-            obra.setEngenheiro(engenheiroService.findEngenheiroById(logado.getRg()));
+        if (LogadoEstatico.getId() != null) {
+            Optional<Engenheiro> engenheiro = engenheiroService.selectById(logado.getId());
+            Engenheiro logged = (Engenheiro) engenheiro.get();
+            obra.setEngenheiro(logged);
             obra.setEndereco(endereco);
+            enderecoService.saveEndereco(endereco);
             obraService.saveObra(obra);
+            for (Maquina maquina : form.getMaquinas()) {
+                maquina.setObra(obra);
+                maquinaService.saveMaquina(maquina);
+            }
+            for (Ferramenta ferramenta : form2.getFerramentas()) {
+                ferramenta.setObra(obra);
+                ferramentaService.saveFerramenta(ferramenta);
+            }
             redirectAttributes.addAttribute("messageSucess", "Obra salva com sucesso!");
-            return "/cadastroObra";
+            return this.showCreateForm();
         }
         return "redirect:/login";
     }

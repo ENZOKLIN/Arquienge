@@ -59,3 +59,10 @@ function addFieldsMaquinas(){
     cont.appendChild(container);
 
 }
+function addFieldsMaquinas(){
+
+    var inputs = document.getElementsByClassName("add-input");
+    for(i = 1; i<=5; i++){
+        inputs[i].style.display = 'block';
+    }
+}

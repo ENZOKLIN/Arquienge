@@ -92,7 +92,7 @@
 }
     </style>
 </head>
-<body onload="this.ocultarInputsMaquinas()">
+<body>
 
     <!--
         <i class="fas fa-bars"></i>
@@ -156,7 +156,7 @@
 
         <div class="notificacoes" id="notificacoes">
             <div class="notificacao">
-                <span th:text="${'Bem vindo, '+ engenheiro.nome"}></span>
+                <span></span>
             </div>
         </div>
     </div>
@@ -177,15 +177,15 @@
                                 <li class="d-flex align-items-center"><img th:src="@{/img/waiting-2.png}" alt="">Dados da obra</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="@{/img/waiting-3.png}" alt="">Etapas</li>
+                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-3.png}" alt="">Etapas</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="@{/img/waiting-4.png}" alt="">Materiais necessários</li>
+                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-4.png}" alt="">Materiais necessários</li>
                             </div>
                         </ul>
                     </div>
                 </div>
-            <form action="" id="regForm" class="col-md-8 p-0">
+            <form th:action="@{/cadastroObra}" method="post" id="regForm" class="col-md-8 p-0">
                 <!-- Formulários -->
 
                 <!-- Primeira guia -->
@@ -320,7 +320,7 @@
                     </div>
             
                     <!-- Terceira guia -->
-                    <div class="tab" th:object="${form}" onload="ocultarInputsMaquinas()">
+                    <div class="tab" th:object="${form}" onload="">
                         <div class="row p-0 m-0 ">
                             <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
@@ -340,7 +340,7 @@
                                     </div>
                                     <div class="btn-input">
                                         <div class="btn-add-input d-flex align-items-center justify-content-center" 
-                                        onclick="addFieldsMaquinas()">
+                                        onclick="">
                                             Add <i class="fas fa-plus"></i>
                                         </div>
                                     </div>
@@ -349,9 +349,9 @@
             
                             <!-- 2ª Coluna --> 
                             <div class="col-md-6 p-0">
-                                <div class="form-input" th:object="${form2}" onload="ocultarInputsFerramentas()">
+                                <div class="form-input" th:object="${form2}" onload="">
                                     <label th:for="${randomId}">Ferramentas</label>
-                                    <div id="cont2" onload="ocultarInputsFerramentas()">
+                                    <div id="cont2" onload="">
                                         <div class="add-input-2" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
                                             <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
@@ -365,7 +365,7 @@
                                     </div>
                                     <div class="btn-input">
                                         <div class="btn-add-input d-flex align-items-center justify-content-center" 
-                                        onclick="addFieldsFerramentas()">
+                                        onclick="">
                                             Add <i class="fas fa-plus"></i>
                                         </div>
                                     </div>
@@ -401,7 +401,6 @@
     <script th:src="@{/js/script.js}"></script>
     <script th:src="@{/js/cep.js}"></script>
     <script th:src="@{/js/inputs.js}"></script>
-    <script th:src="@{/js/data-nascimento.js}"></script>
     <script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/js/jquery/jquery.mask.min.js}"></script>
     <script type="text/javascript">

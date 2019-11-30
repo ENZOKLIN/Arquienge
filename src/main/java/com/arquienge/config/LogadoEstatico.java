@@ -12,6 +12,7 @@ import java.util.List;
 
 @NoRepositoryBean
 @AllArgsConstructor
+@Getter
 public abstract class LogadoEstatico {
 
     @Getter public static Integer id;
@@ -25,6 +26,7 @@ public abstract class LogadoEstatico {
     @Getter public static Endereco endereco;
     @Getter public static Obra obra;
     @Getter public static List<Engenheiro> engenheiros;
+    @Getter public static boolean prop;
 
     public static void setEngenheiroLogado(Engenheiro engenheiro) {
         id = engenheiro.getId_engenheiro();
@@ -37,6 +39,7 @@ public abstract class LogadoEstatico {
         nascimento = engenheiro.getNascimento();
         endereco = engenheiro.getEndereco();
         obra = engenheiro.getObra();
+        prop = false;
     }
 
     public static void setProprietarioLogado(Proprietario proprietario) {
@@ -50,6 +53,7 @@ public abstract class LogadoEstatico {
         nascimento = proprietario.getNascimento();
         endereco = proprietario.getEndereco();
         engenheiros = proprietario.getEngenheiros();
+        prop = true;
     }
     public static void desconectar() {
         id = 0;
@@ -63,6 +67,7 @@ public abstract class LogadoEstatico {
         endereco = null;
         obra = null;
         engenheiros = null;
+        prop = false;
     }
 
 }
