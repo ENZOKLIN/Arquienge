@@ -1,0 +1,132 @@
+* {
+  font-family: 'Helvetica  Neue', 'Helvetica', Neue;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #8195b4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+          box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.barra-topo {
+  position: relative;
+  padding: 130px 10px 10px 10px;
+  background: rgb(255,0,204);
+  background: linear-gradient(90deg, rgba(255,0,204,1) 0%, rgba(51,51,153,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff00cc",endColorstr="#333399",GradientType=1);
+}
+
+.barra-topo .menu-barra .btn-form {
+  padding: 10px 25px;
+  display: inline-block;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 3px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.barra-topo .menu-barra .btn-form:hover {
+  background: #333399;
+}
+
+.barra-topo .title-login h2 {
+  color: #FFF;
+  font-weight: bold;
+  font-size: 42px;
+}
+
+.div-form {
+  margin-top: 10px;
+}
+
+.div-form label {
+  display: block;
+  font-size: 18px;
+  color: #4a287a;
+}
+
+.div-form input {
+  display: block;
+  width: 100%;
+  border: 1px solid #e0d3f1;
+  border-radius: 3px;
+  padding: 8px 10px;
+  color: #8195b4;
+  margin-bottom: 10px;
+}
+
+.div-form input:focus {
+  outline: none;
+}
+
+.div-form input::-webkit-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form input:-ms-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form input::-ms-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form input::placeholder {
+  color: #8195b4;
+}
+
+.div-form button {
+  background-color: #ff7fe5;
+  padding: 8px 10px;
+  color: #FFF;
+  text-align: left;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.div-form button:hover {
+  background-color: #333399;
+}
+
+.div-form button:focus {
+  outline: none;
+}
+
+.div-form h2 {
+  line-height: 34px;
+  padding: 0px;
+  font-weight: bold;
+  color: #327cb8;
+}
+
+.div-form p {
+  font-size: 20px;
+  color: #8195b4;
+  font-weight: bold;
+}
+
+.div-active {
+  background: #cc00a3;
+}
+
+#tab-2 {
+  display: none;
+}

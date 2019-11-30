@@ -1,9 +1,12 @@
 package com.arquienge.controller;
 
+import com.arquienge.config.Admin;
+import com.arquienge.config.AdminEstatico;
+import com.arquienge.config.LogadoEstatico;
 import com.arquienge.model.Administrador;
 import com.arquienge.model.Endereco;
-import com.arquienge.model.Engenheiro;
 import com.arquienge.model.Proprietario;
+import com.arquienge.service.AdministradorService;
 import com.arquienge.service.EnderecoService;
 import com.arquienge.service.ProprietarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +28,40 @@ public class AdminController {
     private final ProprietarioService proprietarioService;
     @Autowired
     private final EnderecoService enderecoService;
+    @Autowired
+    private final AdministradorService administradorService;
 
-    public AdminController(ProprietarioService proprietarioService, EnderecoService enderecoService) {
+    public AdminController(ProprietarioService proprietarioService, EnderecoService enderecoService, AdministradorService administradorService) {
         this.proprietarioService = proprietarioService;
         this.enderecoService = enderecoService;
+        this.administradorService = administradorService;
     }
 
 
     @GetMapping("/cadastro-admin")
     public ModelAndView viewFormTest(Proprietario proprietario, Endereco endereco){
-        ModelAndView view = new ModelAndView("admin/cadastro-proprietario.html");
-        view.addObject("Endereco", endereco);
-        view.addObject("Proprietario", proprietario);
-        return view;
+        if(AdminEstatico.getNome() != null) {
+            if (AdminEstatico.getId() != 0 && AdminEstatico.getUsuario() != null){
+                ModelAndView view = new ModelAndView("admin/cadastro-proprietario.html");
+                view.addObject("Endereco", endereco);
+                view.addObject("Proprietario", proprietario);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/index-admin");
     }
 
     @GetMapping("/index-admin")
     public ModelAndView viewIndexAdmin(Administrador admin){
-        ModelAndView view = new ModelAndView("admin/admin.html");
-        view.addObject("Admin", admin);
-        return view;
+        if(AdminEstatico.getSenha() != null) {
+            if (AdminEstatico.getId() != 0 && AdminEstatico.getUsuario() != null && AdminEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("admin/admin.html");
+                view.addObject("Admin", admin);
+                return view;
+            }
+        }
+                return new ModelAndView("redirect:/login-admin");
+
     }
 
     @PostMapping("/cadastroProprietario")
@@ -57,5 +74,37 @@ public class AdminController {
         proprietarioService.saveProprietario(proprietario);
         redirectAttributes.addFlashAttribute("messageSucess", "Proprietário cadastrado com sucesso!");
         return "redirect:/index-admin";
+    }
+
+    @GetMapping("/login-admin")
+    public ModelAndView viewLoginAdmin(){
+        Administrador admin = new Administrador();
+        ModelAndView view = new ModelAndView("admin/login-admin.html");
+        view.addObject("admin", admin);
+        return view;
+    }
+
+    @PostMapping("/login-admin")
+    public Object login(@Valid Administrador admin, BindingResult result, RedirectAttributes redirectAttributes){
+        if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("messageFailure", "Erro ao efetuar login");
+            return new ModelAndView("redirect:/login-admin");
+        }
+       Administrador adminlogin = administradorService.getByUsuarioAndSenha(admin.getUsuario(), admin.getSenha());
+       if(adminlogin != null){
+           AdminEstatico.setAdminLogado(adminlogin);
+           redirectAttributes.addFlashAttribute("messageSucess", "Bem vindo ao Sistema");
+           return "redirect:/index-admin";
+       }
+       redirectAttributes.addFlashAttribute("messageFailure", "Credenciais Inválidas");
+       return new ModelAndView("redirect:/login-admin");
+
+    }
+
+    @GetMapping("/logout-admin")
+    public ModelAndView logoutAdmin(RedirectAttributes redirectAttributes){
+        AdminEstatico.desconectar();
+        redirectAttributes.addFlashAttribute("aditionalMessage", "Você acabou de sair de sua conta.");
+        return new ModelAndView("redirect:/login-admin");
     }
 }

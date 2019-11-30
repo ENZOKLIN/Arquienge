@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/login-administrador.css}">
+    <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" th:href="@{img/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" th:href="@{img/favicon-16x16.png}" sizes="16x16" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
+
+    <!-- Loading Button CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/loading.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/loading-btn.css}"/>
+
+    <title>Admin | Arquienge</title>
+</head>
+<body>
+
+<div class="barra-topo container-fluid">
+
+    <div class="container title-login">
+        <h2>Login</h2>
+    </div>
+
+    <!--
+
+    -->
+
+    <div class="container menu-barra">
+        <div class="btn-form div-active" id="btn-proprietario">
+            Administrador
+        </div>
+    </div>
+</div>
+
+<div id="tab-1">
+    <div class="container div-form">
+        <div class="row">
+            <div class="col-md-4">
+                <form action="/login-admin" method="POST" th:object="${admin}">
+                    <div>
+                        <input type="text" name="usuario" th:field="${admin.usuario}" id="usuarioAdmin" placeholder="Usuário">
+                    </div>
+                    <div>
+                        <input type="password" name="senha" th:field="${admin.senha}" id="senhaAdmin" placeholder="Senha">
+                    </div>
+                    <div>
+                        <button type="submit" id="btn-p" class="ld-ext-right"
+                                onclick="btnLoadingProprietario()">
+                            Entrar
+                            <i id="arrow-right-proprietario" class="fas fa-arrow-right" style="text-align: right; display: block; float: right; margin-top: 3px;"></i>
+                            <div class="ld ld-ring ld-spin"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <h2>Arquienge, um software feito sob medida para a sua obra.</h2>
+                <p>Faça login como Administrador.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/btn-loading.js}"></script>
+
+</body>
+</html>

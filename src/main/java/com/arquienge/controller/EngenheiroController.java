@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -74,7 +71,7 @@ public class EngenheiroController {
     @PostMapping("/login")
     public Object authenticate(@RequestParam String type, Engenheiro engenheiro, Proprietario proprietario, BindingResult result, RedirectAttributes redirectAttributes) {
         boolean success = false;
-        if (type == "engenheiro") {
+        if (type.equals("engenheiro")) {
             for (Engenheiro u : engenheiroService.selectAll()) {
                 if (engenheiro.getEmail().equals(u.getEmail()) && engenheiro.getSenha().equals(u.getSenha())) {
                     success = true;
@@ -83,7 +80,7 @@ public class EngenheiroController {
             }
             Engenheiro logado = engenheiroService.findEngenheiroByEmailandSenha(engenheiro.getEmail(), engenheiro.getSenha());
             LogadoEstatico.setEngenheiroLogado(logado);
-        } else {
+        } else if (type.equals("proprietario")) {
             for (Proprietario p : proprietarioService.selectAll()) {
                 if (proprietario.getEmail().equals(p.getEmail()) && proprietario.getSenha().equals(p.getSenha())) {
                     success = true;
@@ -108,20 +105,24 @@ public class EngenheiroController {
 
     @GetMapping("/index")
     public ModelAndView viewIndexScreen() {
-        ModelAndView view = new ModelAndView("index");
-        if (LogadoEstatico.prop != true) {
-            Logado logado = new Logado(false);
-            Optional<Engenheiro> logged = engenheiroService.selectById(logado.getId());
-            Engenheiro engenheiro = (Engenheiro) logged.get();
-            view.addObject("engenheiro", engenheiro);
+        if(LogadoEstatico.getEmail() != null) {
+            ModelAndView view = new ModelAndView("index");
+            if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
+                Logado logado = new Logado(false);
+                Optional<Engenheiro> logged = engenheiroService.selectById(logado.getId());
+                Engenheiro engenheiro = (Engenheiro) logged.get();
+                view.addObject("engenheiro", engenheiro);
+                return view;
+            } else if (LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
+                Logado logado = new Logado(true);
+                Optional<Proprietario> logged = proprietarioService.selectById(logado.getId());
+                Proprietario proprietario = (Proprietario) logged.get();
+                view.addObject("proprietario", proprietario);
+                return view;
+            }
         }
-        Logado logado = new Logado(true);
-        Optional<Proprietario> logged = proprietarioService.selectById(logado.getId());
-        Proprietario proprietario = (Proprietario) logged.get();
-        view.addObject("proprietario", proprietario);
-        return view;
+            return new ModelAndView("redirect:/login");
     }
-
 
     @PostMapping("/cadastroEngenheiro")
     public Object register(@Valid Engenheiro engenheiro, @Valid Endereco endereco, BindingResult result) throws IOException {
@@ -136,37 +137,39 @@ public class EngenheiroController {
 
     @GetMapping("/cadastroObra")
     public ModelAndView showCreateForm() {
-        if (LogadoEstatico.prop != true) {
-            ModelAndView view = new ModelAndView("registrar/obra");
-            MaquinasDto maquinasDto = new MaquinasDto();
-            FerramentasDto ferramentasDto = new FerramentasDto();
-            List<Maquina> maquinas = new ArrayList<>();
-            List<Ferramenta> ferramentas = new ArrayList<>();
-            for (int i = 1; i <= 5; i++) {
-                maquinas.add(new Maquina());
-                maquinas.get(i - 1).setCod_maquina(i);
+        if (LogadoEstatico.getEmail() != null) {
+            if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
+                ModelAndView view = new ModelAndView("registrar/obra");
+                MaquinasDto maquinasDto = new MaquinasDto();
+                FerramentasDto ferramentasDto = new FerramentasDto();
+                List<Maquina> maquinas = new ArrayList<>();
+                List<Ferramenta> ferramentas = new ArrayList<>();
+                for (int i = 1; i <= 5; i++) {
+                    maquinas.add(new Maquina());
+                    maquinas.get(i - 1).setCod_maquina(i);
+                }
+                for (int i = 1; i <= 5; i++) {
+                    ferramentas.add(new Ferramenta());
+                    ferramentas.get(i - 1).setCod_ferramenta(i);
+                }
+                ferramentasDto.setFerramentas(ferramentas);
+                maquinasDto.setMaquinas(maquinas);
+                Obra obra = new Obra();
+                Endereco endereco = new Endereco();
+                Logado logado = new Logado(false);
+                Optional<Engenheiro> engenheiro = engenheiroService.selectById(LogadoEstatico.getId());
+                Engenheiro engenheiro1 = (Engenheiro) engenheiro.get();
+                view.addObject("engenheiro", engenheiro1);
+                view.addObject("endereco", endereco);
+                view.addObject("obra", obra);
+                view.addObject("form", maquinasDto);
+                view.addObject("form2", ferramentasDto);
+                return view;
+            } else if (LogadoEstatico.prop && LogadoEstatico.getId() != null) {
+                return new ModelAndView("redirect:/index");
             }
-            for (int i = 1; i <= 5; i++) {
-                ferramentas.add(new Ferramenta());
-                ferramentas.get(i - 1).setCod_ferramenta(i);
-            }
-            ferramentasDto.setFerramentas(ferramentas);
-            maquinasDto.setMaquinas(maquinas);
-            Obra obra = new Obra();
-            Endereco endereco = new Endereco();
-            Logado logado = new Logado(false);
-            Optional<Engenheiro> engenheiro = engenheiroService.selectById(LogadoEstatico.getId());
-            Engenheiro engenheiro1 = (Engenheiro) engenheiro.get();
-            view.addObject("engenheiro", engenheiro1);
-            view.addObject("endereco", endereco);
-            view.addObject("obra", obra);
-            view.addObject("form", maquinasDto);
-            view.addObject("form2", ferramentasDto);
-            return view;
-        } else if(LogadoEstatico.prop){
-            return new ModelAndView("/index");
         }
-        return new ModelAndView("/login");
+        return new ModelAndView("redirect:/login");
     }
 
     @PostMapping("/cadastroObra")
@@ -196,5 +199,13 @@ public class EngenheiroController {
             return this.showCreateForm();
         }
         return "redirect:/login";
+    }
+
+    @GetMapping(value = "/logout/{id}")
+    public ModelAndView logout(@PathVariable Integer id,
+                               RedirectAttributes redirectAttributes) {
+        LogadoEstatico.desconectar();
+        redirectAttributes.addFlashAttribute("aditionalMessage", "Você acabou de sair de sua conta.");
+        return new ModelAndView("redirect:/login");
     }
 }

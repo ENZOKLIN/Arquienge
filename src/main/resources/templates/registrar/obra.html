@@ -139,7 +139,7 @@
         </div>
         <div class="menu-ul">
             <ul>
-                <li><a href="">Sair</a></li>
+                <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
             </ul>
         </div>
         <div class="menu-ul">
