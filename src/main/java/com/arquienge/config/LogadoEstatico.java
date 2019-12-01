@@ -24,7 +24,7 @@ public abstract class LogadoEstatico {
     @Getter public static String rg;
     @Getter public static Date nascimento;
     @Getter public static Endereco endereco;
-    @Getter public static Obra obra;
+    @Getter public static List<Obra> obras;
     @Getter public static List<Engenheiro> engenheiros;
     @Getter public static boolean prop;
 
@@ -38,7 +38,7 @@ public abstract class LogadoEstatico {
         rg = engenheiro.getRg();
         nascimento = engenheiro.getNascimento();
         endereco = engenheiro.getEndereco();
-        obra = engenheiro.getObra();
+        obras = engenheiro.getObras();
         prop = false;
     }
 
@@ -65,7 +65,7 @@ public abstract class LogadoEstatico {
         rg = null;
         nascimento = null;
         endereco = null;
-        obra = null;
+        obras = null;
         engenheiros = null;
         prop = false;
     }

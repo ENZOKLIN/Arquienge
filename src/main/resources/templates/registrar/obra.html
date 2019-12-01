@@ -186,6 +186,12 @@
                     </div>
                 </div>
             <form th:action="@{/cadastroObra}" method="post" id="regForm" class="col-md-8 p-0">
+                <div class="alert alert-danger" role="alert" th:if="${messageError != null}">
+                    <span th:text="${messageError}"></span>
+                </div>
+                <div class="alert alert-sucess" role="alert" th:if="${messageSucess != null}">
+                    <span th:text="${messageSucess}"></span>
+                </div>
                 <!-- Formulários -->
 
                 <!-- Primeira guia -->
@@ -283,18 +289,13 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label  style="margin-bottom: 10px;">Adicionar funcionários a obra</label>
-                                    <label class="label-checkbox">Bárbara Martins
-                                        <input type="checkbox" checked="checked">
+                                    <label th:if="${funcionarios != null}" class="label-checkbox" th:each="funcionario : ${funcionarios}"><label th:text="${funcionario.nome}"></label>
+                                        <input type="checkbox" th:field="${obra.funcionarios}" th:value="${funcionario.id}">
                                         <span class="checkmark"></span>
                                     </label>
-                                    <label class="label-checkbox">Lucas Bueno
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="label-checkbox">Enzo Klin
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                    <div class="alert alert-danger" role="alert" th:if="${funcionarios.empty}">
+                                        <span>Nenhum funcionario cadastrado.</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -352,7 +353,7 @@
                                 <div class="form-input" th:object="${form2}" onload="">
                                     <label th:for="${randomId}">Ferramentas</label>
                                     <div id="cont2" onload="">
-                                        <div class="add-input-2" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
+                                        <div class="add-input" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
                                             <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
                                                 <input type="text" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].ferramenta}" th:id="${randomId}" placeholder="Alicate">

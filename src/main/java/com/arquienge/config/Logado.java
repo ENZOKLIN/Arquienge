@@ -21,7 +21,7 @@ public class Logado {
     public  String rg;
     public  Date nascimento;
     public  Endereco endereco;
-    public  Obra obra;
+    public  List<Obra> obras;
     public  List<Engenheiro> engenheiros;
 
     public Logado(boolean isProprietario) {
@@ -47,7 +47,7 @@ public class Logado {
         this.email = LogadoEstatico.getEmail();
         this.nascimento = LogadoEstatico.getNascimento();
         this.endereco = LogadoEstatico.getEndereco();
-        this.obra = LogadoEstatico.getObra();
+        this.obras = LogadoEstatico.getObras();
     }
     private void setProprietario() {
         this.id = LogadoEstatico.getId();

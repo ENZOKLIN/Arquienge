@@ -70,4 +70,7 @@ public class ProprietarioService {
     public List<Proprietario> findProprietariosByCep(String cidade) {
         return proprietarioRepository.findProprietariosByCidade(cidade);
     }
+    public Proprietario findProprietarioById(Integer id){
+        return proprietarioRepository.findProprietarioById(id);
+    }
 }

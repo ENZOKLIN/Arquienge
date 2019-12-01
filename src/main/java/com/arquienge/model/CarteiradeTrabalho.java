@@ -70,7 +70,7 @@ public class CarteiradeTrabalho {
 
     //DETERMINANDO UMA FORMATAÇÃO DE DADOS QUE QUERO RECEBER NESTE ATRIBUTO ATRAVÉS DO REGEX:
     @Pattern(regexp = "[A-Z]{2}", message = "O UF é a abreviação do seu Estado, corrija!")
-    private String uf;
+    private String UF;
 
     //INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE CARTEIRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UM PARA UM):

@@ -1,5 +1,6 @@
 package com.arquienge.repository;
 
+import com.arquienge.model.Engenheiro;
 import com.arquienge.model.Funcionario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,5 +29,9 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 
     @Query(value = "SELECT FUNCIONARIO.* WHERE FUNCIONARIO.ID_ENDERECO = ENDERECO.ID AND ENDERECO.CEP = ?", nativeQuery = true)
     List<Funcionario> findFuncionariosByCep(String cep);
+
+    Funcionario findFuncionarioById(Integer id);
+
+    List<Funcionario> findFuncionariosByEngenheiro(Engenheiro engenheiro);
 
 }

@@ -48,6 +48,9 @@
     <div class="container div-form">
         <div class="row">
             <div class="col-md-4">
+                <div class="alert alert-danger" role="alert"  th:if="${messageFailure != null}">
+                    <span th:text="${messageFailure}"></span>
+                </div>
                 <form action="/login-admin" method="POST" th:object="${admin}">
                     <div>
                         <input type="text" name="usuario" th:field="${admin.usuario}" id="usuarioAdmin" placeholder="Usuário">

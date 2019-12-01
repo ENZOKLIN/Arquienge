@@ -40,8 +40,8 @@
                     <div class="menu-admin">
                         <ul>
                             <li>
-                                <div th:if="${messageSucess != null}">
-                                   <span class="badge badge-success" th:text="${messageSucess}"></span>
+                                <div class="alert alert-success" role="alert" th:if="${messageSucess != null}">
+                                    <span th:text="${messageSucess}"></span>
                                 </div>
                             </li>
                             <li>

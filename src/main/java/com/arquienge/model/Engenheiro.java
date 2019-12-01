@@ -46,8 +46,8 @@ public class Engenheiro extends Usuario {
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE ENGENHEIRO, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UM PARA UM):
-    @OneToOne(mappedBy = "engenheiro")
-    private Obra obra;
+    @OneToMany(mappedBy = "engenheiro", cascade = CascadeType.ALL)
+    private List<Obra> obras;
 
     @JoinColumn(name = "proprietario_id")
     @ManyToOne

@@ -37,7 +37,7 @@ public class Ferramenta {
     // DETERMINANDO O TAMANHO MÁXIMO E  MÍNIMO DESTE ATRIBUTO( MIN 5 E MAX 60),
     // CASO NÃO CORRESPONDA A ESSE TAMANHO UMA MENSAGEM É RETORNADA:
     @Column(nullable = false)
-    @Size(min = 5, max = 60, message = "Ferramenta Inválida!")
+    @Size(min = 2, max = 60, message = "Ferramenta Inválida!")
     @NotEmpty(message = "Nome da Ferramenta não pode estar vazio!")
     private String ferramenta;
 

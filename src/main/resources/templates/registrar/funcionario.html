@@ -1,322 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form-ui.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{css/form-ui.css}">
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" th:href="@{img/favicon-32x32.png}" sizes="32x32"/>
+    <link rel="icon" type="image/png" th:href="@{img/favicon-16x16.png}" sizes="16x16"/>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
     <title>Registro de funcionarios | Arquienge</title>
 </head>
 <body>
 
-    <!--
-        <i class="fas fa-bars"></i>
-    -->
+<!--
+    <i class="fas fa-bars"></i>
+-->
 
-    <!-- BARRA TOPO -->
-    <div class="barra-topo">
-        <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de funcionário</h4>
-    </div>
+<!-- BARRA TOPO -->
+<div class="barra-topo">
+    <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de funcionário</h4>
+</div>
 
-    <!-- CLOSE MENU BTN -->
-    <div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
-        <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
-    </div>
+<!-- CLOSE MENU BTN -->
+<div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
+    <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
+</div>
 
-    <!-- SIDE MENU -->
-    <div id="sideNav" class="sidenav">
-            
-        <div class="info-perfil">
-            <div class="foto-perfil" id="fotoPerfil">
-                <img src="img/user-profile-pic.jpg" alt="">
-            </div>
-            <div class="nome-perfil" id="nomePerfl">
-                <h2>Enzo Klin</h2>
-            </div>
-            <div class="cargo-perfil" id="cargoPerfil">
-                <h3>Administrador(a)</h3>
-            </div>
-        </div>
+<!-- SIDE MENU -->
+<div id="sideNav" class="sidenav">
 
-        <div class="info-area">
-            <h5>#Menu</h5>
-            <div style="clear: both;"></div>
+    <div class="info-perfil">
+        <div class="foto-perfil" id="fotoPerfil">
+            <img th:src="@{img/user-profile-pic.jpg}" alt="">
         </div>
-
-        <div class="menu-ul">
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
-                <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
-                <li><a href="consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li><a href="obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
-                <li><a href="dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
-            </ul>
+        <div class="nome-perfil" id="nomePerfl">
+            <h2>Enzo Klin</h2>
         </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a href="">Sair</a></li>
-            </ul>
-        </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a href="">Sobre o sistema</a></li>
-            </ul>
-        </div>
-       
-        <div class="info-area">
-            <h5>#Notificações</h5>
-            <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-            <div style="clear: both;"></div>
-        </div>
-
-        <div class="notificacoes" id="notificacoes">
-            <div class="notificacao">
-                <span>Bem vindo, Enzo!</span>
-            </div>
+        <div class="cargo-perfil" id="cargoPerfil">
+            <h3>Administrador(a)</h3>
         </div>
     </div>
-    <!-- SIDE MENU -->
 
-    <!-- CONTEUDO -->
-    <div class="conteudo">
-        <div class="container-fluid">
-            <!-- Informações do formulário -->
-            <div class="row"> 
-                <div class="col-md-4 p-0">  
-                    <div class="info-registro">
-                        <ul id="info-registro-ul">
-                            <div class="progress-div div-in-progress">
-                                <li class="d-flex align-items-center in-progress"><img src="img/in-progress-1.png" alt="">Informações pessoais</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-2.png" alt="">Endereço</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-3.png" alt="">Contato</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img src="img/waiting-4.png" alt="">Dados do funcionário</li>
-                            </div>
-                        </ul>
-                    </div>
+    <div class="info-area">
+        <h5>#Menu</h5>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="menu-ul">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
+            <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i
+                    class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
+            <li><a href="consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+            <li><a href="obras.html"><i class="fas fa-hard-hat margin-icone"></i>Obras</a></li>
+            <li><a href="dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
+        </ul>
+    </div>
+    <div class="menu-ul">
+        <ul>
+            <li><a href="">Sair</a></li>
+        </ul>
+    </div>
+    <div class="menu-ul">
+        <ul>
+            <li><a href="">Sobre o sistema</a></li>
+        </ul>
+    </div>
+
+    <div class="info-area">
+        <h5>#Notificações</h5>
+        <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);"
+                                                       id="arrowNotificacao"></i></button>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="notificacoes" id="notificacoes">
+        <div class="notificacao">
+            <span>Bem vindo, Enzo!</span>
+        </div>
+    </div>
+</div>
+<!-- SIDE MENU -->
+
+<!-- CONTEUDO -->
+<div class="conteudo">
+    <div class="container-fluid">
+        <!-- Informações do formulário -->
+        <div class="row">
+            <div class="col-md-4 p-0">
+                <div class="info-registro">
+                    <ul id="info-registro-ul">
+                        <div class="progress-div div-in-progress">
+                            <li class="d-flex align-items-center in-progress"><img th:src="@{img/in-progress-1.png}"
+                                                                                   alt="">Informações pessoais
+                            </li>
+                        </div>
+                        <div class="progress-div">
+                            <li class="d-flex align-items-center"><img th:src="@{img/waiting-2.png}" alt="">Endereço
+                            </li>
+                        </div>
+                        <div class="progress-div">
+                            <li class="d-flex align-items-center"><img th:src="@{img/waiting-3.png}" alt="">Contato</li>
+                        </div>
+                        <div class="progress-div">
+                            <li class="d-flex align-items-center"><img th:src="@{img/waiting-4.png}" alt="">Dados do
+                                funcionário
+                            </li>
+                        </div>
+                    </ul>
                 </div>
-            <form action="" id="regForm" class="col-md-8 p-0">
+            </div>
+            <form action="#" th:action="@{/cadastro-funcionario}" th:method="POST" id="regForm" class="col-md-8 p-0" th:object="${funcionario}">
                 <!-- Formulários -->
-                    <!-- Primeira guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0  ">
-                            <!-- 1ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <div class="upload-photo">
-                                        <input type="file" name="" id="real-file" accept="image/*" onchange="loadFile(event)" hidden>
-                                        <div id="photo">
-                                            
-                                        </div>
-                                        <div class="button-upload" id="upload-button">
-                                            <i class="fas fa-image" style="margin-right: 4px;"></i> Procurar um arquivo
-                                        </div>
-                                        <span id="caminho-arquivo">
-                                            Nenhum arquivo selecionado.
-                                        </span>
-                                        <div style="clear: both;"></div>
-                                    </div>
-                                    <script type="text/javascript">
-                                        const realFileBtn = document.getElementById("real-file");
-                                        const uploadBtn = document.getElementById("upload-button");
-                                        const caminhoArquivo = document.getElementById("caminho-arquivo");
-                                        const photo = document.getElementById("photo");
-                                        uploadBtn.addEventListener("click", function(){
-                                            realFileBtn.click();
-                                        });
-                                        realFileBtn.addEventListener("change", function(){
-                                            if(realFileBtn.value){
-                                                caminhoArquivo.innerHTML = realFileBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-                                                var photo = document.getElementById('photo');
-                                                photo.style.backgroundImage = "url("+URL.createObjectURL(event.target.files[0])+")";
-                                            }else{
-                                                caminhoArquivo.innerHTML = "Nenhum arquivo selecionado.";
-                                            }
-                                        });
-                                    </script>
-                                    <label for="nome">Nome</label>
-                                    <input type="text" id="nome" placeholder="Lucas">
-                                    <div class="div-info-input">
+                <!-- Primeira guia -->
+                <div class="tab">
+                    <div class="row p-0 m-0  ">
+                        <!-- 1ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input margin-center">
+                                <label for="nome">Nome</label>
+                                <input th:field="${funcionario.nome}" type="text" id="nome" placeholder="Lucas">
+                                <div class="div-info-input">
                                         <span id="spanNome">
                                             O campo nome precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="sobrenome">Sobrenome</label>
-                                    <input type="text" id="sobrenome" placeholder="Bueno">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="sobrenome">Sobrenome</label>
+                                <input th:field="${funcionario.sobrenome}" type="text" id="sobrenome" placeholder="Bueno">
+                                <div class="div-info-input">
                                         <span id="spanSobrenome">
                                             O campo sobrenome precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="">Data de nascimento</label>
-                                    <div class="select-data-nasc justify-content-between">
-                                        <div>
-                                            <select name="diaNasc" id="diaNasc" onclick="cliqueSelect('diaNasc')">
-                                                <option value="" selected disabled>Dia</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <select name="mesNasc" id="mesNasc" onclick="cliqueSelect('mesNasc')">
-                                                <option value="" selected disabled>Mes</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <select name="anoNasc" id="anoNasc" onclick="cliqueSelect('anoNasc')">
-                                                <option value="" selected disabled>Ano</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="div-info-input">
-                                        <span id="spanDtNasc">
-                                                O campo data de nascimento precisa ser preenchido!
+                                </div>
+                                <label for="telefone">Telefone</label>
+                                <input th:field="${funcionario.telefone}" type="text" id="telefone" placeholder="(00) 0000-0000">
+                                <div class="div-info-input">
+                                        <span id="spanTelefone">
+                                                O campo telefone precisa ser preenchido!
                                         </span>
-                                    </div>
                                 </div>
                             </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="CPF">CPF</label>
-                                    <input type="text" id="CPF" placeholder="000.000.000-00">
-                                    <div class="div-info-input">
+                        </div>
+
+                        <!-- 2ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input">
+                                <label for="CPF">CPF</label>
+                                <input th:field="${funcionario.cpf}" type="text" id="CPF" placeholder="000.000.000-00">
+                                <div class="div-info-input">
                                         <span id="spanCPF">
                                                 O campo CPF precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="RG">RG</label>
-                                    <input type="text" id="RG" placeholder="00.000.000-0">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="RG">RG</label>
+                                <input th:field="${funcionario.rg}" type="text" id="RG" placeholder="000.000.000">
+                                <div class="div-info-input">
                                         <span id="spanRG">
                                                 O campo RG precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <div class="options-gender">
-                                        <div class="row">
-                                            <div class="col-6 d-flex align-items-center">
-                                                <div class="option d-flex align-items-center" id="div-check-masc">    
-                                                    <div id="man">
-                                                        
-                                                    </div>
-                                                    <p for="masculino" class="float-left p-0 m-0 ml-3" id="pMan">Masculino</p>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-6 d-flex align-items-center">
-                                                    
-                                                    <div class="option d-flex align-items-center" id="div-check-fem">
-                                                    <div id="woman">
-                                            
-                                                    </div>
-                                                    <p for="feminino" class="float-left p-0 m-0 ml-3" id="pWoman">Feminino</p>
-                                                    
-                                                </div>
-                                            
-                                            </div>
-                                        </div>
-                                        <label for="feminino" id="checkboxFeminino" value="" hidden>feminino</label>
-                                        <input type="radio" name="genero" id="feminino" value="Feminino" hidden>
-                                        <label for="masculino" id="checkboxMasculino" value="" hidden>masculino</label>
-                                        <input type="radio" name="genero" id="masculino" value="Masculino" hidden>
-                                        
-                                    </div>
-                                    <script>
-                                        document.getElementById("div-check-masc").addEventListener("click", function(){
-                                            document.getElementById("checkboxMasculino").click();
-                                            document.getElementById("div-check-fem").style.backgroundColor = "#f6f8fa";
-                                            document.getElementById("div-check-masc").style.backgroundColor = "rgb(240, 240, 247)";
-                                        });
-                                        document.getElementById("div-check-fem").addEventListener("click", function(){
-                                            document.getElementById("checkboxFeminino").click();
-                                            document.getElementById("div-check-masc").style.backgroundColor = "#f6f8fa";
-                                            document.getElementById("div-check-fem").style.backgroundColor = "rgb(240, 240, 247)";
-                                        });
-                                    </script>
-                                    <div class="div-info-input">
-                                        <span id="spanSexo">
-                                                O campo sexo precisa ser preenchido!
+                                </div>
+                                <label for="dtNascimento">Data de Nascimento</label>
+                                <input th:field="${funcionario.nascimento}" type="text" id="dtNascimento" placeholder="00/00/0000">
+                                <div class="div-info-input">
+                                        <span id="spanDtNascimento">
+                                                O campo data de nascimento precisa ser preenchido!
                                         </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
-                    <!-- Segunda guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="CEP">CEP</label>
-                                    <div class="pesquisa-cep">
-                                        <div class="input-with-btn">
-                                            <input class="input-btn" type="text" id="CEP" placeholder="00000-000">
-                                        </div>
-                                        <div class="btn-with-input">
-                                            <div class="btn-search" onclick="pesquisacep(CEP.value)">
-                                                Pesquisar
-                                            </div>
-                                        </div>
-                                        <div style="clear: both;"></div>
+                </div>
+
+                <!-- Segunda guia -->
+                <div class="tab" th:object="${endereco}">
+                    <div class="row p-0 m-0 ">
+                        <!-- 1ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input margin-center">
+                                <label for="CEP">CEP</label>
+                                <div class="pesquisa-cep">
+                                    <div class="input-with-btn">
+                                        <input th:field="${endereco.cep}" class="input-btn" type="text" id="CEP" placeholder="00000-000">
                                     </div>
-                                    <div class="div-info-input">
-                                        <p id="spanCEP">
-                                        </p>
+                                    <div class="btn-with-input">
+                                        <div class="btn-search" onclick="pesquisacep(CEP.value)">
+                                            Pesquisar
+                                        </div>
                                     </div>
-                                    <label for="cidade">Cidade</label>
-                                    <input type="text" id="cidade" placeholder="Florianópolis">
-                                    <div class="div-info-input">
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <div class="div-info-input">
+                                    <p id="spanCEP">
+                                    </p>
+                                </div>
+                                <label for="cidade">Cidade</label>
+                                <input th:field="${endereco.cidade}" type="text" id="cidade" placeholder="Florianópolis">
+                                <div class="div-info-input">
                                         <span id="spanCidade">
                                                 O campo cidade precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <div class="select-estado">
-                                        <div>
-                                            <select name="estado" id="estado" onclick="cliqueSelect('estado')">
-                                                <option value="" selected disabled>Estado</option>
-                                            </select>
-                                        </div>  
-                                    </div>
-                                    <div class="div-info-input">
-                                        <span id="spanEstado">
-                                                Escolha uma opção.
-                                        </span>
-                                    </div>
                                 </div>
+                                <label for="estado">UF</label>
+                                <input th:field="${endereco.uf}" type="text" id="estado" placeholder="SC">
+                                <div class="div-info-input">
+                                        <span id="spanEstado">
+                                                O campo estado precisa ser preenchido!
+                                        </span>
+                                </div>
+
                             </div>
-            
-                            <!-- 2ª Coluna --> 
+
+                            <!-- 2ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="bairro">Bairro</label>
-                                    <input type="text" id="bairro" placeholder="Rio vermelho">
+                                    <input th:field="${endereco.bairro}" type="text" id="bairro" placeholder="Rio vermelho">
                                     <div class="div-info-input">
                                         <span id="spanBairro">
                                                 O campo bairro precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="rua">Rua</label>
-                                    <input type="text" id="rua" placeholder="Maria Luz Silveira">
+                                    <input th:field="${endereco.rua}" type="text" id="rua" placeholder="Maria Luz Silveira">
                                     <div class="div-info-input">
                                         <span id="spanRua">
                                                 O campo rua precisa ser preenchido!
@@ -326,45 +243,8 @@
                             </div>
                         </div>
                     </div>
-            
-                    <!-- Terceira guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna -->
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="email">E-mail</label>
-                                    <input type="text" id="email" placeholder="exemplo@exemplo.com">
-                                    <div class="div-info-input">
-                                        <span id="spanEmail">
-                                                O campo e-mail precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <label for="telefone">Telefone</label>
-                                    <input type="text" id="telefone" placeholder="(00) 0000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanTelefone">
-                                                O campo telefone precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="celular">Celular</label>
-                                    <input type="text" id="celular" placeholder="(00) 00000-0000">
-                                    <div class="div-info-input">
-                                        <span id="spanCelular">
-                                                O campo celular precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-            
+
                     <!-- Terceira guia -->
                     <div class="tab">
                         <div class="row p-0 m-0 ">
@@ -372,49 +252,77 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
                                     <label for="salario">Salário</label>
-                                    <input type="text" id="salario" placeholder="0.000,00">
+                                    <input th:field="${funcionario.salario}" type="text" id="salario" placeholder="0.000,00">
                                     <div class="div-info-input">
-                                        <span id="spanSalario">
-                                                O campo salário precisa ser preenchido!
-                                        </span>
+                                    <span id="spanSalario">
+                                            O campo salário precisa ser preenchido!
+                                    </span>
                                     </div>
                                     <label for="dtAdmissao">Data de admissão</label>
-                                    <input type="text" id="dtAdmissao" placeholder="00/00/0000">
+                                    <input th:field="${funcionario.dt_admissao}" type="text" id="dtAdmissao" placeholder="00/00/0000">
                                     <div class="div-info-input">
-                                        <span id="spanDtAdmissao">
-                                                O campo data de adimissão precisa ser preenchido!
-                                        </span>
+                                    <span id="spanDtAdmissao">
+                                            O campo data de adimissão precisa ser preenchido!
+                                    </span>
+                                    </div>
+                                    <label for="cargo">Cargo</label>
+                                    <input th:field="${funcionario.cargo}" type="text" id="cargo" placeholder="Mestre de Obra">
+                                    <div class="div-info-input">
+                                    <span id="spanCargo">
+                                            O campo cargo precisa ser preenchido!
+                                    </span>
                                     </div>
                                 </div>
                             </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
+
+                            <!-- 2ª Coluna -->
+                            <div class="col-md-6 p-0" th:object="${carteira}">
                                 <div class="form-input">
-                                    <label for="celular">Número da carteira de trabalho</label>
-                                    <input type="text" id="celular" placeholder="(00) 00000-0000">
+                                    <label for="pis">Número do PIS</label>
+                                    <input th:field="${carteira.pis}" type="text" id="pis" placeholder="000.00000.00-0">
                                     <div class="div-info-input">
-                                        <span id="spanCelular">
+                                        <span id="spanPis">
+                                                O campo Pis precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="carteira">Número da carteira de trabalho</label>
+                                    <input th:field="${carteira.numero_carteira}" type="text" id="carteira" placeholder="0000000">
+                                    <div class="div-info-input">
+                                        <span id="spanCarteira">
                                                 O campo número da carteira de trabalho precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="serie">Série da carteira de trabalho</label>
+                                    <input th:field="${carteira.serie}" type="text" id="serie" placeholder="000-0">
+                                    <div class="div-info-input">
+                                        <span id="spanSerie">
+                                                O campo série precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="uf">UF da carteira de trabalho</label>
+                                    <input th:field="${carteira.UF}" type="text" name="UF" id="uf" placeholder="SC">
+                                    <div class="div-info-input">
+                                        <span id="spanUf">
+                                                O campo UF precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div >
-                            <div style="width: 100%;">
-                                <div style="float: left;">
-                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior</button>
-                                </div>
-                                <div style="float: right;">
-                                    <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo</button>
-                                </div>
-                                <div style="clear: both;"></div>
+                    <div>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior
+                                </button>
                             </div>
+                            <div style="float: right;">
+                                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo
+                                </button>
+                            </div>
+                            <div style="clear: both;"></div>
                         </div>
-                </div>
-                
+                    </div>
                 <div style="text-align:center;margin-top:40px;">
                     <span class="step"></span>
                     <span class="step"></span>
@@ -424,79 +332,76 @@
             </form>
         </div>
     </div>
+</div>
 
     <!-- Javascript -->
-    <script src="js/script.js"></script>
-    <script src="js/cep.js"></script>
-    <script src="js/data-nascimento.js"></script>
-    <script src="js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery/jquery.mask.min.js"></script>
+    <script th:src="@{js/script.js}"></script>
+    <script th:src="@{js/cep.js}"></script>
+    <script th:src="@{js/data-nascimento.js}"></script>
+    <script th:src="@{js/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{js/jquery/jquery.mask.min.js}"></script>
     <script type="text/javascript">
-		$(document).ready(function(){
+        $(document).ready(function () {
             $("#CPF").mask("000.000.000-00")
             $("#dtAdmissao").mask("00/00/0000")
-			$("#cnpj").mask("00.000.000/0000-00")
-			$("#telefone").mask("(00) 0000-0000")
-			$("#salario").mask("999.999.990,00", {reverse: true})
-			$("#CEP").mask("00000-000")
-			$("#dataNascimento").mask("00/00/0000")
-			
-			$("#RG").mask("999.999.999-W", {
-				translation: {
-					'W': {
-						pattern: /[X0-9]/
-					}
-				},
-				reverse: true
-			})
-			
-			var options = {
-				translation: {
-					'A': {pattern: /[A-Z]/},
-					'a': {pattern: /[a-zA-Z]/},
-					'S': {pattern: /[a-zA-Z0-9]/},
-					'L': {pattern: /[a-z]/},
-				}
-			}
-			
-			$("#placa").mask("AAA-0000", options)
-			
-			$("#codigo").mask("AA.LLL.0000", options)
-			
-			$("#celular").mask("(00) 0000-00009")
-			
-			$("#celular").blur(function(event){
-				if ($(this).val().length == 15){
-					$("#celular").mask("(00) 00000-0009")
-				}else{
-					$("#celular").mask("(00) 0000-00009")
-				}
-			})
-		})
+            $("#cnpj").mask("00.000.000/0000-00")
+            $("#telefone").mask("(00) 00000-0000")
+            $("#salario").mask("999.999.990,00", {reverse: true})
+            $("#CEP").mask("00000-000")
+            $("#dtNascimento").mask("00/00/0000")
+
+            $("#RG").mask("999.999.999")
+            $("#carteira").mask("0000000")
+            $("#serie").mask("000-0")
+            $("#pis").mask("000.00000.00-0")
+
+            var options = {
+                translation: {
+                    'A': {pattern: /[A-Z]/},
+                    'a': {pattern: /[a-zA-Z]/},
+                    'S': {pattern: /[a-zA-Z0-9]/},
+                    'L': {pattern: /[a-z]/},
+                }
+            }
+
+            $("#placa").mask("AAA-0000", options)
+
+            $("#codigo").mask("AA.LLL.0000", options)
+
+            $("#celular").mask("(00) 00000-0000")
+
+            $("#celular").blur(function (event) {
+                if ($(this).val().length == 15) {
+                    $("#celular").mask("(00) 00000-0009")
+                } else {
+                    $("#celular").mask("(00) 0000-00009")
+                }
+            })
+        })
     </script>
     <script type="text/javascript">
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
-        
+
         function showTab(n) {
             // This function will display the specified tab of the form...
             var x = document.getElementsByClassName("tab");
             x[n].style.display = "block";
             //... and fix the Previous/Next buttons:
             if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
+                document.getElementById("prevBtn").style.display = "none";
             } else {
-            document.getElementById("prevBtn").style.display = "inline";
+                document.getElementById("prevBtn").style.display = "inline";
             }
             if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Enviar";
+                document.getElementById("nextBtn").innerHTML = "Enviar";
             } else {
-            document.getElementById("nextBtn").innerHTML = "Próximo";
+                document.getElementById("nextBtn").innerHTML = "Próximo";
             }
             //... and run a function that will display the correct step indicator:
             fixStepIndicator(n)
         }
-        
+
         function nextPrev(n) {
             // This function will figure out which tab to display
             var x = document.getElementsByClassName("tab");
@@ -513,14 +418,14 @@
             currentTab = currentTab + n;
             // if you have reached the end of the form...
             if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("regForm").submit();
-            return false;
+                // ... the form gets submitted:
+                document.getElementById("regForm").submit();
+                return false;
             }
             // Otherwise, display the correct tab:
             showTab(currentTab);
         }
-        
+
         function validateForm() {
             // This function deals with validation of the form fields
             var x, y, i, valid = true;
@@ -529,27 +434,27 @@
             z = x[currentTab].getElementsByTagName("span");
             // A loop that checks every input field in the current tab:
             for (i = 0; i < y.length; i++) {
-            // If a field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                z[i].className += " span-inline";
-                // and set the current valid status to false
-                valid = false;
-            }
+                // If a field is empty...
+                if (y[i].value == "") {
+                    // add an "invalid" class to the field:
+                    y[i].className += " invalid";
+                    z[i].className += " span-inline";
+                    // and set the current valid status to false
+                    valid = false;
+                }
             }
             // If the valid status is true, mark the step as finished and valid:
             if (valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
+                document.getElementsByClassName("step")[currentTab].className += " finish";
             }
             return valid; // return the valid status
         }
-        
+
         function fixStepIndicator(n) {
             // This function removes the "active" class of all steps...
             var i, x = document.getElementsByClassName("step");
             for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
+                x[i].className = x[i].className.replace(" active", "");
             }
             //... and adds the "active" class on the current step:
             x[n].className += " active";
