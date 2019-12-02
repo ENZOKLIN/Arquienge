@@ -1,9 +1,7 @@
 package com.arquienge.controller;
 
-import com.arquienge.config.Logado;
 import com.arquienge.config.LogadoEstatico;
-import com.arquienge.model.Endereco;
-import com.arquienge.model.Engenheiro;
+import com.arquienge.model.*;
 import com.arquienge.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 public class ProprietarioController {
@@ -30,14 +29,17 @@ public class ProprietarioController {
     private final ObraService obraService;
     @Autowired
     private final FuncionarioService funcionarioService;
+    @Autowired
+    private final CarteiradeTrabalhoService carteiradeTrabalhoService;
 
 
-    public ProprietarioController(ProprietarioService proprietarioService, EnderecoService enderecoService, EngenheiroService engenheiroService, ObraService obraService, FuncionarioService funcionarioService) {
+    public ProprietarioController(ProprietarioService proprietarioService, EnderecoService enderecoService, EngenheiroService engenheiroService, ObraService obraService, FuncionarioService funcionarioService, CarteiradeTrabalhoService carteiradeTrabalhoService) {
         this.proprietarioService = proprietarioService;
         this.enderecoService = enderecoService;
         this.engenheiroService = engenheiroService;
         this.obraService = obraService;
         this.funcionarioService = funcionarioService;
+        this.carteiradeTrabalhoService = carteiradeTrabalhoService;
     }
 
     @GetMapping("/cadastro/engenheiro")
@@ -75,5 +77,39 @@ public class ProprietarioController {
             return "redirect:/index";
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/cadastro/funcionario")
+    public ModelAndView cadastroFuncionario() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
+                CarteiradeTrabalho carteiradeTrabalho = new CarteiradeTrabalho();
+                Funcionario funcionario = new Funcionario();
+                Endereco endereco = new Endereco();
+                ModelAndView view = new ModelAndView("registrar/funcionario");
+                view.addObject("funcionario", funcionario);
+                view.addObject("carteira", carteiradeTrabalho);
+                view.addObject("endereco", endereco);
+                view.addObject("proprietario", proprietarioService.findProprietarioById(LogadoEstatico.getId()));
+                return view;
+            } else if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
+                return new ModelAndView("redirect:/index");
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @PostMapping("/cadastro/funcionario")
+    public Object createFuncionario(Funcionario funcionario, Endereco endereco, CarteiradeTrabalho carteiradeTrabalho, RedirectAttributes redirectAttributes) {
+        enderecoService.saveEndereco(endereco);
+        funcionario.setEndereco(endereco);
+        carteiradeTrabalhoService.saveCarteira(carteiradeTrabalho);
+        funcionario.setCarteira(carteiradeTrabalho);
+        Proprietario proprietario = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+        funcionario.setProprietario(proprietario);
+        funcionarioService.saveFuncionario(funcionario);
+        redirectAttributes.addFlashAttribute("messageSucess", "Funcionário cadastrado com sucesso.");
+        return new ModelAndView("redirect:/cadastro/funcionario");
+
     }
 }

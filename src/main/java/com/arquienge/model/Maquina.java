@@ -36,7 +36,7 @@ public class Maquina {
     private String tipoMaquina;
 
     //DETERMINANDO O TAMANHO DA COLUNA NO BD "8" E QUE ELA É ÚNICA:
-    @Column(length = 8, unique = true)
+    @Column(length = 8)
 
     //DETERMINANDO UMA FORMATAÇÃO DE DADOS QUE QUERO RECEBER NESTE ATRIBUTO ATRAVÉS DO REGEX:
     @Pattern(regexp = "[A-Za-z]{3}-[0-9]{4}", message = "Placa Inválida")

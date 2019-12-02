@@ -163,7 +163,7 @@ public class EngenheiroController {
     @GetMapping("/cadastro/obra")
     public ModelAndView showCreateForm() {
         if (LogadoEstatico.getEmail() != null) {
-            if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
                 ModelAndView view = new ModelAndView("registrar/obra");
                 MaquinasDto maquinasDto = new MaquinasDto();
                 FerramentasDto ferramentasDto = new FerramentasDto();
@@ -183,7 +183,7 @@ public class EngenheiroController {
                 Endereco endereco = new Endereco();
                 Logado logado = new Logado(false);
                 Engenheiro engenheiro = engenheiroService.findEngenheiroById(logado.getId());
-                List<Funcionario> funcionarios = funcionarioService.findFuncionariosByEngenheiro(engenheiro);
+                List<Funcionario> funcionarios = funcionarioService.findFuncionariosByEngenheiro(engenheiro.getId_engenheiro());
                 view.addObject("funcionarios", funcionarios);
                 view.addObject("engenheiro", engenheiro);
                 view.addObject("endereco", endereco);
@@ -217,7 +217,6 @@ public class EngenheiroController {
             } else {
                 enderecoService.saveEndereco(endereco);
                 obraService.saveObra(obra);
-                System.out.println(obra.getFuncionarios().get(0).getCargo());
                 for (Maquina maquina : form.getMaquinas()) {
                     maquina.setObra(obra);
                     maquinaService.saveMaquina(maquina);
@@ -230,7 +229,6 @@ public class EngenheiroController {
                     if (funcionario.getObra() != null) {
                         obraService.deleteObra(obra);
                         enderecoService.deleteEndereco(endereco);
-                        funcionarioService.saveFuncionario(funcionario);
                         redirectAttributes.addFlashAttribute("messageError", "Um dos funcionários selecionados já está trabalhando em outra obra.");
                     } else {
                         funcionario.setObra(obra);
@@ -246,40 +244,6 @@ public class EngenheiroController {
 
     /* ============ CADASTRO DE FUNCIONÁRIOS ============ */
 
-    @GetMapping("/cadastro/funcionario")
-    public ModelAndView cadastroFuncionario() {
-        if (LogadoEstatico.getEmail() != null) {
-            if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
-                CarteiradeTrabalho carteiradeTrabalho = new CarteiradeTrabalho();
-                Funcionario funcionario = new Funcionario();
-                Endereco endereco = new Endereco();
-                ModelAndView view = new ModelAndView("registrar/funcionario");
-                view.addObject("funcionario", funcionario);
-                view.addObject("carteira", carteiradeTrabalho);
-                view.addObject("endereco", endereco);
-                view.addObject("engenheiro", engenheiroService.findEngenheiroById(LogadoEstatico.getId()));
-                return view;
-            } else if (LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
-                return new ModelAndView("redirect:/index");
-            }
-        }
-        return new ModelAndView("redirect:/login");
-    }
-
-    @PostMapping("/cadastro/funcionario")
-    public Object createFuncionario(Funcionario funcionario, Endereco endereco, CarteiradeTrabalho carteiradeTrabalho) {
-        enderecoService.saveEndereco(endereco);
-        funcionario.setEndereco(endereco);
-        carteiradeTrabalhoService.saveCarteira(carteiradeTrabalho);
-        funcionario.setCarteira(carteiradeTrabalho);
-        Optional<Engenheiro> engenheiro = engenheiroService.selectById(LogadoEstatico.getId());
-        Engenheiro logado = engenheiro.get();
-        funcionario.setEngenheiro(logado);
-        funcionarioService.saveFuncionario(funcionario);
-        return new RedirectView("redirect:/cadastro/funcionario");
-
-    }
-
     /* MAPEAMENTOS DE CONSULTAS */
 
     /* ============== CONSULTAR FUNCIONÁRIOS ============== */
@@ -287,14 +251,24 @@ public class EngenheiroController {
     @GetMapping("/consulta/funcionarios")
     public ModelAndView consultaFuncionarios() {
         if (LogadoEstatico.getEmail() != null) {
-            ModelAndView view = new ModelAndView("consultar-funcionarios");
-            Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
-            List<Funcionario> funcionarios = funcionarioService.findFuncionariosByEngenheiro(logado);
-            view.addObject("funcionarios", funcionarios);
-            view.addObject("engenheiro", logado);
-            return view;
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("consultar-funcionarios");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                List<Funcionario> funcionarios = funcionarioService.findFuncionariosByEngenheiro(logado.getId_engenheiro());
+                view.addObject("funcionarios", funcionarios);
+                view.addObject("engenheiro", logado);
+                return view;
+            }
+            else{
+                ModelAndView view = new ModelAndView("consultar-funcionarios");
+                Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+                List<Funcionario> funcionarios = funcionarioService.findFuncionariosByProprietario(logado);
+                view.addObject("funcionarios", funcionarios);
+                view.addObject("proprietario", logado);
+                return view;
+            }
         }
-        return new ModelAndView("consultar-funcionarios");
+        return new ModelAndView("redirect:/login");
     }
 
     /* MAPEAMENTOS DE EDIÇÃO E DETALHES */

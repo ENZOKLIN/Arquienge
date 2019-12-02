@@ -53,6 +53,4 @@ public class Engenheiro extends Usuario {
     @ManyToOne
     private Proprietario proprietario;
 
-    @OneToMany(mappedBy = "engenheiro", cascade = CascadeType.ALL)
-    private List<Funcionario> funcionarios;
 }

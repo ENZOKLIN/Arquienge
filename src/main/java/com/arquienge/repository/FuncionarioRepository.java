@@ -2,6 +2,7 @@ package com.arquienge.repository;
 
 import com.arquienge.model.Engenheiro;
 import com.arquienge.model.Funcionario;
+import com.arquienge.model.Proprietario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -32,6 +33,9 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 
     Funcionario findFuncionarioById(Integer id);
 
-    List<Funcionario> findFuncionariosByEngenheiro(Engenheiro engenheiro);
+    @Query(value = "SELECT FUNCIONARIO.* FROM ENGENHEIRO,FUNCIONARIO WHERE ENGENHEIRO.ID = ?1 AND FUNCIONARIO.PROPRIETARIO_ID = ENGENHEIRO.PROPRIETARIO_ID", nativeQuery = true)
+    List<Funcionario> findFuncionariosByEngenheiroId(Integer id);
+
+    List<Funcionario> findFuncionariosByProprietario(Proprietario proprietario);
 
 }

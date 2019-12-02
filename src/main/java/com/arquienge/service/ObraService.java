@@ -26,10 +26,9 @@ public class ObraService {
         return obras;
     }
 
-    public Obra selectByEngenheiro(Integer id)
+    public List<Obra> selectByEngenheiro(Integer id)
     {
-        Obra obra = obraRepository.findObraByEngenheiro(id);
-        return obra;
+        return obraRepository.findObraByEngenheiro(id);
     }
 
     public Optional<Obra> selectObraById(Integer id) {

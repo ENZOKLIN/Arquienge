@@ -2,6 +2,7 @@ package com.arquienge.service;
 
 import com.arquienge.model.Engenheiro;
 import com.arquienge.model.Funcionario;
+import com.arquienge.model.Proprietario;
 import com.arquienge.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -77,8 +78,11 @@ public class FuncionarioService {
     public Funcionario findFuncionarioById(Integer id){
         return funcionarioRepository.findFuncionarioById(id);
     }
-    public List<Funcionario> findFuncionariosByEngenheiro(Engenheiro engenheiro){
-        return funcionarioRepository.findFuncionariosByEngenheiro(engenheiro);
+    public List<Funcionario> findFuncionariosByEngenheiro(Integer id){
+        return funcionarioRepository.findFuncionariosByEngenheiroId(id);
+    }
+    public List<Funcionario> findFuncionariosByProprietario(Proprietario proprietario){
+        return funcionarioRepository.findFuncionariosByProprietario(proprietario);
     }
 
 }

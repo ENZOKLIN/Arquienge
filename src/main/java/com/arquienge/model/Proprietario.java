@@ -41,7 +41,10 @@ public class Proprietario extends Usuario {
     @JoinColumn(unique = true, name = "endereco_id")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "proprietario")
+    @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
     List<Engenheiro> engenheiros;
+
+    @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL)
+    private List<Funcionario> funcionarios;
 
 }

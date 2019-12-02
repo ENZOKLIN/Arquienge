@@ -110,7 +110,7 @@ public class Funcionario {
     private List<Presenca> presencas;
 
     @ManyToOne
-    @JoinColumn(name = "engenheiro_id")
-    private Engenheiro engenheiro;
+    @JoinColumn(name = "proprietario_id")
+    private Proprietario proprietario;
 
 }

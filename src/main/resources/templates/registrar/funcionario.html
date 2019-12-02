@@ -124,6 +124,12 @@
             </div>
             <form action="#" th:action="@{/cadastro/funcionario}" th:method="POST" id="regForm" class="col-md-8 p-0" th:object="${funcionario}">
                 <!-- Formulários -->
+                <div class="alert alert-danger" role="alert" th:if="${messageError != null}">
+                    <span th:text="${messageError}"></span>
+                </div>
+                <div class="alert alert-success" role="alert" th:if="${messageSucess != null}">
+                    <span th:text="${messageSucess}"></span>
+                </div>
                 <!-- Primeira guia -->
                 <div class="tab">
                     <div class="row p-0 m-0  ">

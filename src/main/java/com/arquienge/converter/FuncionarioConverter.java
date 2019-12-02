@@ -3,6 +3,8 @@ package com.arquienge.converter;
 import com.arquienge.model.Funcionario;
 import com.arquienge.service.FuncionarioService;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
 
 public class FuncionarioConverter implements Converter<String, Funcionario> {
 
