@@ -1,0 +1,193 @@
+@import "./variables";
+@import "./config";
+
+.barra-titulo{
+    width: 100%;
+    height: 55px;
+    padding: 10px;
+    background-color: #FFF;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    border-top: 1px solid rgb(224, 224, 224);
+    .info-local{
+        color: #141121;
+        font-weight: 600;
+        font-size: 20px;
+        margin-top: 5px;
+        padding: 0;
+    }
+}
+
+.btn-diario{
+    border: 1px solid rgb(224, 224, 224);
+    display: inline-block;
+    margin-top: -5px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    border-radius: 3px;
+    position: relative;
+    .float{
+        .icon-btn{
+            padding: 10px 15px;
+            position: absolute;
+            width: 47px;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-right: 1px solid rgb(224, 224, 224);
+        }
+        .title-btn{
+            width: 100px;
+            margin-left: 47px;
+            p{
+                color: #141121;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0;
+                padding: 10px 15px;
+                &:hover{
+                    color: #fff;
+                }
+            }
+            &:hover{
+                background-color: #141121;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.padding{
+    padding: 5px 10px !important;
+}
+
+.editar-campos{
+    label{
+        display: block;
+        padding: 0;
+        margin: 0;
+        padding-top: 5px;
+        color: #141121;
+    }
+    input{
+        display: block;
+        color: $fontSubtitle;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 5px;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid rgb(224, 224, 224);
+        &:focus{
+            outline: none;
+            border-bottom: 1px solid $fontTitle;
+        }
+        &:disabled{
+            background: #fff;
+            border: none;
+        }
+    }
+}
+
+table{
+    width: 100%;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0;
+    border-top: 1px solid rgb(224, 224, 224);
+    tbody{
+        tr{
+            td{
+                padding: 10px;
+                border-bottom: 1px solid rgb(224, 224, 224);
+                h1{
+                    color: #141121;
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding: 0;
+                    margin: 0;
+                    margin-bottom: 5px;
+                } 
+                h2{
+                    color: #444055;
+                    font-size: 16px;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+.conteudo-cep{
+    padding: 0;
+    .input-cep{
+        float: left;
+        width: calc(100% - 110px);
+        input{
+            margin-bottom: 0 !important;
+            margin-top: 5px;
+        }
+    }
+    .btn-pesquisar-cep{
+        display: none;
+        width: 100px;
+        float: right;
+        padding: 3px 10px;
+        background: $fontTitle;
+        border-radius: 2px;
+        color: #fff;
+        &:hover{
+            background: $fontTitleHover;
+            cursor: pointer;
+        }
+    }
+    .disabled{
+        background-color: #89bde7;
+        cursor: default;
+        &:hover{
+            background-color: #89bde7;
+            cursor: default;
+        }
+    }
+}
+
+.btn-remover{
+    padding: 4px 6px;
+    background: $fontTitle;
+    border-radius: 2px;
+    color: #fff;
+    &:hover{
+        background: $fontTitleHover;
+        cursor: pointer;
+    }
+}
+
+.td-maldita{
+    padding: 10px !important;
+    width: 100px;
+}
+
+.display-none{
+    display: none;
+}
+
+.btn-changes{
+    float: right;
+    button{
+    border: none;
+    padding: 5px 10px;
+    background: $fontTitle;
+    border-radius: 2px;
+    color: #fff;
+    margin-right: 10px;
+    margin-bottom: 10px;
+        &:focus{
+            outline: none;
+        }
+        &:hover{
+            background: $fontTitleHover;
+            cursor: pointer;
+        }
+    }
+}
