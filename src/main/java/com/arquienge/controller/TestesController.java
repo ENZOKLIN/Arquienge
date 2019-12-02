@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class Engenheiro2Controller {
+public class TestesController {
 
     @Autowired
     private final EngenheiroService engenheiroService;
@@ -18,17 +18,10 @@ public class Engenheiro2Controller {
     private final EnderecoService enderecoService;
 
 
-    public Engenheiro2Controller(EngenheiroService engenheiroService, EnderecoService enderecoService) {
+    public TestesController(EngenheiroService engenheiroService, EnderecoService enderecoService) {
         this.engenheiroService = engenheiroService;
         this.enderecoService = enderecoService;
     }
 
-    @GetMapping("/cadastroEngenheiro2")
-    public ModelAndView viewRegisterScreen(Engenheiro engenheiro, Endereco endereco) {
-        ModelAndView view = new ModelAndView("registrar/engenheiro");
-        view.addObject("Engenheiro", engenheiro);
-        view.addObject("Endereco", endereco);
-        return view;
-    }
 
 }

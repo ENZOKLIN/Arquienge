@@ -87,6 +87,9 @@
                         <div class="alert alert-danger" role="alert" th:if="${messageFailure != null}">
                             <span th:text="${messageFailure}"></span>
                         </div>
+                        <div class="alert alert-sucess" role="alert" th:if="${messageAditional != null}">
+                            <span th:text="${messageAditional}"></span>
+                        </div>
                         <div>
                             <input type="email" th:field="${engenheiro.email}" name="email" id="emailEngenheiro" placeholder="E-mail">
                         </div>

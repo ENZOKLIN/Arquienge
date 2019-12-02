@@ -73,4 +73,8 @@ public class ProprietarioService {
     public Proprietario findProprietarioById(Integer id){
         return proprietarioRepository.findProprietarioById(id);
     }
+
+    public Proprietario findProprietarioByEmail(String email){
+        return proprietarioRepository.findProprietarioByEmail(email);
+    }
 }

@@ -51,7 +51,10 @@
                 <div class="alert alert-danger" role="alert"  th:if="${messageFailure != null}">
                     <span th:text="${messageFailure}"></span>
                 </div>
-                <form action="/login-admin" method="POST" th:object="${admin}">
+                <div class="alert alert-success" role="alert" th:if="${messageAditional != null}">
+                    <span th:text="${messageAditional}"></span>
+                </div>
+                <form action="/login/admin" method="POST" th:object="${admin}">
                     <div>
                         <input type="text" name="usuario" th:field="${admin.usuario}" id="usuarioAdmin" placeholder="Usuário">
                     </div>

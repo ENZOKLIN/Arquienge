@@ -30,4 +30,7 @@ public interface ProprietarioRepository extends JpaRepository<Proprietario, Inte
 
     @Query(value = "SELECT * FROM PROPRIETARIO WHERE PROPRIETARIO.ID_PROPRIETARIO = ?1", nativeQuery = true)
     Proprietario findProprietarioById(Integer id);
+
+    @Query(value = "SELECT * FROM PROPRIETARIO WHERE PROPRIETARIO.EMAIL= ?1", nativeQuery = true)
+    Proprietario findProprietarioByEmail(String email);
 }

@@ -12,16 +12,19 @@ public class Administrador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private Integer id ;
 
+    @Column(unique = true)
     private String nome;
+    @Column(unique = true)
     private String sobrenome;
 
-    @Column(length = 9)
+    @Column(length = 9, unique = true)
     @Size(max = 9, min = 9)
     private String usuario;
 
-    @Column(length = 10)
+    @Column(length = 10, unique = true)
     @Size(max = 10, min = 10)
     private String senha;
 

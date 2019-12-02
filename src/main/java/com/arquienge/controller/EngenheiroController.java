@@ -6,6 +6,7 @@ import com.arquienge.config.Logado;
 import com.arquienge.config.LogadoEstatico;
 import com.arquienge.model.*;
 import com.arquienge.service.*;
+import jdk.internal.org.objectweb.asm.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -54,13 +55,7 @@ public class EngenheiroController {
         this.carteiradeTrabalhoService = carteiradeTrabalhoService;
     }
 
-    @GetMapping("/cadastroEngenheiro")
-    public ModelAndView viewRegisterScreen(Engenheiro engenheiro, Endereco endereco) {
-        ModelAndView view = new ModelAndView("testes/engenheiro");
-        view.addObject("Engenheiro", engenheiro);
-        view.addObject("Endereco", endereco);
-        return view;
-    }
+    /* MAPEAMENTOS DE LOGIN E INDEX */
 
     @GetMapping("/login")
     public ModelAndView viewLoginScreen() {
@@ -113,12 +108,6 @@ public class EngenheiroController {
         return viewIndexScreenRedirect();
     }
 
-    @GetMapping("redirect:/index")
-    public RedirectView viewIndexScreenRedirect() {
-        RedirectView view = new RedirectView("/index");
-        return view;
-    }
-
     @GetMapping("/index")
     public ModelAndView viewIndexScreen() {
         if (LogadoEstatico.getEmail() != null) {
@@ -140,7 +129,53 @@ public class EngenheiroController {
         return new ModelAndView("redirect:/login");
     }
 
-    @PostMapping("/cadastroEngenheiro")
+    @GetMapping("redirect:/index")
+    public RedirectView viewIndexScreenRedirect() {
+        RedirectView view = new RedirectView("/index");
+        return view;
+    }
+
+    @GetMapping(value = {"/entrar", "/login/", "/registrar",})
+    public RedirectView viewLoginScreenRedirect(){
+        if(LogadoEstatico.getEmail() != null) {
+            if (LogadoEstatico.getId() != 0) {
+                RedirectView view = new RedirectView("/index");
+                view.addStaticAttribute("engenheiro", engenheiroService.findEngenheiroById(LogadoEstatico.getId()));
+                return view;
+            }
+        }
+            RedirectView view = new RedirectView("/login");
+        return view;
+    }
+
+
+
+    @GetMapping(value = "/logout/{id}")
+    public ModelAndView logout(@PathVariable Integer id,
+                               RedirectAttributes redirectAttributes) {
+        if(id.equals(LogadoEstatico.getId())) {
+            LogadoEstatico.desconectar();
+            redirectAttributes.addFlashAttribute("messageAditional", "Você acabou de sair de sua conta.");
+            return new ModelAndView("redirect:/login");
+        }
+        LogadoEstatico.desconectar();
+        return new ModelAndView("redirect:/login");
+    }
+
+
+    /* MAPEAMENTOS DE CADASTROS */
+
+    /* ================= CADASTRO DE ENGENHEIROS ================== */
+
+    @GetMapping("/cadastro/engenheiro")
+    public ModelAndView viewRegisterScreen(Engenheiro engenheiro, Endereco endereco) {
+        ModelAndView view = new ModelAndView("testes/engenheiro");
+        view.addObject("Engenheiro", engenheiro);
+        view.addObject("Endereco", endereco);
+        return view;
+    }
+
+    @PostMapping("/cadastro/engenheiro")
     public Object register(@Valid Engenheiro engenheiro, @Valid Endereco endereco, BindingResult result) throws IOException {
         if (result.hasErrors()) {
             return this.viewRegisterScreen(engenheiro, endereco);
@@ -151,7 +186,9 @@ public class EngenheiroController {
         return "redirect:/login";
     }
 
-    @GetMapping("/cadastroObra")
+    /*   ================== CADASTRO DE OBRAS ================== */
+
+    @GetMapping("/cadastro/obra")
     public ModelAndView showCreateForm() {
         if (LogadoEstatico.getEmail() != null) {
             if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
@@ -189,11 +226,11 @@ public class EngenheiroController {
         return new ModelAndView("redirect:/login");
     }
 
-    @PostMapping("/cadastroObra")
+    @PostMapping("/cadastro/obra")
     public Object createObra(@ModelAttribute MaquinasDto form, @ModelAttribute FerramentasDto form2, Obra obra, Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("messageFailure", "Obra não pode ser cadastrada!");
-            return "redirect:/cadastroObra";
+            return "redirect:/cadastro/obra";
         }
 
         Logado logado = new Logado(false);
@@ -202,43 +239,42 @@ public class EngenheiroController {
             Engenheiro logged = (Engenheiro) engenheiro.get();
             obra.setEngenheiro(logged);
             obra.setEndereco(endereco);
-            enderecoService.saveEndereco(endereco);
-            obraService.saveObra(obra);
-            System.out.println(obra.getFuncionarios().get(0).getCargo());
-            for (Maquina maquina : form.getMaquinas()) {
-                maquina.setObra(obra);
-                maquinaService.saveMaquina(maquina);
-            }
-            for (Ferramenta ferramenta : form2.getFerramentas()) {
-                ferramenta.setObra(obra);
-                ferramentaService.saveFerramenta(ferramenta);
-            }
-            for (Funcionario funcionario : obra.getFuncionarios()) {
-                if (funcionario.getObra() != null) {
-                    obraService.deleteObra(obra);
-                    enderecoService.deleteEndereco(endereco);
-                    funcionarioService.saveFuncionario(funcionario);
-                    redirectAttributes.addFlashAttribute("messageError", "Um dos funcionários selecionados já está trabalhando em outra obra.");
-                } else {
-                    funcionario.setObra(obra);
-                    funcionarioService.saveFuncionario(funcionario);
+            if (obraService.selectObrabyName(obra.getNome_obra()) != null) {
+                redirectAttributes.addFlashAttribute("messageError", "Uma obra com este nome já está cadastrada.");
+                return "redirect:/cadastro/obra";
+            } else {
+                enderecoService.saveEndereco(endereco);
+                obraService.saveObra(obra);
+                System.out.println(obra.getFuncionarios().get(0).getCargo());
+                for (Maquina maquina : form.getMaquinas()) {
+                    maquina.setObra(obra);
+                    maquinaService.saveMaquina(maquina);
                 }
+                for (Ferramenta ferramenta : form2.getFerramentas()) {
+                    ferramenta.setObra(obra);
+                    ferramentaService.saveFerramenta(ferramenta);
+                }
+                for (Funcionario funcionario : obra.getFuncionarios()) {
+                    if (funcionario.getObra() != null) {
+                        obraService.deleteObra(obra);
+                        enderecoService.deleteEndereco(endereco);
+                        funcionarioService.saveFuncionario(funcionario);
+                        redirectAttributes.addFlashAttribute("messageError", "Um dos funcionários selecionados já está trabalhando em outra obra.");
+                    } else {
+                        funcionario.setObra(obra);
+                        funcionarioService.saveFuncionario(funcionario);
+                    }
+                }
+                redirectAttributes.addFlashAttribute("messageSucess", "Obra salva com sucesso!");
+                return "redirect:/cadastro/obra";
             }
-            redirectAttributes.addFlashAttribute("messageSucess", "Obra salva com sucesso!");
-            return "redirect:/cadastroObra";
         }
         return "redirect:/login";
     }
 
-    @GetMapping(value = "/logout/{id}")
-    public ModelAndView logout(@PathVariable Integer id,
-                               RedirectAttributes redirectAttributes) {
-        LogadoEstatico.desconectar();
-        redirectAttributes.addFlashAttribute("aditionalMessage", "Você acabou de sair de sua conta.");
-        return new ModelAndView("redirect:/login");
-    }
+    /* ============ CADASTRO DE FUNCIONÁRIOS ============ */
 
-    @GetMapping("/cadastro-funcionario")
+    @GetMapping("/cadastro/funcionario")
     public ModelAndView cadastroFuncionario() {
         if (LogadoEstatico.getEmail() != null) {
             if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
@@ -249,6 +285,7 @@ public class EngenheiroController {
                 view.addObject("funcionario", funcionario);
                 view.addObject("carteira", carteiradeTrabalho);
                 view.addObject("endereco", endereco);
+                view.addObject("engenheiro", engenheiroService.findEngenheiroById(LogadoEstatico.getId()));
                 return view;
             } else if (LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
                 return new ModelAndView("redirect:/index");
@@ -257,7 +294,7 @@ public class EngenheiroController {
         return new ModelAndView("redirect:/login");
     }
 
-    @PostMapping("/cadastro-funcionario")
+    @PostMapping("/cadastro/funcionario")
     public Object createFuncionario(Funcionario funcionario, Endereco endereco, CarteiradeTrabalho carteiradeTrabalho) {
         enderecoService.saveEndereco(endereco);
         funcionario.setEndereco(endereco);
@@ -267,26 +304,38 @@ public class EngenheiroController {
         Engenheiro logado = (Engenheiro) engenheiro.get();
         funcionario.setEngenheiro(logado);
         funcionarioService.saveFuncionario(funcionario);
-        return "redirect:/cadastro-funcionario";
+        return "redirect:/cadastro/funcionario";
 
     }
-    @GetMapping("/consultar-funcionarios")
-    public ModelAndView consultaFuncionarios(RedirectAttributes redirectAttributes){
-        if(LogadoEstatico.getEmail() != null) {
+
+    /* MAPEAMENTOS DE CONSULTAS */
+
+    /* ============== CONSULTAR FUNCIONÁRIOS ============== */
+
+    @GetMapping("/consulta/funcionarios")
+    public ModelAndView consultaFuncionarios(RedirectAttributes redirectAttributes) {
+        if (LogadoEstatico.getEmail() != null) {
             ModelAndView view = new ModelAndView("consultar-funcionarios");
             Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
             List<Funcionario> funcionarios = funcionarioService.findFuncionariosByEngenheiro(logado);
             view.addObject("funcionarios", funcionarios);
+            view.addObject("engenheiro", logado);
             return view;
         }
         return new ModelAndView("consultar-funcionarios");
     }
 
-    @GetMapping("/consultar-funcionarios/detalhes/{id}")
+    /* MAPEAMENTOS DE EDIÇÃO E DETALHES */
+
+    /* ============= EDIÇÃO E DETALHES DE UM FUNCIONÁRIO ============== */
+
+    @GetMapping("/funcionario/detalhes/{id}")
     public ModelAndView detalhesUsuario(@PathVariable Integer id) {
         ModelAndView view = new ModelAndView("detalhes_funcionario");
         view.addObject("funcionario", funcionarioService.findFuncionarioById(id));
+        view.addObject("engenheiro", engenheiroService.findEngenheiroById(LogadoEstatico.getId()));
         return view;
     }
+
 
 }

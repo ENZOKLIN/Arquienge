@@ -45,16 +45,16 @@
                                 </div>
                             </li>
                             <li>
-                                <a th:href="@{/cadastro-admin}"><i class="fas fa-plus" style="margin-right: 6px;"></i> Novo proprietário</a>
+                                <a th:href="@{/admin/cadastro}"><i class="fas fa-plus" style="margin-right: 6px;"></i> Novo proprietário</a>
                             </li>
                             <li>
                                 <a href=""><i class="fas fa-edit"></i> Editar e excluir</a>
                             </li>
                             <li>
-                                <a href=""><i class="fas fa-search" style="margin-right: 1px;"></i> Consultar</a>
+                                <a th:href="@{/admin/consultar}"><i class="fas fa-search" style="margin-right: 1px;"></i> Consultar</a>
                             </li>
                             <li>
-                                <a th:href="@{/logout-admin}"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                                <a th:href="@{/logout/admin}"><i class="fas fa-sign-out-alt"></i> Sair</a>
                             </li>
                         </ul>
                     </div>
@@ -64,7 +64,7 @@
     </div>
 
     <!-- Javascript -->
-    <script th:src="@{js/script.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

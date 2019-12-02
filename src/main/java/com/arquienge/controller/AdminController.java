@@ -37,7 +37,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/cadastro-admin")
+    @GetMapping("admin/cadastro")
     public ModelAndView viewFormTest(Proprietario proprietario, Endereco endereco) {
         if (AdminEstatico.getNome() != null) {
             if (AdminEstatico.getId() != 0 && AdminEstatico.getUsuario() != null) {
@@ -47,10 +47,10 @@ public class AdminController {
                 return view;
             }
         }
-        return new ModelAndView("redirect:/index-admin");
+        return new ModelAndView("redirect:/admin/principal");
     }
 
-    @GetMapping("/index-admin")
+    @GetMapping("admin/principal")
     public ModelAndView viewIndexAdmin(Administrador admin) {
         if (AdminEstatico.getSenha() != null) {
             if (AdminEstatico.getId() != 0 && AdminEstatico.getUsuario() != null && AdminEstatico.getNome() != null) {
@@ -59,28 +59,32 @@ public class AdminController {
                 return view;
             }
         }
-        return new ModelAndView("redirect:/login-admin");
+        return new ModelAndView("redirect:/login/admin");
 
     }
 
-    @PostMapping("/cadastroProprietario")
+    @PostMapping("admin/cadastro")
     public Object register(@Valid Proprietario proprietario, @Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("messageFailure", "Erro ao cadastrar proprietário!");
             return new ModelAndView("admin/cadastro-proprietario").addObject("Proprietario", proprietario).addObject("Endereco", endereco);
         }
+        if(proprietarioService.findProprietarioByEmail(proprietario.getEmail()) != null){
+           redirectAttributes.addFlashAttribute("messageFailure", "Proprietário com este email já está cadastrado!");
+           return new ModelAndView("redirect:/admin/cadastro");
+        }
         enderecoService.saveEndereco(endereco);
         proprietario.setEndereco(endereco);
         proprietarioService.saveProprietario(proprietario);
         redirectAttributes.addFlashAttribute("messageSucess", "Proprietário cadastrado com sucesso!");
-        return "redirect:/index-admin";
+        return "redirect:/admin/principal";
     }
 
-    @GetMapping("/login-admin")
+    @GetMapping("login/admin")
     public ModelAndView viewLoginAdmin() {
-        if(AdminEstatico.getUsuario() != null && AdminEstatico.getSenha() != null){
-            if(AdminEstatico.getId().equals(1)){
-                return new ModelAndView("redirect:/index-admin");
+        if (AdminEstatico.getUsuario() != null && AdminEstatico.getSenha() != null) {
+            if (AdminEstatico.getId().equals(1)) {
+                return new ModelAndView("redirect:/admin/principal");
             }
         }
         Administrador admin = new Administrador();
@@ -89,39 +93,44 @@ public class AdminController {
         return view;
     }
 
-    @PostMapping("/login-admin")
+    @PostMapping("login/admin")
     public Object login(@Valid Administrador admin, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("messageFailure", "Usuário ou senha incorretos.");
-            return new ModelAndView("redirect:/login-admin");
+            return new ModelAndView("redirect:/login/admin");
         }
         Administrador adminlogin = administradorService.getByUsuarioAndSenha(admin.getUsuario(), admin.getSenha());
         if (adminlogin != null) {
             AdminEstatico.setAdminLogado(adminlogin);
-            redirectAttributes.addFlashAttribute("messageSucess", "Bem vindo ao Sistema");
-            return "redirect:/index-admin";
+            redirectAttributes.addFlashAttribute("messageSucess", "Bem vindo Administrador");
+            return "redirect:/admin/principal";
         }
         redirectAttributes.addFlashAttribute("messageFailure", "Usuário ou senha incorretos.");
-        return new ModelAndView("redirect:/login-admin");
+        return new ModelAndView("redirect:/login/admin");
 
     }
 
-    @GetMapping("/logout-admin")
+    @GetMapping("logout/admin")
     public ModelAndView logoutAdmin(RedirectAttributes redirectAttributes) {
         AdminEstatico.desconectar();
-        redirectAttributes.addFlashAttribute("aditionalMessage", "Você acabou de sair de sua conta.");
-        return new ModelAndView("redirect:/login-admin");
+        redirectAttributes.addFlashAttribute("messageAditional", "Você acabou de sair de sua conta.");
+        return new ModelAndView("redirect:/login/admin");
     }
 
-    @GetMapping("/consultar-admin")
-    public ModelAndView consultaProprietarios(RedirectAttributes redirectAttributes){
-       ModelAndView view = new ModelAndView("admin/consultar");
-       List<Proprietario> proprietarios = proprietarioService.selectAll();
-       view.addObject("proprietarios", proprietarios);
-       return view;
+    @GetMapping("admin/consultar")
+    public ModelAndView consultaProprietarios(RedirectAttributes redirectAttributes) {
+        if (AdminEstatico.getSenha() != null) {
+            if (AdminEstatico.getId() != 0 && AdminEstatico.getUsuario() != null && AdminEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("admin/consultar");
+                List<Proprietario> proprietarios = proprietarioService.selectAll();
+                view.addObject("proprietarios", proprietarios);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/login/admin");
     }
 
-    @GetMapping(value = "/consultar-admin/detalhes/{id}")
+    @GetMapping(value = "admin/consultar/{id}")
     public ModelAndView detalhesUsuario(@PathVariable Integer id) {
         ModelAndView view = new ModelAndView("admin/detalhes_proprietario");
         view.addObject("proprietario", proprietarioService.findProprietarioById(id));

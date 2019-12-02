@@ -130,10 +130,10 @@
 
         <div class="menu-ul">
             <ul>
-                <li><a href="/index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
+                <li><a th:href="@{/index}"><i class="fas fa-home margin-icone"></i>Início</a></li>
                 <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
-                <li><a href="/consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li><a href="/obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
+                <li><a th:href="@{/consultas}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+                <li th:if="${engenheiro != null}"> <a th:href="@{/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
                 <li><a href="/dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
             </ul>
         </div>
@@ -185,7 +185,7 @@
                         </ul>
                     </div>
                 </div>
-            <form th:action="@{/cadastroObra}" method="post" id="regForm" class="col-md-8 p-0">
+            <form th:action="@{/cadastro/obra}" th:method="POST" id="regForm" class="col-md-8 p-0">
                 <div class="alert alert-danger" role="alert" th:if="${messageError != null}">
                     <span th:text="${messageError}"></span>
                 </div>
