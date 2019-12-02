@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -189,7 +189,7 @@
                 <div class="alert alert-danger" role="alert" th:if="${messageError != null}">
                     <span th:text="${messageError}"></span>
                 </div>
-                <div class="alert alert-sucess" role="alert" th:if="${messageSucess != null}">
+                <div class="alert alert-success" role="alert" th:if="${messageSucess != null}">
                     <span th:text="${messageSucess}"></span>
                 </div>
                 <!-- Formulários -->
@@ -248,6 +248,13 @@
                                     <div class="div-info-input">
                                         <span id="spanRua">
                                                 O campo rua precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="numero">Número</label>
+                                    <input type="text" id="numero" th:field="${endereco.numero}" placeholder="123">
+                                    <div class="div-info-input">
+                                        <span id="spanNumero">
+                                                O campo numero precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -326,31 +333,45 @@
                             <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
+                                    <div class="alert alert-success" role="alert">
+                                        <span> Adicione ao menos 5 Máquinas para a Obra.</span>
+                                    </div>
+                                    <br>
                                     <label th:for="${randomId}">Máquinas</label>
                                     <div id="cont1">
                                         <div class="add-input" th:each="maquina, itemStat : *{maquinas}" th:id="'maquina'+ *{maquinas[__${itemStat.index}__].cod_maquina}">
                                             <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
-                                                <input type="text" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].modelo}" th:id="${randomId}" placeholder="Alicate">
+                                                <input type="text" min="1" max="15" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].modelo}" th:id="${randomId}" placeholder="Modelo da Máquina">
                                             </div>
                                             <div class="qtd">
-                                                <input type="number" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].quantidade}" th:id="${quantidade}" placeholder="0">
+                                                <input type="number" min="1" maxlength="100" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].quantidade}" th:id="${quantidade}" placeholder="0">
+                                            </div>
+                                            <div class="placa">
+                                            <input type="text" style="margin-bottom: 10px;" data-mask="SSS-0000"  th:field="*{maquinas[__${itemStat.index}__].placa}" id="placa" placeholder="XXX-1211">
+                                            </div>
+                                            <div class="placa">
+                                            <input type="text" style="margin-bottom: 10px;" min="1" max="20" th:field="*{maquinas[__${itemStat.index}__].tipoMaquina}" id="tipoMaquina" placeholder="RetroEscavadeira">
                                             </div>
                                             </th:block>
                                         </div>
                                     </div>
-                                    <div class="btn-input">
-                                        <div class="btn-add-input d-flex align-items-center justify-content-center" 
-                                        onclick="">
-                                            Add <i class="fas fa-plus"></i>
-                                        </div>
-                                    </div>
+<!--                                    <div class="btn-input">-->
+<!--                                        <div class="btn-add-input d-flex align-items-center justify-content-center" -->
+<!--                                        onclick="">-->
+<!--                                            Add <i class="fas fa-plus"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
             
                             <!-- 2ª Coluna --> 
                             <div class="col-md-6 p-0">
-                                <div class="form-input" th:object="${form2}" onload="">
+                                <div class="form-input" th:object="${form2}">
+                                    <div class="alert alert-success" role="alert">
+                                    <span> Adicione ao menos 5 Ferramentas para a Obra.</span>
+                                    </div>
+                                    <br>
                                     <label th:for="${randomId}">Ferramentas</label>
                                     <div id="cont2" onload="">
                                         <div class="add-input" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
@@ -359,16 +380,16 @@
                                                 <input type="text" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].ferramenta}" th:id="${randomId}" placeholder="Alicate">
                                             </div>
                                             <div class="qtd">
-                                                <input type="number" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].quantidade}" id="quantidade" th:id="${randomId}" placeholder="0">
+                                                <input type="number" min="1" max="500" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].quantidade}" id="quantidade" th:id="${randomId}" placeholder="10">
                                             </div>
                                             </th:block>
                                         </div>
                                     </div>
-                                    <div class="btn-input">
-                                        <div class="btn-add-input d-flex align-items-center justify-content-center" 
-                                        onclick="">
-                                            Add <i class="fas fa-plus"></i>
-                                        </div>
+<!--                                    <div class="btn-input">-->
+<!--                                        <div class="btn-add-input d-flex align-items-center justify-content-center" -->
+<!--                                        onclick="">-->
+<!--                                            Add <i class="fas fa-plus"></i>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -435,7 +456,7 @@
 				}
 			}
 			
-			$("#placa").mask("AAA-0000", options)
+			$("placa").mask("AAA-0000", options)
 			
 			$("#codigo").mask("AA.LLL.0000", options)
 			

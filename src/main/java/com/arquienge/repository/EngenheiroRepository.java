@@ -36,4 +36,6 @@ public interface EngenheiroRepository extends JpaRepository<Engenheiro, Integer>
     @Query(value = "SELECT * FROM ENGENHEIRO WHERE ENGENHEIRO.ID = ?1", nativeQuery = true)
     Engenheiro findEngenheiroById(Integer id);
 
+    Engenheiro findEngenheiroByEmail(String email);
+
 }

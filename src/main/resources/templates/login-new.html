@@ -51,10 +51,13 @@
         <div class="container div-form">
             <div class="row">
                 <div class="col-md-4">
+                    <div class="alert alert-danger" role="alert" th:if="${messageFailure != null}">
+                        <span th:text="${messageFailure}"></span>
+                    </div>
+                    <div class="alert alert-success" role="alert" th:if="${messageAditional != null}">
+                        <span th:text="${messageAditional}"></span>
+                    </div>
                     <form action="/login?type=proprietario" method="POST" th:object="${proprietario}">
-                        <div class="alert alert-danger" role="alert" th:if="${messageFailure != null}">
-                            <span th:text="${messageFailure}"></span>
-                        </div>
                         <div>
                             <input type="email" name="email" th:field="${proprietario.email}" id="emailProprietario" placeholder="E-mail">
                         </div>
@@ -83,13 +86,13 @@
         <div class="container div-form">
             <div class="row">
                 <div class="col-md-4">
+                    <div class="alert alert-danger" role="alert" th:if="${messageFailure != null}">
+                        <span th:text="${messageFailure}"></span>
+                    </div>
+                    <div class="alert alert-success" role="alert" th:if="${messageAditional != null}">
+                        <span th:text="${messageAditional}"></span>
+                    </div>
                     <form action="/login?type=engenheiro" method="POST" th:object="${engenheiro}">
-                        <div class="alert alert-danger" role="alert" th:if="${messageFailure != null}">
-                            <span th:text="${messageFailure}"></span>
-                        </div>
-                        <div class="alert alert-sucess" role="alert" th:if="${messageAditional != null}">
-                            <span th:text="${messageAditional}"></span>
-                        </div>
                         <div>
                             <input type="email" th:field="${engenheiro.email}" name="email" id="emailEngenheiro" placeholder="E-mail">
                         </div>

@@ -28,7 +28,7 @@ public interface ProprietarioRepository extends JpaRepository<Proprietario, Inte
     @Query(value = "SELECT PROPRIETARIO.* FROM PROPRIETARIO, ENGENHEIRO WHERE ENGENHEIRO.ID = ?1 AND PROPRIETARIO.ID = ENGENHEIRO.ID_PROPRIETARIO", nativeQuery = true)
     Proprietario findProprietarioByEngenheiroId(Integer id);
 
-    @Query(value = "SELECT * FROM PROPRIETARIO WHERE PROPRIETARIO.ID_PROPRIETARIO = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM PROPRIETARIO WHERE PROPRIETARIO.ID = ?1", nativeQuery = true)
     Proprietario findProprietarioById(Integer id);
 
     @Query(value = "SELECT * FROM PROPRIETARIO WHERE PROPRIETARIO.EMAIL= ?1", nativeQuery = true)

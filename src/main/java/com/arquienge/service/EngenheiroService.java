@@ -69,4 +69,7 @@ public class EngenheiroService {
     public Engenheiro findEngenheiroByNomeandSobrenome(String nome, String sobrenome) {
         return engenheiroRepository.findEngenheiroByNomeAndSobrenome(nome, sobrenome);
     }
+    public Engenheiro findEngenheiroByEmail(String email){
+        return engenheiroRepository.findEngenheiroByEmail(email);
+    }
 }

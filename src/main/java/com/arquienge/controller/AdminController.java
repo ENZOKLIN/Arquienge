@@ -23,11 +23,8 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-    @Autowired
     private final ProprietarioService proprietarioService;
-    @Autowired
     private final EnderecoService enderecoService;
-    @Autowired
     private final AdministradorService administradorService;
 
     public AdminController(ProprietarioService proprietarioService, EnderecoService enderecoService, AdministradorService administradorService) {

@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" th:href="@{img/favicon-32x32.png}" sizes="32x32" />
-    <link rel="icon" type="image/png" th:href="@{img/favicon-16x16.png}" sizes="16x16" />
+    <link rel="icon" type="image/png" th:href="@{/img/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" th:href="@{/img/favicon-16x16.png}" sizes="16x16" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -43,7 +43,7 @@
             
         <div class="info-perfil">
             <div class="foto-perfil" id="fotoPerfil">
-                <img th:src="@{img/user-profile-pic.jpg}" alt="">
+                <img th:src="@{/img/user-profile-pic.jpg}" alt="">
             </div>
             <div class="nome-perfil" id="nomePerfl">
                 <h2>Enzo Klin</h2>
@@ -101,38 +101,44 @@
                     <div class="info-registro">
                         <ul id="info-registro-ul">
                             <div class="progress-div div-in-progress">
-                                <li class="d-flex align-items-center in-progress"><img th:src="@{img/in-progress-1.png}" alt="">Informações pessoais</li>
+                                <li class="d-flex align-items-center in-progress"><img th:src="@{/img/in-progress-1.png}" alt="">Informações pessoais</li>
                             </div>
                             <div class="progress-div">
-                                <li class="d-flex align-items-center"><img th:src="@{img/waiting-2.png}" alt="">Endereço</li>
+                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-2.png}" alt="">Endereço</li>
                             </div>
                         </ul>
                     </div>
                 </div>
-            <form action="" id="regForm" class="col-md-8 p-0">
+            <form action="#" th:action="@{/cadastro/engenheiro}" th:method="POST" id="regForm" class="col-md-8 p-0">
                 <!-- Formulários -->
                     <!-- Primeira guia -->
+                <div class="alert alert-danger" role="alert" th:if="${messageFailure != null}">
+                    <span th:text="${messageFailure}"></span>
+                </div>
+                <div class="alert alert-success" role="alert" th:if="${messageSucess != null}">
+                    <span th:text="${messageSucess}"></span>
+                </div>
                     <div class="tab">
                         <div class="row p-0 m-0">
                             <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
                                     <label for="nome">Nome</label>
-                                    <input type="text" id="nome" placeholder="Fulano">
+                                    <input type="text" th:field="${engenheiro.nome}" id="nome" placeholder="Fulano">
                                     <div class="div-info-input">
                                         <span id="spanNome">
                                             O campo nome precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="sobrenome">Sobrenome</label>
-                                    <input type="text" id="sobrenome" placeholder="de Tal">
+                                    <input type="text" th:field="${engenheiro.sobrenome}" id="sobrenome" placeholder="de Tal">
                                     <div class="div-info-input">
                                         <span id="spanSobrenome">
                                             O campo sobrenome precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="telefone">Telefone</label>
-                                    <input type="text" id="telefone" placeholder="(00) 0000-0000">
+                                    <input type="text" th:field="${engenheiro.telefone}" id="telefone" placeholder="(00) 0000-0000">
                                     <div class="div-info-input">
                                         <span id="spanTelefone">
                                             O campo telefone precisa ser preenchido!
@@ -145,14 +151,14 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="email">E-mail</label>
-                                    <input type="email" id="email" placeholder="example@example.com">
+                                    <input type="email" th:field="${engenheiro.email}" id="email" placeholder="example@example.com">
                                     <div class="div-info-input">
                                         <span id="spanEmail">
                                             O campo e-mail precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="senha">Senha</label>
-                                    <input type="password" id="senha" placeholder="example" >
+                                    <input type="password" th:field="${engenheiro.senha}" id="senha" placeholder="example" >
                                     <div class="div-info-input">
                                         <span id="spanSenha">
                                             O campo senha precisa ser preenchido!
@@ -183,14 +189,14 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="CPF">CPF</label>
-                                    <input type="text" id="CPF" placeholder="000.000.000-00">
+                                    <input th:field="${engenheiro.cpf}" type="text" id="CPF" placeholder="000.000.000-00">
                                     <div class="div-info-input">
                                         <span id="spanCPF">
                                             O campo CPF precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="RG">RG</label>
-                                    <input type="text" id="RG" placeholder="000.000.000">
+                                    <input th:field="${engenheiro.rg}" type="text" id="RG" placeholder="000.000.000">
                                     <div class="div-info-input">
                                         <span id="spanRG">
                                             O campo RG precisa ser preenchido!
@@ -202,51 +208,10 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="dataNascimento">Data de nascimento</label>
-                                    <input type="text" id="dataNascimento" placeholder="00/00/0000">
+                                    <input th:field="${engenheiro.nascimento}" type="text" id="dataNascimento" placeholder="00/00/0000">
                                     <div class="div-info-input">
                                         <span id="spandataNascimento">
-                                            O campo CPF precisa ser preenchido!
-                                        </span>
-                                    </div>
-                                    <div class="options-gender">
-                                        <div class="row">
-                                            <div class="col-6 d-flex align-items-center">
-                                                <div class="option d-flex align-items-center" id="div-check-masc">
-                                                    <div id="man">
-
-                                                    </div>
-                                                    <p for="masculino" class="float-left p-0 m-0 ml-3" id="pMan">Masculino</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 d-flex align-items-center">
-                                                <div class="option d-flex align-items-center" id="div-check-fem">
-                                                    <div id="woman">
-
-                                                    </div>
-                                                    <p for="feminino" class="float-left p-0 m-0 ml-3" id="pWoman">Feminino</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <label for="feminino" id="checkboxFeminino" value="" hidden>feminino</label>
-                                        <input type="radio" name="genero" id="feminino" value="Feminino" hidden>
-                                        <label for="masculino" id="checkboxMasculino" value="" hidden>masculino</label>
-                                        <input type="radio" name="genero" id="masculino" value="Masculino" hidden>
-                                    </div>
-                                    <script>
-                                        document.getElementById("div-check-masc").addEventListener("click", function(){
-                                            document.getElementById("checkboxMasculino").click();
-                                            document.getElementById("div-check-fem").style.backgroundColor = "#f6f8fa";
-                                            document.getElementById("div-check-masc").style.backgroundColor = "rgb(240, 240, 247)";
-                                        });
-                                        document.getElementById("div-check-fem").addEventListener("click", function(){
-                                            document.getElementById("checkboxFeminino").click();
-                                            document.getElementById("div-check-masc").style.backgroundColor = "#f6f8fa";
-                                            document.getElementById("div-check-fem").style.backgroundColor = "rgb(240, 240, 247)";
-                                        });
-                                    </script>
-                                    <div class="div-info-input">
-                                        <span id="spanSexo">
-                                                O campo sexo precisa ser preenchido!
+                                            O campo data de nascimento precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -255,7 +220,7 @@
                     </div>
 
                     <!-- Segunda guia -->
-                    <div class="tab">
+                    <div class="tab" th:object="${endereco}">
                         <div class="row p-0 m-0 ">
                             <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
@@ -263,7 +228,7 @@
                                     <label for="CEP">CEP</label>
                                     <div class="pesquisa-cep">
                                         <div class="input-with-btn">
-                                            <input class="input-btn" type="text" id="CEP" placeholder="00000-000">
+                                            <input th:field="${endereco.cep}" class="input-btn" type="text" id="CEP" placeholder="00000-000">
                                         </div>
                                         <div class="btn-with-input">
                                             <div class="btn-search" onclick="pesquisacep(CEP.value)">
@@ -277,17 +242,17 @@
                                         </p>
                                     </div>
                                     <label for="cidade">Cidade</label>
-                                    <input type="text" id="cidade" placeholder="Florianópolis">
+                                    <input th:field="${endereco.cidade}" type="text" id="cidade" placeholder="Florianópolis">
                                     <div class="div-info-input">
                                         <span id="spanCidade">
                                                 O campo cidade precisa ser preenchido!
                                         </span>
                                     </div>
-                                    <label for="estado">Estado</label>
-                                    <input type="text" id="estado" placeholder="SC">
+                                    <label for="estado">UF</label>
+                                    <input th:field="${endereco.uf}" type="text" id="estado" placeholder="Florianópolis">
                                     <div class="div-info-input">
                                         <span id="spanEstado">
-                                                Escolha uma opção.
+                                                O campo estado precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -297,17 +262,24 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="bairro">Bairro</label>
-                                    <input type="text" id="bairro" placeholder="Rio vermelho">
+                                    <input th:field="${endereco.bairro}" type="text" id="bairro" placeholder="Rio vermelho">
                                     <div class="div-info-input">
                                         <span id="spanBairro">
                                                 O campo bairro precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="rua">Rua</label>
-                                    <input type="text" id="rua" placeholder="Maria Luz Silveira">
+                                    <input th:field="${endereco.rua}" type="text" id="rua" placeholder="Maria Luz Silveira">
                                     <div class="div-info-input">
                                         <span id="spanRua">
                                                 O campo rua precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="numero">Número</label>
+                                    <input th:field="${endereco.numero}" type="number" max="5000" min="1" id="numero" placeholder="123">
+                                    <div class="div-info-input">
+                                        <span id="spanNumero">
+                                                O campo número precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -339,11 +311,11 @@
     </div>
 
     <!-- Javascript -->
-    <script th:src="@{js/script.js}"></script>
-    <script th:src="@{js/cep.js}"></script>
-    <script th:src="@{js/data-nascimento.js}"></script>
-    <script th:src="@{js/jquery/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{js/jquery/jquery.mask.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/cep.js}"></script>
+    <script th:src="@{/js/data-nascimento.js}"></script>
+    <script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/jquery/jquery.mask.min.js}"></script>
     <script type="text/javascript">
 		$(document).ready(function(){
             $("#CPF").mask("000.000.000-00")

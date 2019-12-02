@@ -6,8 +6,6 @@ import com.arquienge.config.Logado;
 import com.arquienge.config.LogadoEstatico;
 import com.arquienge.model.*;
 import com.arquienge.service.*;
-import jdk.internal.org.objectweb.asm.Label;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +24,13 @@ import java.util.Optional;
 @Controller
 public class EngenheiroController {
 
-    @Autowired
     private final EngenheiroService engenheiroService;
-    @Autowired
     private final EnderecoService enderecoService;
-    @Autowired
     private final MaquinaService maquinaService;
-    @Autowired
     private final FerramentaService ferramentaService;
-    @Autowired
     private final ObraService obraService;
-    @Autowired
     private final ProprietarioService proprietarioService;
-    @Autowired
     private final FuncionarioService funcionarioService;
-    @Autowired
     private final CarteiradeTrabalhoService carteiradeTrabalhoService;
 
 
@@ -62,7 +52,7 @@ public class EngenheiroController {
         if (LogadoEstatico.getEmail() != null) {
             if (LogadoEstatico.getId() != 0 && LogadoEstatico.prop) {
                 return new ModelAndView("redirect:/index");
-            } else if (LogadoEstatico.getId() != 0 && LogadoEstatico.prop == false) {
+            } else if (LogadoEstatico.getId() != 0 && !LogadoEstatico.prop) {
                 return new ModelAndView("redirect:/index");
             }
         }
@@ -77,6 +67,9 @@ public class EngenheiroController {
     @PostMapping("/login")
     public Object authenticate(@RequestParam String type, Engenheiro engenheiro, Proprietario proprietario, BindingResult result, RedirectAttributes redirectAttributes) {
         boolean success = false;
+        if(result.hasErrors()){
+            return new ModelAndView("redirect:/login");
+        }
         if (type.equals("engenheiro")) {
             for (Engenheiro u : engenheiroService.selectAll()) {
                 if (engenheiro.getEmail().equals(u.getEmail()) && engenheiro.getSenha().equals(u.getSenha())) {
@@ -112,10 +105,10 @@ public class EngenheiroController {
     public ModelAndView viewIndexScreen() {
         if (LogadoEstatico.getEmail() != null) {
             ModelAndView view = new ModelAndView("index");
-            if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
                 Logado logado = new Logado(false);
                 Optional<Engenheiro> logged = engenheiroService.selectById(logado.getId());
-                Engenheiro engenheiro = (Engenheiro) logged.get();
+                Engenheiro engenheiro = logged.get();
                 view.addObject("engenheiro", engenheiro);
                 return view;
             } else if (LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
@@ -144,8 +137,7 @@ public class EngenheiroController {
                 return view;
             }
         }
-            RedirectView view = new RedirectView("/login");
-        return view;
+        return new RedirectView("/login");
     }
 
 
@@ -165,26 +157,6 @@ public class EngenheiroController {
 
     /* MAPEAMENTOS DE CADASTROS */
 
-    /* ================= CADASTRO DE ENGENHEIROS ================== */
-
-    @GetMapping("/cadastro/engenheiro")
-    public ModelAndView viewRegisterScreen(Engenheiro engenheiro, Endereco endereco) {
-        ModelAndView view = new ModelAndView("testes/engenheiro");
-        view.addObject("Engenheiro", engenheiro);
-        view.addObject("Endereco", endereco);
-        return view;
-    }
-
-    @PostMapping("/cadastro/engenheiro")
-    public Object register(@Valid Engenheiro engenheiro, @Valid Endereco endereco, BindingResult result) throws IOException {
-        if (result.hasErrors()) {
-            return this.viewRegisterScreen(engenheiro, endereco);
-        }
-        enderecoService.saveEndereco(endereco);
-        engenheiro.setEndereco(endereco);
-        engenheiroService.saveEngenheiro(engenheiro);
-        return "redirect:/login";
-    }
 
     /*   ================== CADASTRO DE OBRAS ================== */
 
@@ -234,7 +206,7 @@ public class EngenheiroController {
         }
 
         Logado logado = new Logado(false);
-        if (LogadoEstatico.getId() != 0 && LogadoEstatico.prop == false) {
+        if (LogadoEstatico.getId() != 0 && !LogadoEstatico.prop) {
             Optional<Engenheiro> engenheiro = engenheiroService.selectById(logado.getId());
             Engenheiro logged = (Engenheiro) engenheiro.get();
             obra.setEngenheiro(logged);
@@ -266,7 +238,7 @@ public class EngenheiroController {
                     }
                 }
                 redirectAttributes.addFlashAttribute("messageSucess", "Obra salva com sucesso!");
-                return "redirect:/cadastro/obra";
+                return new RedirectView("redirect:/cadastro/obra");
             }
         }
         return "redirect:/login";
@@ -277,7 +249,7 @@ public class EngenheiroController {
     @GetMapping("/cadastro/funcionario")
     public ModelAndView cadastroFuncionario() {
         if (LogadoEstatico.getEmail() != null) {
-            if (LogadoEstatico.prop != true && LogadoEstatico.getId() != 0) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
                 CarteiradeTrabalho carteiradeTrabalho = new CarteiradeTrabalho();
                 Funcionario funcionario = new Funcionario();
                 Endereco endereco = new Endereco();
@@ -301,10 +273,10 @@ public class EngenheiroController {
         carteiradeTrabalhoService.saveCarteira(carteiradeTrabalho);
         funcionario.setCarteira(carteiradeTrabalho);
         Optional<Engenheiro> engenheiro = engenheiroService.selectById(LogadoEstatico.getId());
-        Engenheiro logado = (Engenheiro) engenheiro.get();
+        Engenheiro logado = engenheiro.get();
         funcionario.setEngenheiro(logado);
         funcionarioService.saveFuncionario(funcionario);
-        return "redirect:/cadastro/funcionario";
+        return new RedirectView("redirect:/cadastro/funcionario");
 
     }
 
@@ -313,7 +285,7 @@ public class EngenheiroController {
     /* ============== CONSULTAR FUNCIONÁRIOS ============== */
 
     @GetMapping("/consulta/funcionarios")
-    public ModelAndView consultaFuncionarios(RedirectAttributes redirectAttributes) {
+    public ModelAndView consultaFuncionarios() {
         if (LogadoEstatico.getEmail() != null) {
             ModelAndView view = new ModelAndView("consultar-funcionarios");
             Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
