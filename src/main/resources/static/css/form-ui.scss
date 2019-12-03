@@ -67,7 +67,7 @@
     }
     #cont1{
         .add-input{
-            width: 75%;
+            width: 100%;
             float: left;
             .material{
                 float: left;
@@ -81,7 +81,7 @@
     }
     #cont2{
         .add-input{
-            width: 75%;
+            width: 100%;
             float: left;
             .material{
                 float: left;
@@ -355,6 +355,7 @@ select::-ms-expand {
 
 .tab{
     display: none;
+    min-height: 200px;
 }
 
 .span-inline{

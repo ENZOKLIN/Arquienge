@@ -66,9 +66,10 @@
                     <label for="cep">CEP</label>
                     <div class="conteudo-cep">
                         <div class="input-cep">
-                            <input type="text" name="cep" id="cep" disabled value="88060-231">
+                            <input type="text" name="CEP" id="CEP" disabled value="88060-231">
                         </div>
-                        <div id="btn-pesquisar-cep" class="btn-pesquisar-cep align-items-center justify-content-center">
+                        <div id="btn-pesquisar-cep" class="btn-pesquisar-cep align-items-center justify-content-center"
+                        onclick="pesquisacep(CEP.value)">
                             Pesquisar
                         </div>
                         <div style="clear: both;"></div>
@@ -86,6 +87,8 @@
                 <div class="col-md-4 m-0 editar-campos">
                     <label for="rua">Rua</label>  
                     <input type="text" name="rua" id="rua" disabled value="Maria da Luz Silveira">
+                    <label for="numero">Número</label>
+                    <input type="text" name="numero" id="numero" disabled value="4453">
                 </div>
             </div>
         </div>
@@ -179,9 +182,8 @@
             Editar
         </button>
     </div>
-    
 
-
+    <script th:src="@{/js/cep.js}"></script>
     <script>
         var allHidden = true;
 

@@ -17,515 +17,495 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
     <title>Registro de obras | Arquienge</title>
     <style>
         /* The container */
-.label-checkbox {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  padding-bottom: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+        .label-checkbox {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            padding-bottom: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-/* Hide the browser's default checkbox */
-.label-checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
+        /* Hide the browser's default checkbox */
+        .label-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
 
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  background-color: #eee;
-}
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            background-color: #eee;
+        }
 
-/* On mouse-over, add a grey background color */
-.label-checkbox:hover input ~ .checkmark {
-  background-color: #ccc;
-}
+        /* On mouse-over, add a grey background color */
+        .label-checkbox:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
 
-/* When the checkbox is checked, add a blue background */
-.label-checkbox input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
+        /* When the checkbox is checked, add a blue background */
+        .label-checkbox input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
 
-/* Show the checkmark when checked */
-.label-checkbox input:checked ~ .checkmark:after {
-  display: block;
-}
+        /* Show the checkmark when checked */
+        .label-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
 
-/* Style the checkmark/indicator */
-.label-checkbox .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 6px;
-  height: 13px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
+        /* Style the checkmark/indicator */
+        .label-checkbox .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 6px;
+            height: 13px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body>
 
-    <!--
-        <i class="fas fa-bars"></i>
-    -->
+<!--
+    <i class="fas fa-bars"></i>
+-->
 
-    <!-- BARRA TOPO -->
-    <div class="barra-topo">
-        <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de obras</h4>
-    </div>
+<!-- BARRA TOPO -->
+<div class="barra-topo">
+    <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de obras</h4>
+</div>
 
-    <!-- CLOSE MENU BTN -->
-    <div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
-        <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
-    </div>
+<!-- CLOSE MENU BTN -->
+<div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
+    <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
+</div>
 
-    <!-- SIDE MENU -->
-    <div id="sideNav" class="sidenav">
-            
-        <div class="info-perfil">
-            <div class="foto-perfil" id="fotoPerfil">
-                <img th:src="@{/img/user-profile-pic.jpg}" alt="">
-            </div>
-            <div class="nome-perfil" id="nomePerfl">
-                <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}"></h2>
-            </div>
-            <div class="cargo-perfil" id="cargoPerfil">
-                <h3>Engenheiro(a)</h3>
-            </div>
-        </div>
+<!-- SIDE MENU -->
+<div id="sideNav" class="sidenav">
 
-        <div class="info-area">
-            <h5>#Menu</h5>
-            <div style="clear: both;"></div>
+    <div class="info-perfil">
+        <div class="foto-perfil" id="fotoPerfil">
+            <img th:src="@{/img/user-profile-pic.jpg}" alt="">
         </div>
-
-        <div class="menu-ul">
-            <ul>
-                <li><a th:href="@{/index}"><i class="fas fa-home margin-icone"></i>Início</a></li>
-                <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
-                <li><a th:href="@{/consultas}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li th:if="${engenheiro != null}"> <a th:href="@{/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
-                <li><a href="/dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
-            </ul>
+        <div class="nome-perfil" id="nomePerfl">
+            <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}"></h2>
         </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
-            </ul>
-        </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a href="">Sobre o sistema</a></li>
-            </ul>
-        </div>
-       
-        <div class="info-area">
-            <h5>#Notificações</h5>
-            <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-            <div style="clear: both;"></div>
-        </div>
-
-        <div class="notificacoes" id="notificacoes">
-            <div class="notificacao">
-                <span></span>
-            </div>
+        <div class="cargo-perfil" id="cargoPerfil">
+            <h3>Engenheiro(a)</h3>
         </div>
     </div>
-    <!-- SIDE MENU -->
 
-    <!-- CONTEUDO -->
-    <div class="conteudo">
-        <div class="container-fluid">
-            <!-- Informações do formulário -->
-            <div class="row"> 
-                <div class="col-md-4 p-0">  
-                    <div class="info-registro">
-                        <ul id="info-registro-ul">
-                            <div class="progress-div div-in-progress">
-                                <li class="d-flex align-items-center in-progress"><img th:src="@{/img/in-progress-1.png}" alt="">Local da obra</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-2.png}" alt="">Dados da obra</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-3.png}" alt="">Etapas</li>
-                            </div>
-                            <div class="progress-div">
-                                <li class="d-flex align-items-center"><img th:src="@{/img/waiting-4.png}" alt="">Materiais necessários</li>
-                            </div>
-                        </ul>
-                    </div>
+    <div class="info-area">
+        <h5>#Menu</h5>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="menu-ul">
+        <ul>
+            <li><a th:href="@{/index}"><i class="fas fa-home margin-icone"></i>Início</a></li>
+            <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
+            <li><a th:href="@{/consultas}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+            <li th:if="${engenheiro != null}"> <a th:href="@{/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
+            <li><a href="/dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
+        </ul>
+    </div>
+    <div class="menu-ul">
+        <ul>
+            <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
+        </ul>
+    </div>
+    <div class="menu-ul">
+        <ul>
+            <li><a href="">Sobre o sistema</a></li>
+        </ul>
+    </div>
+
+    <div class="info-area">
+        <h5>#Notificações</h5>
+        <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="notificacoes" id="notificacoes">
+        <div class="notificacao">
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- SIDE MENU -->
+
+<!-- CONTEUDO -->
+<div class="conteudo">
+    <div class="container-fluid">
+        <!-- Informações do formulário -->
+        <div class="row">
+            <div class="col-md-4 p-0">
+                <div class="info-registro">
+                    <ul id="info-registro-ul">
+                        <div class="progress-div div-in-progress">
+                            <li class="d-flex align-items-center in-progress"><img th:src="@{/img/in-progress-1.png}" alt="">Local da obra</li>
+                        </div>
+                        <div class="progress-div">
+                            <li class="d-flex align-items-center"><img th:src="@{/img/waiting-2.png}" alt="">Dados da obra</li>
+                        </div>
+                        <div class="progress-div">
+                            <li class="d-flex align-items-center"><img th:src="@{/img/waiting-4.png}" alt="">Materiais necessários</li>
+                        </div>
+                    </ul>
                 </div>
+            </div>
             <form th:action="@{/cadastro/obra}" th:method="POST" id="regForm" class="col-md-8 p-0">
-                <div class="alert alert-danger" role="alert" th:if="${messageError != null}">
+                <div style="display: none;" class="alert alert-danger" role="alert" th:if="${messageError != null}">
                     <span th:text="${messageError}"></span>
                 </div>
-                <div class="alert alert-success" role="alert" th:if="${messageSucess != null}">
+                <div style="display: none;" class="alert alert-success" role="alert" th:if="${messageSucess != null}">
                     <span th:text="${messageSucess}"></span>
                 </div>
+
                 <!-- Formulários -->
 
                 <!-- Primeira guia -->
                 <div class="tab" th:object="${endereco}">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="CEP">CEP</label>
-                                    <div class="pesquisa-cep">
-                                        <div class="input-with-btn">
-                                            <input class="input-btn" type="text" th:field="${endereco.cep}" id="CEP" placeholder="00000-000" value="88060231">
-                                        </div>
-                                        <div class="btn-with-input">
-                                            <div class="btn-search" onclick="pesquisacep(CEP.value)">
-                                                Pesquisar
-                                            </div>
-                                        </div>
-                                        <div style="clear: both;"></div>
+                    <div class="row p-0 m-0 ">
+                        <!-- 1ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input margin-center">
+                                <label for="CEP">CEP</label>
+                                <div class="pesquisa-cep">
+                                    <div class="input-with-btn">
+                                        <input class="input-btn" type="text" th:field="${endereco.cep}" id="CEP" placeholder="00000-000" value="88060231">
                                     </div>
-                                    <div class="div-info-input">
-                                        <p id="spanCEP">
-                                        </p>
+                                    <div class="btn-with-input">
+                                        <div class="btn-search" onclick="pesquisacep(CEP.value)">
+                                            Pesquisar
+                                        </div>
                                     </div>
-                                    <label for="cidade">Cidade</label>
-                                    <input type="text" id="cidade" th:field="${endereco.cidade}" placeholder="Florianópolis">
-                                    <div class="div-info-input">
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <div class="div-info-input">
+                                    <p id="spanCEP">
+                                    </p>
+                                </div>
+                                <label for="cidade">Cidade</label>
+                                <input type="text" id="cidade" th:field="${endereco.cidade}" placeholder="Florianópolis">
+                                <div class="div-info-input">
                                         <span id="spanCidade">
                                                 O campo cidade precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="estado">Estado</label>
-                                    <input type="text" id="estado" th:field="${endereco.uf}" placeholder="Santa Catarina">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="estado">Estado</label>
+                                <input type="text" id="estado" th:field="${endereco.uf}" placeholder="Santa Catarina">
+                                <div class="div-info-input">
                                         <span id="spanEstado">
                                                 O campo estado precisa ser preenchido!
                                         </span>
-                                    </div>
                                 </div>
                             </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label for="bairro">Bairro</label>
-                                    <input type="text" id="bairro" th:field="${endereco.bairro}" placeholder="Rio vermelho">
-                                    <div class="div-info-input">
+                        </div>
+
+                        <!-- 2ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input">
+                                <label for="bairro">Bairro</label>
+                                <input type="text" id="bairro" th:field="${endereco.bairro}" placeholder="Rio vermelho">
+                                <div class="div-info-input">
                                         <span id="spanBairro">
                                                 O campo bairro precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="rua">Rua</label>
-                                    <input type="text" id="rua" th:field="${endereco.rua}" placeholder="Maria Luz Silveira">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="rua">Rua</label>
+                                <input type="text" id="rua" th:field="${endereco.rua}" placeholder="Maria Luz Silveira">
+                                <div class="div-info-input">
                                         <span id="spanRua">
                                                 O campo rua precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="numero">Número</label>
-                                    <input type="number" id="numero" th:field="${endereco.numero}" placeholder="123">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="numero">Número</label>
+                                <input type="number" id="numero" th:field="${endereco.numero}" placeholder="123">
+                                <div class="div-info-input">
                                         <span id="spanNumero">
                                                 O campo numero precisa ser preenchido!
                                         </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Segunda guia -->
-                    <div class="tab" th:object="${obra}">
-                        <div class="row p-0 m-0  ">
-                            <!-- 1ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="dataInicio">Início das obras</label>
-                                    <input type="text" th:field="${obra.dt_inicio}" id="dataInicio" placeholder="00/00/0000">
-                                    <div class="div-info-input">
+                <!-- Segunda guia -->
+                <div class="tab" th:object="${obra}">
+                    <div class="row p-0 m-0  ">
+                        <!-- 1ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input margin-center">
+                                <label for="dataInicio">Início das obras</label>
+                                <input type="text" th:field="${obra.dt_inicio}" id="dataInicio" placeholder="00/00/0000">
+                                <div class="div-info-input">
                                         <span id="spanDataInicio">
                                             O campo inicio das obras precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="dataTermino">Data de Entrega da Obra</label>
-                                    <input type="text" th:field="${obra.dt_entrega}" id="dataTermino" placeholder="00/00/0000">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="dataTermino">Data de Entrega da Obra</label>
+                                <input type="text" th:field="${obra.dt_entrega}" id="dataTermino" placeholder="00/00/0000">
+                                <div class="div-info-input">
                                         <span id="spanDataTermino">
                                             O campo previsão de termino das obras precisa ser preenchido!
                                         </span>
-                                    </div>
-                                    <label for="nomeObra">Nome da Obra</label>
-                                    <input type="text" th:field="${obra.nome_obra}" id="nomeObra" placeholder="Nome da Obra">
-                                    <div class="div-info-input">
+                                </div>
+                                <label for="nomeObra">Nome da Obra</label>
+                                <input type="text" th:field="${obra.nome_obra}" id="nomeObra" placeholder="Nome da Obra">
+                                <div class="div-info-input">
                                         <span id="spanNomeObra">
                                             O campo nome da obra precisa ser preenchido!
                                         </span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                    <label  style="margin-bottom: 10px;">Adicionar funcionários a obra</label>
-                                    <label th:if="${funcionarios != null}" class="label-checkbox" th:each="funcionario : ${funcionarios}"><label th:text="${funcionario.nome}"></label>
-                                        <input type="checkbox" th:field="${obra.funcionarios}" th:value="${funcionario.id}">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <div class="alert alert-danger" role="alert" th:if="${funcionarios.empty}">
-                                        <span>Nenhum funcionario cadastrado.</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                
-                    <!-- Terceira guia -->
-                    <div class="tab">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna -->
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    Etapas
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
-                                   
-                                </div>
+
+                        <!-- 2ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input">
+                                <label  style="margin-bottom: 10px;">Adicionar funcionários a obra</label>
+                                <label class="text-danger mb-3">Nenhum funcionário cadastrado. Se deseja inserir um funcionário
+                                    a obra é preciso primeiro cadastrá-lo.
+                                </label>
+                                <label th:if="${funcionarios != null}" class="label-checkbox" th:each="funcionario : ${funcionarios}"><label th:text="${funcionario.nome}"></label>
+                                    <input type="checkbox" th:field="${obra.funcionarios}" th:value="${funcionario.id}">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                     </div>
-            
-                    <!-- Terceira guia -->
-                    <div class="tab" th:object="${form}" onload="">
-                        <div class="row p-0 m-0 ">
-                            <!-- 1ª Coluna -->
-                            <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <div class="alert alert-success" role="alert">
-                                        <span> Adicione ao menos 5 Máquinas para a Obra.</span>
-                                    </div>
-                                    <br>
-                                    <label th:for="${randomId}">Máquinas</label>
-                                    <div id="cont1">
-                                        <div class="add-input" th:each="maquina, itemStat : *{maquinas}" th:id="'maquina'+ *{maquinas[__${itemStat.index}__].cod_maquina}">
-                                            <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
+                </div>
+
+                <!-- Terceira guia -->
+                <div class="tab" th:object="${form}" onload="">
+                    <div class="row p-0 m-0 ">
+                        <!-- 1ª Coluna -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-input">
+                                    <label>Adicione ao menos 5 Máquinas e 5 ferramentas para a Obra.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <div class="form-input margin-center">
+                                <label th:for="${randomId}">Máquinas</label>
+                                <div id="cont1">
+                                    <div class="add-input" th:each="maquina, itemStat : *{maquinas}" th:id="'maquina'+ *{maquinas[__${itemStat.index}__].cod_maquina}">
+                                        <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
                                                 <input type="text" min="1" max="15" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].modelo}" th:id="${randomId}" placeholder="Modelo da Máquina">
                                             </div>
                                             <div class="qtd">
                                                 <input type="number" min="1" maxlength="100" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].quantidade}" th:id="${quantidade}" placeholder="0">
                                             </div>
+                                            <input type="text" style="margin-bottom: 10px;" min="1" max="20" th:field="*{maquinas[__${itemStat.index}__].tipoMaquina}" id="tipoMaquina" placeholder="Tipo de máquina">
+                                            <!--
                                             <div class="placa">
                                             <input type="text" style="margin-bottom: 10px;" data-mask="SSS-0000"  th:field="*{maquinas[__${itemStat.index}__].placa}" id="placa" placeholder="XXX-1211">
                                             </div>
-                                            <div class="placa">
-                                            <input type="text" style="margin-bottom: 10px;" min="1" max="20" th:field="*{maquinas[__${itemStat.index}__].tipoMaquina}" id="tipoMaquina" placeholder="RetroEscavadeira">
-                                            </div>
-                                            </th:block>
-                                        </div>
+                                            -->
+                                        </th:block>
                                     </div>
-<!--                                    <div class="btn-input">-->
-<!--                                        <div class="btn-add-input d-flex align-items-center justify-content-center" -->
-<!--                                        onclick="">-->
-<!--                                            Add <i class="fas fa-plus"></i>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                 </div>
+                                <!--                                    <div class="btn-input">-->
+                                <!--                                        <div class="btn-add-input d-flex align-items-center justify-content-center" -->
+                                <!--                                        onclick="">-->
+                                <!--                                            Add <i class="fas fa-plus"></i>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
                             </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input" th:object="${form2}">
-                                    <div class="alert alert-success" role="alert">
-                                    <span> Adicione ao menos 5 Ferramentas para a Obra.</span>
-                                    </div>
-                                    <br>
-                                    <label th:for="${randomId}">Ferramentas</label>
-                                    <div id="cont2" onload="">
-                                        <div class="add-input" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
-                                            <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
+                        </div>
+
+                        <!-- 2ª Coluna -->
+                        <div class="col-md-6 p-0">
+                            <div class="form-input" th:object="${form2}">
+                                <label th:for="${randomId}">Ferramentas</label>
+                                <div id="cont2" onload="">
+                                    <div class="add-input" th:each="ferramenta, itemStat : *{ferramentas}" th:id="'ferramenta'+ *{ferramentas[__${itemStat.index}__].cod_ferramenta}">
+                                        <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
                                                 <input type="text" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].ferramenta}" th:id="${randomId}" placeholder="Alicate">
                                             </div>
                                             <div class="qtd">
                                                 <input type="number" min="1" max="500" style="margin-bottom: 10px;" th:field="*{ferramentas[__${itemStat.index}__].quantidade}" id="quantidade" th:id="${randomId}" placeholder="10">
                                             </div>
-                                            </th:block>
-                                        </div>
-                                    </div>
-<!--                                    <div class="btn-input">-->
-<!--                                        <div class="btn-add-input d-flex align-items-center justify-content-center" -->
-<!--                                        onclick="">-->
-<!--                                            Add <i class="fas fa-plus"></i>-->
-<!--                                        </div>-->
+                                        </th:block>
                                     </div>
                                 </div>
+                                <!--                                    <div class="btn-input">-->
+                                <!--                                        <div class="btn-add-input d-flex align-items-center justify-content-center" -->
+                                <!--                                        onclick="">-->
+                                <!--                                            Add <i class="fas fa-plus"></i>-->
+                                <!--                                        </div>-->
                             </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div style="width: 100%;">
-                            <div style="float: left;">
-                                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior</button>
-                            </div>
-                            <div style="float: right;">
-                                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo</button>
-                            </div>
-                            <div style="clear: both;"></div>
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
-                <div style="text-align:center;margin-top:40px;">
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
-                    <span class="step"></span>
+                <div>
+                    <div style="width: 100%;">
+                        <div style="float: left;">
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior</button>
+                        </div>
+                        <div style="float: right;">
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo</button>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
+</div>
+</div>
+<div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+</div>
 
-    <!-- Javascript -->
-    <script th:src="@{/js/script.js}"></script>
-    <script th:src="@{/js/cep.js}"></script>
-    <script th:src="@{/js/inputs.js}"></script>
-    <script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/js/jquery/jquery.mask.min.js}"></script>
-    <script type="text/javascript">
-		$(document).ready(function(){
-            $("#CPF").mask("000.000.000-00")
-            $("#dtAdmissao").mask("00/00/0000")
-			$("#cnpj").mask("00.000.000/0000-00")
-			$("#telefone").mask("(00) 0000-0000")
-			$("#salario").mask("999.999.990,00", {reverse: true})
-			$("#CEP").mask("00000-000")
-            $("#dataNascimento").mask("00/00/0000")
-            $("#dataInicio").mask("00/00/0000")
-            $("#dataTermino").mask("00/00/0000")
-            $("#previsaoEntrega").mask("00/00/0000")
-			
-			$("#RG").mask("999.999.999-W", {
-				translation: {
-					'W': {
-						pattern: /[X0-9]/
-					}
-				},
-				reverse: true
-			})
-			
-			var options = {
-				translation: {
-					'A': {pattern: /[A-Z]/},
-					'a': {pattern: /[a-zA-Z]/},
-					'S': {pattern: /[a-zA-Z0-9]/},
-					'L': {pattern: /[a-z]/},
-				}
-			}
-			
-			$("placa").mask("AAA-0000", options)
-			
-			$("#codigo").mask("AA.LLL.0000", options)
-			
-			$("#celular").mask("(00) 0000-00009")
-			
-			$("#celular").blur(function(event){
-				if ($(this).val().length == 15){
-					$("#celular").mask("(00) 00000-0009")
-				}else{
-					$("#celular").mask("(00) 0000-00009")
-				}
-			})
-		})
-    </script>
-    <script type="text/javascript">
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-        showTab(currentTab); // Display the current tab
-        
-        function showTab(n) {
-            // This function will display the specified tab of the form...
-            var x = document.getElementsByClassName("tab");
-            x[n].style.display = "block";
-            //... and fix the Previous/Next buttons:
-            if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-            } else {
-            document.getElementById("prevBtn").style.display = "inline";
+</div>
+</div>
+
+<!-- Javascript -->
+<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/cep.js}"></script>
+<script th:src="@{/js/inputs.js}"></script>
+<script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/jquery/jquery.mask.min.js}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#CPF").mask("000.000.000-00")
+        $("#dtAdmissao").mask("00/00/0000")
+        $("#cnpj").mask("00.000.000/0000-00")
+        $("#telefone").mask("(00) 0000-0000")
+        $("#salario").mask("999.999.990,00", {reverse: true})
+        $("#CEP").mask("00000-000")
+        $("#dataNascimento").mask("00/00/0000")
+        $("#dataInicio").mask("00/00/0000")
+        $("#dataTermino").mask("00/00/0000")
+        $("#previsaoEntrega").mask("00/00/0000")
+
+        $("#RG").mask("999.999.999-W", {
+            translation: {
+                'W': {
+                    pattern: /[X0-9]/
+                }
+            },
+            reverse: true
+        })
+
+        var options = {
+            translation: {
+                'A': {pattern: /[A-Z]/},
+                'a': {pattern: /[a-zA-Z]/},
+                'S': {pattern: /[a-zA-Z0-9]/},
+                'L': {pattern: /[a-z]/},
             }
-            if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Enviar";
-            } else {
-            document.getElementById("nextBtn").innerHTML = "Próximo";
-            }
-            //... and run a function that will display the correct step indicator:
-            fixStepIndicator(n)
         }
-        
-        function nextPrev(n) {
-            // This function will figure out which tab to display
-            var x = document.getElementsByClassName("tab");
-            // Exit the function if any field in the current tab is invalid:
-            if (n == 1 && !validateForm()) return false;
-            // Hide the current tab:
-            x[currentTab].style.display = "none";
-            //
 
-            //for(i = 0; i < document.querySelectorAll('#info-registro-ul li').length; i++){
-            //    document.querySelectorAll('#info-registro-ul li')[i].classList.remove("in-progress");
-            //}
-            // Increase or decrease the current tab by 1:
-            currentTab = currentTab + n;
-            // if you have reached the end of the form...
-            if (currentTab >= x.length) {
+        $("placa").mask("AAA-0000", options)
+
+        $("#codigo").mask("AA.LLL.0000", options)
+
+        $("#celular").mask("(00) 0000-00009")
+
+        $("#celular").blur(function(event){
+            if ($(this).val().length == 15){
+                $("#celular").mask("(00) 00000-0009")
+            }else{
+                $("#celular").mask("(00) 0000-00009")
+            }
+        })
+    })
+</script>
+<script type="text/javascript">
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
+
+    function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Enviar";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Próximo";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n)
+    }
+
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        //
+
+        //for(i = 0; i < document.querySelectorAll('#info-registro-ul li').length; i++){
+        //    document.querySelectorAll('#info-registro-ul li')[i].classList.remove("in-progress");
+        //}
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form...
+        if (currentTab >= x.length) {
             // ... the form gets submitted:
             document.getElementById("regForm").submit();
             return false;
-            }
-            // Otherwise, display the correct tab:
-            showTab(currentTab);
         }
-        
-        function validateForm() {
-            // This function deals with validation of the form fields
-            var x, y, i, valid = true;
-            x = document.getElementsByClassName("tab");
-            y = x[currentTab].getElementsByTagName("input");
-            z = x[currentTab].getElementsByTagName("span");
-            // A loop that checks every input field in the current tab:
-            for (i = 0; i < y.length; i++) {
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        z = x[currentTab].getElementsByTagName("span");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
             // If a field is empty...
             if (y[i].value == "") {
                 // add an "invalid" class to the field:
@@ -534,42 +514,42 @@
                 // and set the current valid status to false
                 valid = false;
             }
-            }
-            // If the valid status is true, mark the step as finished and valid:
-            if (valid) {
+        }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
             document.getElementsByClassName("step")[currentTab].className += " finish";
-            }
-            return valid; // return the valid status
         }
-        
-        function fixStepIndicator(n) {
-            // This function removes the "active" class of all steps...
-            var i, x = document.getElementsByClassName("step");
-            for (i = 0; i < x.length; i++) {
+        return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
             x[i].className = x[i].className.replace(" active", "");
-            }
-            //... and adds the "active" class on the current step:
-            x[n].className += " active";
         }
-        function ocultarInputsMaquinas()
-        {
-            ocultarInputsFerramentas();
-            for(i = 1; i <= 5; i++) {
-                if(i != 1){
+        //... and adds the "active" class on the current step:
+        x[n].className += " active";
+    }
+    function ocultarInputsMaquinas()
+    {
+        ocultarInputsFerramentas();
+        for(i = 1; i <= 5; i++) {
+            if(i != 1){
                 var maquina = document.getElementById('maquina'+i);
                 maquina.style.display = 'none';
-                }
             }
         }
-        function ocultarInputsFerramentas()
-        {
-            for(i = 1; i <= 5; i++) {
-                if(i != 1){
-                    var ferramenta = document.getElementById('ferramenta'+i);
-                    ferramenta.style.display = 'none';
-                }
+    }
+    function ocultarInputsFerramentas()
+    {
+        for(i = 1; i <= 5; i++) {
+            if(i != 1){
+                var ferramenta = document.getElementById('ferramenta'+i);
+                ferramenta.style.display = 'none';
             }
         }
-    </script>
+    }
+</script>
 </body>
 </html>
