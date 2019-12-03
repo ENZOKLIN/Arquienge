@@ -6,9 +6,10 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class FerramentasDto {
 
     private List<Ferramenta> ferramentas;
@@ -16,6 +17,6 @@ public class FerramentasDto {
     // default and parameterized constructor
 
     public void addFerramenta(Ferramenta ferramenta) {
-        this.ferramentas.add(ferramenta);
+            this.ferramentas.add(ferramenta);
     }
 }
