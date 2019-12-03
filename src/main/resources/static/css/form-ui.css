@@ -108,6 +108,10 @@ select:-webkit-autofill:focus {
   border-bottom: 1px solid #3a8dcf;
 }
 
+.form-input input:disabled {
+  border: none;
+}
+
 .form-input #cont1 .add-input {
   width: 75%;
   float: left;
@@ -159,6 +163,54 @@ select:-webkit-autofill:focus {
 
 .form-input .btn-input .btn-add-input:hover {
   background-color: #2678bb;
+}
+
+.form-input .box-clima {
+  border: 1px solid #3a8dcf;
+  border-radius: 3px;
+  color: #3a8dcf;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.form-input .box-clima i {
+  font-size: 40px;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-input .box-clima h3 {
+  font-size: 18px;
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.form-input .box-clima:hover {
+  background-color: #3a8dcf;
+  color: #fff;
+}
+
+.form-input .active {
+  background-color: #3a8dcf;
+  color: #fff;
+}
+
+.form-input textarea {
+  margin-top: 10px;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #e0e0e0;
+  padding: 5px 10px;
+  color: #8195b4;
+}
+
+.form-input textarea:focus {
+  outline: none;
 }
 
 .options-gender {

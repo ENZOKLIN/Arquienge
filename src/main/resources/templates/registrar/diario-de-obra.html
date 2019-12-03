@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/form-ui.css">
+    <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="../img/favicon-16x16.png" sizes="16x16" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
+
+    <style>
+    /* The container */
+    .label-checkbox {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        padding-bottom: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .label-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .label-checkbox:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .label-checkbox input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .label-checkbox input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .label-checkbox .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 6px;
+        height: 13px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    </style>
+
+    <title>Registro de dário de obra | Arquienge</title>
+</head>
+<body>
+
+    <!--
+        <i class="fas fa-bars"></i>
+    -->
+
+    <!-- BARRA TOPO -->
+    <div class="barra-topo">
+        <h4 style="text-align: center; " id="infoLocal" class="info-local">Registro de diário de obra</h4>
+    </div>
+
+    <!-- CLOSE MENU BTN -->
+    <div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
+        <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
+    </div>
+
+    <!-- SIDE MENU -->
+    <div id="sideNav" class="sidenav">
+            
+        <div class="info-perfil">
+            <div class="foto-perfil" id="fotoPerfil">
+                <img src="../img/user-profile-pic.jpg" alt="">
+            </div>
+            <div class="nome-perfil" id="nomePerfl">
+                <h2>Enzo Klin</h2>
+            </div>
+            <div class="cargo-perfil" id="cargoPerfil">
+                <h3>Administrador(a)</h3>
+            </div>
+        </div>
+
+        <div class="info-area">
+            <h5>#Menu</h5>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="menu-ul">
+            <ul>
+                <li><a href="../index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
+                <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
+                <li><a href="../consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+                <li><a href="../obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
+                <li><a href="../dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="menu-ul">
+            <ul>
+                <li><a href="">Sair</a></li>
+            </ul>
+        </div>
+        <div class="menu-ul">
+            <ul>
+                <li><a href="">Sobre o sistema</a></li>
+            </ul>
+        </div>
+       
+        <div class="info-area">
+            <h5>#Notificações</h5>
+            <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="notificacoes" id="notificacoes">
+            <div class="notificacao">
+                <span>Bem vindo, Enzo!</span>
+            </div>
+        </div>
+    </div>
+    <!-- SIDE MENU -->
+
+    <!-- CONTEUDO -->
+    <div class="conteudo">
+        <div class="container-fluid">
+            <!-- Informações do formulário -->
+            <div class="row"> 
+                <div class="col-md-4 p-0">  
+                    <div class="info-registro">
+                        <ul id="info-registro-ul">
+                            <div class="progress-div div-in-progress">
+                                <li class="d-flex align-items-center in-progress"><img src="../img/in-progress-1.png" alt="">Registro do diário de obra</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            <form action="" id="regForm" class="col-md-8 p-0">
+                <!-- Formulários -->
+                    <!-- Primeira guia -->
+                    <div class="tab">
+                        <div class="row p-0 m-0  ">
+                            <!-- 1ª Coluna --> 
+                            <div class="col-md-6 p-0">
+                                <div class="form-input margin-center">
+                                    <label for="dtCriacao">Data de criação</label>
+                                    <input type="text" id="dtCriacao" placeholder="00/00/0000" value="03/04/2020" disabled>
+                                    <div class="div-info-input">
+                                        <span id="spandtCriacao">
+                                            O campo tipo precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                    <label for="descricao">Descrição</label>
+                                    <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+                                    <div class="div-info-input">
+                                        <span id="spanDescricao">
+                                            O campo tipo precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- 2ª Coluna --> 
+                            <div class="col-md-6 p-0">
+                                <div class="form-input">
+                                    <label for="horaCriacao">Hora de criação</label>
+                                    <input type="text" id="horaCriacao" placeholder="00/00/0000" value="13:00" disabled>
+                                    <div class="div-info-input">
+                                        <span id="spanhoraCriacao">
+                                            O campo tipo precisa ser preenchido!
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <div class="row p-0 m-0  ">
+                            <!-- 1ª Coluna --> 
+                            <div class="col-md-12 p-0">
+                                <div class="form-input margin-center">
+                                    <label for="dtCriacao">Selecione o clima predominante</label>
+                                    <div class="row">
+                                        <div class="col-md-3 pr-0">
+                                            <label for="ensolarado">
+                                                <div class="box-clima">
+                                                    <i class="fas fa-sun"></i>
+                                                    <h3>Ensolarado</h3>
+                                                </div>
+                                            </label>
+                                            <input type="radio" name="clima" id="ensolarado" hidden>
+                                        </div>
+                                        <div class="col-md-3 pr-0">
+                                            <label for="nublado">
+                                                <div class="box-clima">
+                                                    <i class="fas fa-cloud-sun"></i>
+                                                    <h3>Nublado</h3>
+                                                </div>
+                                            </label>    
+                                            <input type="radio" name="clima" id="nublado" hidden>
+                                        </div>
+                                        <div class="col-md-3 pr-0">
+                                            <label for="chuvoso">
+                                                <div class="box-clima">
+                                                    <i class="fas fa-cloud-sun-rain"></i>
+                                                    <h3>Chuvoso</h3>
+                                                </div>
+                                            </label>
+                                            <input type="radio" name="clima" id="chuvoso" hidden>
+                                        </div>
+                                        <div class="col-md-3 pr-0">
+                                            <label for="muitoChuvoso">
+                                                <div class="box-clima">
+                                                    <i class="fas fa-cloud-showers-heavy"></i>
+                                                    <h3>Muito chuvoso</h3>
+                                                </div>
+                                            </label>
+                                            <input type="radio" name="clima" id="muitoChuvoso" hidden>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Primeira guia -->
+                    <div class="tab">
+                        <div class="row p-0 m-0  ">
+                            <!-- 1ª Coluna --> 
+                            <div class="col-md-6 p-0">
+                                <div class="form-input margin-center">
+                                    <label for="dtCriacao" style="margin-bottom: 10px;">Chamada de funcionários da obra</label>
+                                    <label class="label-checkbox">Bárbara Martins
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Lucas Bueno
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Enzo Klin
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+            
+                            <!-- 2ª Coluna --> 
+                            <div class="col-md-6 p-0">
+                                <div class="form-input">
+                                    <label for="horaCriacao" style="margin-bottom: 10px;">Máquinas usadas</label>
+                                    <label class="label-checkbox">Bárbara Martins
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Lucas Bueno
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Enzo Klin
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <div class="row p-0 m-0  ">
+                            <!-- 1ª Coluna --> 
+                            <div class="col-md-12 p-0">
+                                <div class="form-input margin-center">
+                                    <label for="dtCriacao" style="margin-bottom: 10px;">Ferramentas utilizadas na obra</label>
+                                    <label class="label-checkbox">Bárbara Martins
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Lucas Bueno
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="label-checkbox">Enzo Klin
+                                        <input type="checkbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="width: 100%;">
+                            <div style="float: left;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="button-ui">Anterior</button>
+                            </div>
+                            <div style="float: right;">
+                                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="button-ui">Próximo</button>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                </div>
+                
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script src="../js/script.js"></script>
+    <script src="../js/cep.js"></script>
+    <script src="../js/data-nascimento.js"></script>
+    <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('div .box-clima').on('click',function(){
+                $('div .box-clima').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+        
+        function showTab(n) {
+            // This function will display the specified tab of the form...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            //... and fix the Previous/Next buttons:
+            if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+            } else {
+            document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Enviar";
+            } else {
+            document.getElementById("nextBtn").innerHTML = "Próximo";
+            }
+            //... and run a function that will display the correct step indicator:
+            fixStepIndicator(n)
+        }
+        
+        function nextPrev(n) {
+            // This function will figure out which tab to display
+            var x = document.getElementsByClassName("tab");
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm()) return false;
+            // Hide the current tab:
+            x[currentTab].style.display = "none";
+            //
+
+            //for(i = 0; i < document.querySelectorAll('#info-registro-ul li').length; i++){
+            //    document.querySelectorAll('#info-registro-ul li')[i].classList.remove("in-progress");
+            //}
+            // Increase or decrease the current tab by 1:
+            currentTab = currentTab + n;
+            // if you have reached the end of the form...
+            if (currentTab >= x.length) {
+            // ... the form gets submitted:
+            document.getElementById("regForm").submit();
+            return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
+        }
+        
+        function validateForm() {
+            // This function deals with validation of the form fields
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+            z = x[currentTab].getElementsByTagName("span");
+            // A loop that checks every input field in the current tab:
+            for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                z[i].className += " span-inline";
+                // and set the current valid status to false
+                valid = false;
+            }
+            }
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+            return valid; // return the valid status
+        }
+        
+        function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class on the current step:
+            x[n].className += " active";
+        }
+    </script>
+</body>
+</html>

@@ -61,6 +61,9 @@
             transition: all 0.5s;
             border-bottom: 1px solid $fontTitle;
         }
+        &:disabled{
+            border: none;
+        }
     }
     #cont1{
         .add-input{
@@ -107,6 +110,48 @@
             &:hover{
                 background-color: #2678bb;
             }
+        }
+    }
+    .box-clima{
+        border: 1px solid $fontTitle;
+        border-radius: 3px;
+        color: $fontTitle;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        i{
+            font-size: 40px;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            
+        }
+        h3{
+            font-size: 18px;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        &:hover{
+            background-color: $fontTitle;
+            color: #fff;
+        }
+    }
+    .active{
+        background-color: $fontTitle;
+        color: #fff;
+    }
+    textarea{
+        margin-top: 10px;
+        width: 100%;
+        height: 100px;
+        border: 1px solid $borderGrey;
+        padding: 5px 10px;
+        color: $fontSubtitle;
+        &:focus{
+            outline: none;
         }
     }
 }
