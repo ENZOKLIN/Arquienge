@@ -57,6 +57,10 @@ public class ObraService {
         return obraRepository.findObraByName(nome);
     }
 
+    public List<Obra> findObraByProprietario(Integer id){
+        return obraRepository.findObrasByProprietario(id);
+    }
+
     public List<Obra> selectObrasByDatadeEntrega(Date date) {
         return obraRepository.findObrasByDatadeEntrega(date);
     }

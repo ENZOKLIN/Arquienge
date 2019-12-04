@@ -40,16 +40,22 @@
 
     <!-- SIDE MENU -->
     <div id="sideNav" class="sidenav">
-            
+
         <div class="info-perfil">
             <div class="foto-perfil" id="fotoPerfil">
                 <img th:src="@{/img/user-profile-pic.jpg}" alt="">
             </div>
-            <div class="nome-perfil" id="nomePerfl">
-                <h2>Enzo Klin</h2>
+            <div class="nome-perfil" id="nomePerflEngenheiro" th:if="${engenheiro != null}">
+                <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}">Engenheiro Não Encontrado</h2>
             </div>
-            <div class="cargo-perfil" id="cargoPerfil">
-                <h3>Administrador(a)</h3>
+            <div class="nome-perfil" id="nomePerflProprietario" th:if="${proprietario != null}">
+                <h2 th:text="${proprietario.nome + ' ' + proprietario.sobrenome}">Proprietário Não Encontrado</h2>
+            </div>
+            <div class="cargo-perfil" id="cargoPerfil" th:if="${engenheiro != null}">
+                <h3>Engenheiro(a)</h3>
+            </div>
+            <div class="cargo-perfil" id="cargoPerfilProp" th:if="${proprietario != null}">
+                <h3>Proprietário(a)</h3>
             </div>
         </div>
 
@@ -60,33 +66,27 @@
 
         <div class="menu-ul">
             <ul>
-                <li><a href="#"><i class="fas fa-home margin-icone"></i>Início</a></li>
-                <li class="li-selected"><a href="./registrar/opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
-                <li><a href="consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li><a href="obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
-                <li><a href="dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
+                <li class="li-selected"><a th:href="@{/index}" style="color: #3A8DCF;"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
+                <li><a th:href="@{/cadastro/opcoes}"><i class="fas fa-address-card margin-icone"></i>Registrar</a></li>
+                <li><a th:href="@{/consulta/opcoes}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+                <li><a th:href="@{/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
             </ul>
         </div>
         <div class="menu-ul">
             <ul>
-                <li><a href="">Sair</a></li>
+                <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
+                <li><a th:if="${proprietario != null}" th:href="@{/logout/{id}(id=${proprietario.id_proprietario})}">Sair</a></li>
             </ul>
         </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a href="">Sobre o sistema</a></li>
-            </ul>
-        </div>
-       
+
         <div class="info-area">
             <h5>#Notificações</h5>
             <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-            <div style="clear: both;"></div>
         </div>
 
         <div class="notificacoes" id="notificacoes">
             <div class="notificacao">
-                <span>Bem vindo, Enzo!</span>
+
             </div>
         </div>
     </div>

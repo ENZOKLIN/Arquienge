@@ -35,13 +35,6 @@ public class Maquina {
     private int quantidade;
     private String tipoMaquina;
 
-    //DETERMINANDO O TAMANHO DA COLUNA NO BD "8" E QUE ELA É ÚNICA:
-    @Column(length = 8)
-
-    //DETERMINANDO UMA FORMATAÇÃO DE DADOS QUE QUERO RECEBER NESTE ATRIBUTO ATRAVÉS DO REGEX:
-    @Pattern(regexp = "[A-Za-z]{3}-[0-9]{4}", message = "Placa Inválida")
-    private String placa;
-
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE MÁQUINA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(MUITAS MÁQUINAS PARA UMA OBRA):
     @ManyToOne
@@ -55,6 +48,6 @@ public class Maquina {
     //CRIANDO METÓDO TO STRING PRÓPRIO DA CLASSE(OPTANDO POR NÃO USAR O LOMBOK):
     @Override
     public String toString() {
-        return "Máquina =[ Código da Máquina:" + this.getCod_maquina() + ",Tipo da Máquina:" + this.getTipoMaquina() + ", Modelo da Máquina:" + this.getModelo() + ", Placa da Máquina:" + this.getPlaca() + ", Quantidade da Máquina:" + this.getQuantidade() + "]";
+        return "Máquina =[ Código da Máquina:" + this.getCod_maquina() + ",Tipo da Máquina:" + this.getTipoMaquina() + ", Modelo da Máquina:" + this.getModelo() +  ", Quantidade da Máquina:" + this.getQuantidade() + "]";
     }
 }

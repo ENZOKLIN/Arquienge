@@ -76,12 +76,12 @@ public class Obra {
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE OBRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UMA OBRA PARA MUITAS FERRAMENTAS):
-    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "obra")
     private List<Ferramenta> ferramentas;
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE OBRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UMA OBRA PARA MUITAS MÁQUINAS):
-    @OneToMany(mappedBy = "obra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "obra")
     private List<Maquina> maquinas;
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE OBRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,

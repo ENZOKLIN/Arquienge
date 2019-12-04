@@ -20,7 +20,7 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
-    <title>Consultar Funcionarios | Arquienge</title>
+    <title>Consultar Engenheiros | Arquienge</title>
 </head>
 <body style="background-color: #ebeff3;">
 
@@ -98,8 +98,8 @@
         <div class="row">
             <div class="col-12 p-0">
                 <div class="fake-search">
-                        <input type="text" name="buscar" id="buscar" placeholder="Pesquisar" autocomplete="off">
-                        <button type="submit"><i class="fas fa-search"></i></button>
+                    <input type="text" name="buscar" id="buscar" placeholder="Pesquisar" autocomplete="off">
+                    <button type="submit"><i class="fas fa-search"></i></button>
                     <p hidden>
                         Ops! você deve digitar algo no campo acima.
                     </p>
@@ -110,13 +110,13 @@
             <div class="resultado-pesquisa col-12 p-0">
                 <table>
                     <tbody>
-                    <tr th:each="funcionario : ${funcionarios}">
+                    <tr th:each="engenheiro : ${engenheiros}">
                         <td>
                             <div class="ft-lista">
-                                <i class="fas fa-hard-hat fa-2x" style="margin-left: 4px"></i>
+                                <i class="fas fa-wrench fa-2x" style="margin-left: 4px"></i>
                             </div>
-                            <h3 th:text="${funcionario.nome + ' ' + funcionario.sobrenome}">Nome do Funcionário</h3>
-                            <h4 th:text="${funcionario.cargo}">Cargo</h4>
+                            <h3 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}">Nome do Engenheiro</h3>
+                            <h4>Engenheiro(a)</h4>
                         </td>
                         <td th:if="${proprietario != null}" class="td-btn-editar">
                             <button>EDITAR</button>

@@ -24,4 +24,7 @@ public interface ObraRepository extends JpaRepository<Obra, Integer> {
     @Query(value = "SELECT * FROM OBRA WHERE OBRA.ID_ENGENHEIRO = ?1", nativeQuery = true)
     List<Obra> findObraByEngenheiro(Integer id);
 
+    @Query(value = "SELECT OBRA.* FROM OBRA,ENGENHEIRO,PROPRIETARIO WHERE PROPRIETARIO.ID = ?1 AND ENGENHEIRO.PROPRIETARIO_ID = ?1 AND OBRA.ID_ENGENHEIRO = ENGENHEIRO.ID", nativeQuery = true)
+    List<Obra> findObrasByProprietario(Integer id);
+
 }

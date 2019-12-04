@@ -72,4 +72,8 @@ public class EngenheiroService {
     public Engenheiro findEngenheiroByEmail(String email){
         return engenheiroRepository.findEngenheiroByEmail(email);
     }
+
+    public List<Engenheiro> findEngenheirosByProprietario(Integer id){
+        return engenheiroRepository.findEngenheirosByProprietarioId(id);
+    }
 }

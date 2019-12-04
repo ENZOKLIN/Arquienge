@@ -28,7 +28,7 @@ public class Ferramenta {
     //DETERMINANDO QUE ESTA KEY(ID) É UM VALOR GERADO DO TIPO IDENTITY(ETAPA 1, ETAPA 2, ETAPA 3):
     // DETERMINANDO ATRAVÉS DE ANOTAÇÃO QUE O NOME DA COLUNA NO BD DESTE ATRIBUTO É "ID":
     @Id
-    @Column(name = "id")
+    @Column(nullable=true, name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cod_ferramenta;
 

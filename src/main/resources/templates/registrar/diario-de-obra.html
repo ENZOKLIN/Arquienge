@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/form-ui.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/form-ui.css}">
     <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../img/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="../img/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" th:href="@{/img/favicon-32x32.png}" sizes="32x32" />
+    <link rel="icon" type="image/png" th:href="@{/img/favicon-16x16.png}" sizes="16x16" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -114,7 +114,7 @@
             
         <div class="info-perfil">
             <div class="foto-perfil" id="fotoPerfil">
-                <img src="../img/user-profile-pic.jpg" alt="">
+                <img th:src="@{/img/user-profile-pic.jpg}" alt="">
             </div>
             <div class="nome-perfil" id="nomePerfl">
                 <h2>Enzo Klin</h2>
@@ -131,7 +131,7 @@
 
         <div class="menu-ul">
             <ul>
-                <li><a href="../index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
+                <li><a href="/index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
                 <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
                 <li><a href="../consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
                 <li><a href="../obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
@@ -172,12 +172,12 @@
                     <div class="info-registro">
                         <ul id="info-registro-ul">
                             <div class="progress-div div-in-progress">
-                                <li class="d-flex align-items-center in-progress"><img src="../img/in-progress-1.png" alt="">Registro do diário de obra</li>
+                                <li class="d-flex align-items-center in-progress"><img th:src="@{/img/in-progress-1.png}" alt="">Registro do diário de obra</li>
                             </div>
                         </ul>
                     </div>
                 </div>
-            <form action="" id="regForm" class="col-md-8 p-0">
+            <form action="" id="regForm" class="col-md-8 p-0" th:object="${diariodeobra}">
                 <!-- Formulários -->
                     <!-- Primeira guia -->
                     <div class="tab">
@@ -186,17 +186,17 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input margin-center">
                                     <label for="dtCriacao">Data de criação</label>
-                                    <input type="text" id="dtCriacao" placeholder="00/00/0000" value="03/04/2020" disabled>
+                                    <input type="text" id="dtCriacao" placeholder="00/00/0000" th:value="${diariodeobra.dataCriacao}" disabled>
                                     <div class="div-info-input">
                                         <span id="spandtCriacao">
-                                            O campo tipo precisa ser preenchido!
+                                            O campo data de criação precisa ser preenchido!
                                         </span>
                                     </div>
                                     <label for="descricao">Descrição</label>
-                                    <textarea name="descricao" id="descricao" cols="30" rows="10"></textarea>
+                                    <textarea name="descricao" id="descricao" cols="30" rows="10" th:field="${diariodeobra.descricao}"></textarea>
                                     <div class="div-info-input">
                                         <span id="spanDescricao">
-                                            O campo tipo precisa ser preenchido!
+                                            O campo descrição precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -206,10 +206,10 @@
                             <div class="col-md-6 p-0">
                                 <div class="form-input">
                                     <label for="horaCriacao">Hora de criação</label>
-                                    <input type="text" id="horaCriacao" placeholder="00/00/0000" value="13:00" disabled>
+                                    <input type="text" id="horaCriacao" placeholder="00:00" th:value="${diariodeobra.horaCriacao}" disabled>
                                     <div class="div-info-input">
                                         <span id="spanhoraCriacao">
-                                            O campo tipo precisa ser preenchido!
+                                            O campo hora de criação precisa ser preenchido!
                                         </span>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@
                                                     <h3>Ensolarado</h3>
                                                 </div>
                                             </label>
-                                            <input type="radio" name="clima" id="ensolarado" hidden>
+                                            <input type="radio" name="clima" id="ensolarado" th:field="${diariodeobra.clima}" th:value="Ensolarado" hidden>
                                         </div>
                                         <div class="col-md-3 pr-0">
                                             <label for="nublado">
@@ -239,7 +239,7 @@
                                                     <h3>Nublado</h3>
                                                 </div>
                                             </label>    
-                                            <input type="radio" name="clima" id="nublado" hidden>
+                                            <input type="radio" name="clima" id="nublado" th:field="${diariodeobra.clima}" th:value="Nublado" hidden>
                                         </div>
                                         <div class="col-md-3 pr-0">
                                             <label for="chuvoso">
@@ -248,7 +248,7 @@
                                                     <h3>Chuvoso</h3>
                                                 </div>
                                             </label>
-                                            <input type="radio" name="clima" id="chuvoso" hidden>
+                                            <input type="radio" name="clima" id="chuvoso" th:field="${diariodeobra.clima}" th:value="Chuvoso" hidden>
                                         </div>
                                         <div class="col-md-3 pr-0">
                                             <label for="muitoChuvoso">
@@ -257,7 +257,7 @@
                                                     <h3>Muito chuvoso</h3>
                                                 </div>
                                             </label>
-                                            <input type="radio" name="clima" id="muitoChuvoso" hidden>
+                                            <input type="radio" name="clima" id="muitoChuvoso" th:field="${diariodeobra.clima}" th:value="MuitoChuvoso" hidden>
                                         </div>
                                     </div>
                                 </div>
@@ -266,36 +266,28 @@
                     </div>
                     <!-- Primeira guia -->
                     <div class="tab">
-                        <div class="row p-0 m-0  ">
-                            <!-- 1ª Coluna --> 
+                        <div class="row p-0 m-0" th:object="${form}">
+                            <!-- 1ª Coluna --->
+                          <div class="col-md-6 p-0">
+                              <div class="form-input margin-center">
+                               <label for="dtCriacao" style="margin-bottom: 10px;">Chamada de funcionários da obra</label>-->
+                              <label class="label-checkbox" th:each="maquinasUsadas : *{maquinasUsadas}">
+                                  <input type="checkbox" th:field="*{maquinasUsadas.usada}" checked="checked" th:value="${maquinasUsadas.usada}">
+                                  <span class="checkmark"></span>
+                              </label>
+                               </div>
+                          </div>
+
+                           <!-- 2ª Coluna-->
                             <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
-                                    <label for="dtCriacao" style="margin-bottom: 10px;">Chamada de funcionários da obra</label>
-                                    <label class="label-checkbox">Bárbara Martins
-                                        <input type="checkbox" checked="checked">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="label-checkbox">Lucas Bueno
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="label-checkbox">Enzo Klin
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-            
-                            <!-- 2ª Coluna --> 
-                            <div class="col-md-6 p-0">
-                                <div class="form-input">
+                                <div class="form-input" th:object="${form}">
                                     <label for="horaCriacao" style="margin-bottom: 10px;">Máquinas usadas</label>
-                                    <div>
-                                        <label class="label-checkbox">Trator
-                                            <input type="checkbox" checked="checked">
+                                    <div th:each="maquinasUsadas, itemStat : *{maquinasUsadas}">
+                                        <label class="label-checkbox" th:text="${obra.maquinas[__${itemStat.index}__].modelo}">
+                                            <input type="checkbox" th:field="*{maquinasUsadas[__${itemStat.index}__].maquina}" >
                                             <span class="checkmark"></span>
                                         </label>
-                                        <input type="number" placeholder="Quantidade">
+                                        <input type="number" th:field="*{maquinasUsadas[__${itemStat.index}__].qtd}" placeholder="Quantidade">
                                     </div>
                                 </div>
                             </div>
@@ -303,16 +295,16 @@
                     </div>
                     <div class="tab">
                         <div class="row p-0 m-0  ">
-                            <!-- 1ª Coluna --> 
+                            <!-- 1ª Coluna -->
                             <div class="col-md-6 p-0">
-                                <div class="form-input margin-center">
+                                <div class="form-input margin-center" th:object="${form2}">
                                     <label for="dtCriacao" style="margin-bottom: 10px;">Ferramentas utilizadas na obra</label>
                                     <div>
-                                        <label class="label-checkbox">Alicate
+                                        <label class="label-checkbox" th:each="ferramentasUsadas, itemStat : *{ferramentasUsadas}" th:text="${obra.ferramentas[__${itemStat.index}__].ferramenta}">
                                             <input type="checkbox" checked="checked">
                                             <span class="checkmark"></span>
+                                            <input type="number" th:field="*{ferramentasUsadas[__${itemStat.index}__].qtd}" placeholder="Quantidade">
                                         </label>
-                                        <input type="number" placeholder="Quantidade">
                                     </div>
                                 </div>
                             </div>
@@ -344,11 +336,11 @@
     </div>
 
     <!-- Javascript -->
-    <script src="../js/script.js"></script>
-    <script src="../js/cep.js"></script>
-    <script src="../js/data-nascimento.js"></script>
-    <script src="../js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../js/jquery/jquery.mask.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/cep.js}"></script>
+    <script th:src="@{/js/data-nascimento.js}"></script>
+    <script th:src="@{/js/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/jquery/jquery.mask.min.js}"></script>
     <script>
         $(document).ready(function(){
             $('div .box-clima').on('click',function(){

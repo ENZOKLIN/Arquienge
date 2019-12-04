@@ -169,6 +169,13 @@
                                                         placeholder="UF do Proprietario">
                                             </div>
                                         </div>
+                                        <label for="numero">Número</label>
+                                        <input th:field="${endereco.numero}" type="number" max="5000" min="1" id="numero" placeholder="123">
+                                        <div class="div-info-input">
+                                        <span id="spanNumero">
+                                                O campo número precisa ser preenchido!
+                                        </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

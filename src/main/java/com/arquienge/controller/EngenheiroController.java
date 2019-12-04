@@ -1,12 +1,15 @@
 package com.arquienge.controller;
 
 import com.arquienge.DTO.FerramentasDto;
+import com.arquienge.DTO.FerramentasUsadasDto;
 import com.arquienge.DTO.MaquinasDto;
+import com.arquienge.DTO.MaquinasUsadasDto;
 import com.arquienge.config.Logado;
 import com.arquienge.config.LogadoEstatico;
 import com.arquienge.model.*;
 import com.arquienge.service.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,6 +50,19 @@ public class EngenheiroController {
 
     /* MAPEAMENTOS DE LOGIN E INDEX */
 
+    @GetMapping(value = {"/", "/inicio", "/home"})
+    public ModelAndView viewInicioScreen() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (LogadoEstatico.getId() != 0 && LogadoEstatico.prop) {
+                return new ModelAndView("redirect:/index");
+            } else if (LogadoEstatico.getId() != 0 && !LogadoEstatico.prop) {
+                return new ModelAndView("redirect:/index");
+            }
+        }
+        ModelAndView view = new ModelAndView("index2");
+        return view;
+    }
+
     @GetMapping("/login")
     public ModelAndView viewLoginScreen() {
         if (LogadoEstatico.getEmail() != null) {
@@ -67,7 +83,7 @@ public class EngenheiroController {
     @PostMapping("/login")
     public Object authenticate(@RequestParam String type, Engenheiro engenheiro, Proprietario proprietario, BindingResult result, RedirectAttributes redirectAttributes) {
         boolean success = false;
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return new ModelAndView("redirect:/login");
         }
         if (type.equals("engenheiro")) {
@@ -129,8 +145,8 @@ public class EngenheiroController {
     }
 
     @GetMapping(value = {"/entrar", "/login/", "/registrar",})
-    public RedirectView viewLoginScreenRedirect(){
-        if(LogadoEstatico.getEmail() != null) {
+    public RedirectView viewLoginScreenRedirect() {
+        if (LogadoEstatico.getEmail() != null) {
             if (LogadoEstatico.getId() != 0) {
                 RedirectView view = new RedirectView("/index");
                 view.addStaticAttribute("engenheiro", engenheiroService.findEngenheiroById(LogadoEstatico.getId()));
@@ -141,16 +157,10 @@ public class EngenheiroController {
     }
 
 
-
-    @GetMapping(value = "/logout/{id}")
-    public ModelAndView logout(@PathVariable Integer id,
-                               RedirectAttributes redirectAttributes) {
-        if(id.equals(LogadoEstatico.getId())) {
-            LogadoEstatico.desconectar();
-            redirectAttributes.addFlashAttribute("messageAditional", "Você acabou de sair de sua conta.");
-            return new ModelAndView("redirect:/login");
-        }
+    @GetMapping(value = "/logout/")
+    public ModelAndView logout(RedirectAttributes redirectAttributes) {
         LogadoEstatico.desconectar();
+        redirectAttributes.addFlashAttribute("messageAditional", "Você acabou de sair de sua conta.");
         return new ModelAndView("redirect:/login");
     }
 
@@ -236,7 +246,7 @@ public class EngenheiroController {
                     }
                 }
                 redirectAttributes.addFlashAttribute("messageSucess", "Obra salva com sucesso!");
-                return new RedirectView("redirect:/cadastro/obra");
+                return new ModelAndView("redirect:/cadastro/obra");
             }
         }
         return "redirect:/login";
@@ -258,8 +268,7 @@ public class EngenheiroController {
                 view.addObject("funcionarios", funcionarios);
                 view.addObject("engenheiro", logado);
                 return view;
-            }
-            else{
+            } else {
                 ModelAndView view = new ModelAndView("consultar-funcionarios");
                 Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
                 List<Funcionario> funcionarios = funcionarioService.findFuncionariosByProprietario(logado);
@@ -281,6 +290,187 @@ public class EngenheiroController {
         view.addObject("funcionario", funcionarioService.findFuncionarioById(id));
         view.addObject("engenheiro", engenheiroService.findEngenheiroById(LogadoEstatico.getId()));
         return view;
+    }
+
+    @GetMapping("/obra/detalhes/{id}")
+    public ModelAndView detalhesObra(@PathVariable Integer id) {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("editar-obras");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                Obra obra = obraService.selectObrabyId_obra(id);
+                view.addObject("engenheiro", logado);
+                view.addObject("obra", obra);
+                return view;
+            } else {
+                ModelAndView view = new ModelAndView("editar-obras");
+                Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+                Obra obra = obraService.selectObrabyId_obra(id);
+                view.addObject("proprietario", logado);
+                view.addObject("obra", obra);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+
+    @GetMapping("/cadastro/opcoes")
+    public ModelAndView opcoesCadastro() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("registrar/opcoes");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                view.addObject("engenheiro", logado);
+                return view;
+            } else {
+                ModelAndView view = new ModelAndView("registrar/opcoes");
+                Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+                view.addObject("proprietario", logado);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/login");
+
+    }
+
+    @GetMapping("/consulta/obras")
+    public ModelAndView visualizarObras() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("obras");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                List<Obra> obras = obraService.selectByEngenheiro(logado.getId_engenheiro());
+                view.addObject("engenheiro", logado);
+                view.addObject("obras", obras);
+                return view;
+            } else {
+                ModelAndView view = new ModelAndView("obras");
+                Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+                List<Obra> obras = obraService.findObraByProprietario(logado.getId_proprietario());
+                view.addObject("proprietario", logado);
+                view.addObject("obras", obras);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/login");
+
+    }
+
+    @GetMapping("/cadastro/diario/{id}")
+    public ModelAndView createDiario(@PathVariable Integer id) {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
+                ModelAndView view = new ModelAndView("registrar/diario-de-obra.html");
+                Obra obra = obraService.selectObrabyId_obra(id);
+                Logado logado = new Logado(false);
+                List<Presenca> presencas = new ArrayList<>();
+                List<MaquinasUsadas> maquinasUsadas = new ArrayList<>();
+                List<FerramentasUsadas> ferramentasUsadas = new ArrayList<>();
+                for (Funcionario funcionario : obra.getFuncionarios()) {
+                    presencas.add(new Presenca());
+                    for (Ferramenta ferramenta : obra.getFerramentas()) {
+                        FerramentasUsadas ferramentasUsadas1 = new FerramentasUsadas();
+                        ferramentasUsadas1.setFerramenta(ferramenta);
+                        ferramentasUsadas.add(ferramentasUsadas1);
+                    }
+                    for (Maquina maquina : obra.getMaquinas()) {
+                        MaquinasUsadas maquinasUsadas1 = new MaquinasUsadas();
+                        maquinasUsadas1.setMaquina(maquina);
+                        maquinasUsadas.add(new MaquinasUsadas());
+                    }
+                }
+                MaquinasUsadasDto maquinasUsadasDto = new MaquinasUsadasDto(maquinasUsadas);
+                FerramentasUsadasDto ferramentasUsadasDto = new FerramentasUsadasDto(ferramentasUsadas);
+                Engenheiro engenheiro = engenheiroService.findEngenheiroById(logado.getId());
+                view.addObject("presencas", presencas);
+                view.addObject("engenheiro", engenheiro);
+                view.addObject("obra", obra);
+                view.addObject("form", maquinasUsadasDto);
+                view.addObject("form2", ferramentasUsadasDto);
+                view.addObject("diariodeobra", new DiarioDeObra());
+                return view;
+            } else if (LogadoEstatico.prop && LogadoEstatico.getId() != null) {
+                return new ModelAndView("redirect:/index");
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping(value = {"/cadastro/ferramenta/", "/cadastro/ferramenta"})
+    public ModelAndView createFerramenta() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("registrar/ferramenta");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                List<Obra> obras = obraService.selectByEngenheiro(logado.getId_engenheiro());
+                Ferramenta ferramenta = new Ferramenta();
+                ferramenta.setCod_ferramenta(null);
+                view.addObject("engenheiro", logado);
+                view.addObject("obras", obras);
+                view.addObject("ferramenta", ferramenta);
+                return view;
+            } else {
+                return new ModelAndView("redirect:/index");
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @PostMapping("/cadastro/ferramenta")
+    public Object cadastrarFerramenta(Ferramenta ferramenta, Obra obra, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                if(ferramenta != null) {
+                    ferramenta.setObra(obra);
+                    ferramentaService.saveFerramenta(ferramenta);
+                }
+                return new ModelAndView("redirect:/cadastro/ferramenta");
+            } else {
+                return new ModelAndView("redirect:/index");
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/consulta/engenheiros")
+    public ModelAndView consultaEngenheiros() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("proprietario/consultar-engenheiros");
+                Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+                List<Engenheiro> engenheiros = engenheiroService.findEngenheirosByProprietario(logado.getId_proprietario());
+                view.addObject("engenheiros", engenheiros);
+                view.addObject("proprietario", logado);
+                return view;
+            } else {
+                ModelAndView view = new ModelAndView("redirect:/index");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                view.addObject("proprietario", logado);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/consulta/opcoes")
+    public ModelAndView opcoesConsulta() {
+        if (LogadoEstatico.getEmail() != null) {
+            if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
+                ModelAndView view = new ModelAndView("opcoes_consulta");
+                Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
+                view.addObject("engenheiro", logado);
+                return view;
+            } else {
+                ModelAndView view = new ModelAndView("opcoes_consulta");
+                Proprietario logado = proprietarioService.findProprietarioById(LogadoEstatico.getId());
+                view.addObject("proprietario", logado);
+                return view;
+            }
+        }
+        return new ModelAndView("redirect:/login");
+
     }
 
 
