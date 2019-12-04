@@ -1,0 +1,120 @@
+@import "./variables";
+@import "./config";
+
+.topo{
+    border-bottom: 1px solid $borderGrey;
+    padding: 15px 15px;
+    .opcoes{
+        margin-top: 5px;
+        float: right;
+        .demo{
+            padding: 5px 10px;
+            border: 2px solid $fontTitle;
+            border-radius: 2px; 
+            color: $fontTitle;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 25px;
+            &:hover{
+                border: 2px solid $fontTitle;
+                background-color: $fontTitle;
+                color: #fff;
+            }
+        }
+        a{
+            float: right;
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            color: $fontTitle;
+            &:hover{
+                text-decoration: none;
+                color: $fontSubtitle;
+            }
+        }
+    }
+}
+
+.conteudo{
+    margin: 15px !important;
+    padding: 10px 15px !important;
+}
+
+.info-topo{
+    h2{
+        font-size: 35px;
+        font-weight: bold;
+        color: $azulMarinho;
+    }
+    p{
+        font-size: 25px;
+        font-weight: bold;
+        color: $fontSubtitle;
+    }
+    a{
+        &:hover{
+            text-decoration: none;
+        }
+        .btn-demo{
+            font-size: 18px;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: $fontTitle;
+            border: 2px solid $fontTitle;
+            transition: all 0.1s;
+            &:hover{
+                background-color: $fontTitle;
+                color: #fff;
+                transition: all 0.1s;
+            }
+        }
+    }
+    
+    i{
+        float: right;
+        margin-top: 3px;
+    }
+}
+
+.div-form{
+    input{
+        padding: 5px 10px;
+        margin: 5px 0px;
+        width: 100%;
+        border: 1px solid $borderGrey;
+        border-radius: 2px;
+        color: $fontSubtitle;
+        &::placeholder{
+            color: $fontSubtitle;
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+    button{
+        padding: 5px 10px;
+        margin: 5px 0px;
+        width: 100%;
+        border: none;
+        border-radius: 2px;
+        color: #fff;
+        background-color: $fontTitle;
+        &::placeholder{
+            color: $fontSubtitle;
+        }
+        &:focus{
+            outline: none;
+        }
+        &:hover{
+            background-color: $fontTitleHover;
+        }
+    }
+}
+
+.box-conteudo{
+    height: calc(100vh - 79px);
+}
+
+.form-ui{
+    width: 370px;
+}

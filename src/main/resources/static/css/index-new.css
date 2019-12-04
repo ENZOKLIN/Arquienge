@@ -1,0 +1,175 @@
+* {
+  font-family: 'Helvetica  Neue', 'Helvetica', Neue;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #8195b4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+          box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.topo {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 15px;
+}
+
+.topo .opcoes {
+  margin-top: 5px;
+  float: right;
+}
+
+.topo .opcoes .demo {
+  padding: 5px 10px;
+  border: 2px solid #3a8dcf;
+  border-radius: 2px;
+  color: #3a8dcf;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 25px;
+}
+
+.topo .opcoes .demo:hover {
+  border: 2px solid #3a8dcf;
+  background-color: #3a8dcf;
+  color: #fff;
+}
+
+.topo .opcoes a {
+  float: right;
+  margin-left: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #3a8dcf;
+}
+
+.topo .opcoes a:hover {
+  text-decoration: none;
+  color: #8195b4;
+}
+
+.conteudo {
+  margin: 15px !important;
+  padding: 10px 15px !important;
+}
+
+.info-topo h2 {
+  font-size: 35px;
+  font-weight: bold;
+  color: #141121;
+}
+
+.info-topo p {
+  font-size: 25px;
+  font-weight: bold;
+  color: #8195b4;
+}
+
+.info-topo a:hover {
+  text-decoration: none;
+}
+
+.info-topo a .btn-demo {
+  font-size: 18px;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #3a8dcf;
+  border: 2px solid #3a8dcf;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+.info-topo a .btn-demo:hover {
+  background-color: #3a8dcf;
+  color: #fff;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+.info-topo i {
+  float: right;
+  margin-top: 3px;
+}
+
+.div-form input {
+  padding: 5px 10px;
+  margin: 5px 0px;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  color: #8195b4;
+}
+
+.div-form input::-webkit-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form input:-ms-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form input::-ms-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form input::placeholder {
+  color: #8195b4;
+}
+
+.div-form input:focus {
+  outline: none;
+}
+
+.div-form button {
+  padding: 5px 10px;
+  margin: 5px 0px;
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #3a8dcf;
+}
+
+.div-form button::-webkit-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form button:-ms-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form button::-ms-input-placeholder {
+  color: #8195b4;
+}
+
+.div-form button::placeholder {
+  color: #8195b4;
+}
+
+.div-form button:focus {
+  outline: none;
+}
+
+.div-form button:hover {
+  background-color: #256ca5;
+}
+
+.box-conteudo {
+  height: calc(100vh - 79px);
+}
+
+.form-ui {
+  width: 370px;
+}
+/*# sourceMappingURL=index-new.css.map */
