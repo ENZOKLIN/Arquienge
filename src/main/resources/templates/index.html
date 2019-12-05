@@ -71,8 +71,8 @@
         </div>
         <div class="menu-ul">
             <ul>
-                <li><a th:if="${engenheiro != null}" th:href="@{/logout/">Sair</a></li>
-                <li><a th:if="${proprietario != null}" th:href="@{/logout/}">Sair</a></li>
+                <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
+                <li><a th:if="${proprietario != null}" th:href="@{/logout/{id}(id=${proprietario.id_proprietario})}">Sair</a></li>
             </ul>
         </div>
 

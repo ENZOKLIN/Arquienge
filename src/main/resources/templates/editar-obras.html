@@ -101,9 +101,9 @@
             <div class="row m-0 padding">
                 <div class="col-md-4 p-0 editar-campos">
                     <label for="inicioObras">Início das obras</label>
-                    <input type="text" name="inicioObras" id="inicioObras" disabled th:value="${obra.dt_inicio}">
+                    <input type="text" name="inicioObras" id="inicioObras" disabled th:value="${dataInicio}">
                     <label for="previsaoTermino">Previsão de término das obras</label>
-                    <input type="text" name="previsaoTermino" id="previsaoTermino" disabled th:value="${obra.dt_entrega}">
+                    <input type="text" name="previsaoTermino" id="previsaoTermino" disabled th:value="${dataEntrega}">
                 </div>
                 <div class="col-md-4 m-0 editar-campos">
                     
@@ -213,7 +213,7 @@
         */
     </script>
     <!-- Javascript -->
-    <script src="@{/js/script.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

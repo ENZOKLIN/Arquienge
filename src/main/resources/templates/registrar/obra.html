@@ -321,15 +321,15 @@
                             <div class="form-input margin-center">
                                 <label th:for="${randomId}">Máquinas</label>
                                 <div id="cont1">
-                                    <div class="add-input" th:each="maquina, itemStat : *{maquinas}" th:id="'maquina'+ *{maquinas[__${itemStat.index}__].cod_maquina}">
+                                    <div class="add-input" th:each="maquina, itemStat : *{machines}" th:id="'maquina'+ *{machines[__${itemStat.index}__].cod_maquina}">
                                         <th:block th:with="randomId=${#strings.randomAlphanumeric(10)}">
                                             <div class="material">
-                                                <input type="text" min="1" max="15" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].modelo}" th:id="${randomId}" placeholder="Modelo da Máquina">
+                                                <input type="text" min="1" max="15" style="margin-bottom: 10px;" th:field="*{machines[__${itemStat.index}__].modelo}" th:id="${randomId}" placeholder="Modelo da Máquina">
                                             </div>
                                             <div class="qtd">
-                                                <input type="number" min="1" maxlength="100" style="margin-bottom: 10px;" th:field="*{maquinas[__${itemStat.index}__].quantidade}" th:id="${quantidade}" placeholder="0">
+                                                <input type="number" min="1" maxlength="100" style="margin-bottom: 10px;" th:field="*{machines[__${itemStat.index}__].quantidade}" th:id="${quantidade}" placeholder="0">
                                             </div>
-                                            <input type="text" style="margin-bottom: 10px;" min="1" max="20" th:field="*{maquinas[__${itemStat.index}__].tipoMaquina}" id="tipoMaquina" placeholder="Tipo de máquina">
+                                            <input type="text" style="margin-bottom: 10px;" min="1" max="20" th:field="*{machines[__${itemStat.index}__].tipoMaquina}" id="tipoMaquina" placeholder="Tipo de máquina">
                                             <!--
                                             <div class="placa">
                                             <input type="text" style="margin-bottom: 10px;" data-mask="SSS-0000"  th:field="*{maquinas[__${itemStat.index}__].placa}" id="placa" placeholder="XXX-1211">

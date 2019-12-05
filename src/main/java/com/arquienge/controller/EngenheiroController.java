@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -157,8 +158,8 @@ public class EngenheiroController {
     }
 
 
-    @GetMapping(value = "/logout/")
-    public ModelAndView logout(RedirectAttributes redirectAttributes) {
+    @GetMapping(value = "/logout/{id}")
+    public ModelAndView logout(@PathVariable Integer id,RedirectAttributes redirectAttributes) {
         LogadoEstatico.desconectar();
         redirectAttributes.addFlashAttribute("messageAditional", "Você acabou de sair de sua conta.");
         return new ModelAndView("redirect:/login");
@@ -182,8 +183,6 @@ public class EngenheiroController {
                 for (int i = 1; i <= 5; i++) {
                     maquinas.add(new Maquina());
                     maquinas.get(i - 1).setCod_maquina(i);
-                }
-                for (int i = 1; i <= 5; i++) {
                     ferramentas.add(new Ferramenta());
                     ferramentas.get(i - 1).setCod_ferramenta(i);
                 }
@@ -227,24 +226,24 @@ public class EngenheiroController {
             } else {
                 enderecoService.saveEndereco(endereco);
                 obraService.saveObra(obra);
-                for (Maquina maquina : form.getMaquinas()) {
+                for (Maquina maquina : form.getMachines()) {
                     maquina.setObra(obra);
                     maquinaService.saveMaquina(maquina);
-                }
-                for (Ferramenta ferramenta : form2.getFerramentas()) {
-                    ferramenta.setObra(obra);
-                    ferramentaService.saveFerramenta(ferramenta);
-                }
-                for (Funcionario funcionario : obra.getFuncionarios()) {
-                    if (funcionario.getObra() != null) {
-                        obraService.deleteObra(obra);
-                        enderecoService.deleteEndereco(endereco);
-                        redirectAttributes.addFlashAttribute("messageError", "Um dos funcionários selecionados já está trabalhando em outra obra.");
-                    } else {
-                        funcionario.setObra(obra);
-                        funcionarioService.saveFuncionario(funcionario);
+                    for (Ferramenta ferramenta : form2.getFerramentas()) {
+                        ferramenta.setObra(obra);
+                        ferramentaService.saveFerramenta(ferramenta);
                     }
                 }
+                    for (Funcionario funcionario : obra.getFuncionarios()) {
+                        if (funcionario.getObra() != null) {
+                            obraService.deleteObra(obra);
+                            enderecoService.deleteEndereco(endereco);
+                            redirectAttributes.addFlashAttribute("messageError", "Um dos funcionários selecionados já está trabalhando em outra obra.");
+                        } else {
+                            funcionario.setObra(obra);
+                            funcionarioService.saveFuncionario(funcionario);
+                        }
+                    }
                 redirectAttributes.addFlashAttribute("messageSucess", "Obra salva com sucesso!");
                 return new ModelAndView("redirect:/cadastro/obra");
             }
@@ -292,15 +291,21 @@ public class EngenheiroController {
         return view;
     }
 
-    @GetMapping("/obra/detalhes/{id}")
-    public ModelAndView detalhesObra(@PathVariable Integer id) {
+    @GetMapping(value = "/obra/detalhes/{idString}")
+    public ModelAndView visualizarObra(@PathVariable String idString, RedirectAttributes redirectAttributes){
+        Integer id = Integer.valueOf(idString);
         if (LogadoEstatico.getEmail() != null) {
             if (!LogadoEstatico.prop && LogadoEstatico.getNome() != null) {
                 ModelAndView view = new ModelAndView("editar-obras");
                 Engenheiro logado = engenheiroService.findEngenheiroById(LogadoEstatico.getId());
                 Obra obra = obraService.selectObrabyId_obra(id);
+                String dtInicio = new SimpleDateFormat("dd/MM/yyyy")
+                        .format(obra.getDt_inicio());
+                String dtEntrega = new SimpleDateFormat("dd/MM/yyyy").format(obra.getDt_entrega());
                 view.addObject("engenheiro", logado);
                 view.addObject("obra", obra);
+                view.addObject("dataInicio", dtInicio);
+                view.addObject("dataEntrega", dtEntrega);
                 return view;
             } else {
                 ModelAndView view = new ModelAndView("editar-obras");
@@ -357,7 +362,7 @@ public class EngenheiroController {
 
     }
 
-    @GetMapping("/cadastro/diario/{id}")
+    @GetMapping(value = "/cadastro/diario/{id}")
     public ModelAndView createDiario(@PathVariable Integer id) {
         if (LogadoEstatico.getEmail() != null) {
             if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {

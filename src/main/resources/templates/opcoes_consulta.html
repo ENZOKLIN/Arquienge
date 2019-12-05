@@ -59,10 +59,10 @@
 
     <div class="menu-ul">
         <ul>
-            <li><a th:href="@{/index}" style="color: #3A8DCF;"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
+            <li><a th:href="@{/index}"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
             <li class="li-selected"><a th:href="@{/cadastro/opcoes}"><i class="fas fa-address-card margin-icone"></i>Registrar</a></li>
             <li><a th:href="@{/consulta/opcoes}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-            <li><a th:href="@{/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
+            <li><a th:href="@{/consulta/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
         </ul>
     </div>
     <div class="menu-ul">
@@ -98,7 +98,7 @@
                     <div class="ft-box-option" style="background-image: url('/img/worker.jpg');">
 
                     </div>
-                    <a th:href="@{/consulta/funcionarios}"><button>Registrar</button></a>
+                    <a th:href="@{/consulta/funcionarios}"><button>Consultar</button></a>
                 </div>
             </div>
             <div class="col-lg-3" th:if="${proprietario != null}">
