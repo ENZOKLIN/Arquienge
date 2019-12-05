@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="barra-titulo">
-            <h4 class="info-local">Dados da obra</h4>
+            <h4 class="info-local">Datas</h4>
         </div>
         <div class="container-fluid p-0 m-0">
             <div class="row m-0 padding">
@@ -115,7 +115,7 @@
         </div>
         <div class="container-fluid p-0 m-0">
             <div class="row m-0">
-                <div class="col-12 p-0">
+                <div class="col-12 p-0 table-pessoas">
                     <table>
                         <tbody>
                             <tr th:each="funcionario : ${obra.funcionarios}">
@@ -139,7 +139,7 @@
         </div>
         <div class="container-fluid p-0 m-0">
             <div class="row m-0">
-                <div class="col-12 p-0">
+                <div class="col-12 p-0 table-pessoas">
                     <table>
                         <tbody>
                             <tr th:each="diariodeobra : ${obra.diariosDeObra}">
@@ -166,7 +166,7 @@
     </form>
     <div class="btn-changes">
         <button id="btn-editar" class="btn-editar">
-            Editar
+            <i class="fas fa-pen"></i>
         </button>
     </div>
 

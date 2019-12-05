@@ -213,6 +213,27 @@ select:-webkit-autofill:focus {
   outline: none;
 }
 
+.form-input textarea:disabled {
+  background-color: #FFF;
+}
+
+textarea {
+  margin-top: 10px;
+  width: 100%;
+  height: 125px;
+  border: 1px solid #e0e0e0;
+  color: #8195b4;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea:disabled {
+  background-color: #FFF;
+  border: none;
+}
+
 .options-gender {
   margin-top: 10px;
 }

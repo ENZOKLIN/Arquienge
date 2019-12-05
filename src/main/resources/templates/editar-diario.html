@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/obras.css">
+    <link rel="stylesheet" href="css/editar-obras.css">
+    <link rel="stylesheet" href="css/form-ui.css">
+    <link rel="stylesheet" href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
+    <title>Editar diário de obra | Arquienge</title>
+</head>
+<body>
+
+    <!--
+        <i class="fas fa-bars"></i>
+    -->
+
+    
+
+    <!-- BARRA TOPO -->
+    <div class="barra-topo">
+        <h4 style="text-align: center; " id="infoLocal" class="info-local">Informações do diário de obra</h4>
+    </div>
+
+    <!-- CLOSE MENU BTN -->
+    <div class="menuHamburger d-flex justify-content-center align-items-center"  onclick="window.location.href='editar-obras.html'" id="menuHamburger">
+        <i id="back" class="fas fa-chevron-left" style="color: #141121; font-size: 15px;"></i>
+    </div>
+    
+    <div class="conteudo">
+        
+    </div>
+
+    <div class="info-data-diario">
+        <h1>
+            Feito em:
+        </h1>
+        <h2>
+            13/12/2019 às 19:30.
+        </h2>
+    </div>
+    
+    <form action="" method="POST">
+        <div class="barra-titulo">
+            <h4 class="info-local">Dados do diário de obra</h4>
+        </div>
+        <div class="container-fluid p-0 m-0">
+            <div class="row m-0 padding">
+                <div class="col-md-4 p-0 editar-campos">
+                    <label for="descricao">Descrição e ocorrências</label>
+                    <textarea disabled name="descricao" id="descricao" cols="40" rows="6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste iusto autem fuga inventore nam aspernatur nobis omnis aliquid saepe consequatur, enim voluptas corrupti accusantium, amet magnam veritatis similique repellendus labore?</textarea>
+                </div>
+                <div class="col-md-4 m-0 editar-campos">
+                    <label for="clima">Clima predominante</label>
+                    <input type="text" name="clima" id="clima" disabled value="Chuvoso">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" name="bairro" id="bairro" disabled value="Rio Vermelho">
+                </div>
+            </div>
+        </div>
+        <div class="barra-titulo">
+            <h4 class="info-local">Funcionários presentes</h4>
+        </div>
+        <div class="container-fluid p-0 m-0">
+            <div class="row m-0">
+                <div class="col-12 p-0 table-pessoas">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h1>Lucas Bueno</h1>
+                                    <h2>Pedreiro</h2>
+                                </td>
+                                <td class="td-maldita remover-td" hidden>
+                                    <div class="d-flex justify-content-center align-items-center btn-remover">
+                                        Remover
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1>Bárbara Martins</h1>
+                                    <h2>Pedreiro</h2>
+                                </td>
+                                <td class="td-maldita remover-td" hidden>
+                                    <div class="d-flex justify-content-center align-items-center btn-remover">
+                                        Remover
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="barra-titulo">
+            <h4 class="info-local">Ferramentas utilizadas</h4>
+        </div>
+        <div class="container-fluid p-0 m-0">
+            <div class="row m-0">
+                <div class="col-12 p-0 maquinas-ferramentas">
+                    <table>
+                        <tr>
+                            <th>Ferramenta</th>
+                            <th>Quantidade</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Alicate</h1>
+                            </td>
+                            <td>
+                                <h1>3</h1>
+                            </td>
+                            <td class="td-maldita remover-td" hidden>
+                                <div class="d-flex justify-content-center align-items-center btn-remover">
+                                    Remover
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="barra-titulo">
+            <h4 class="info-local">Máquinas utilizadas</h4>
+        </div>
+        <div class="container-fluid p-0 m-0">
+            <div class="row m-0">
+                <div class="col-12 p-0 maquinas-ferramentas">
+                    <table>
+                        <tr>
+                            <th>Máquina</th>
+                            <th>Quantidade</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Trator</h1>
+                            </td>
+                            <td>
+                                <h1>2</h1>
+                            </td>
+                            <td class="td-maldita remover-td" hidden>
+                                <div class="d-flex justify-content-center align-items-center btn-remover">
+                                    Remover
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h1>Trator</h1>
+                            </td>
+                            <td>
+                                <h1>2</h1>
+                            </td>
+                            <td class="td-maldita remover-td" hidden>
+                                <div class="d-flex justify-content-center align-items-center btn-remover">
+                                    Remover
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="btn-changes">
+            <button id="btn-salvar" hidden>
+                Salvar
+            </button>
+        </div>
+    </form>
+    <div class="btn-changes">
+        <button id="btn-editar" class="btn-editar">
+            <i class="fas fa-pen"></i>
+        </button>
+    </div>
+    
+    <script>
+        var allHidden = true;
+
+        document.getElementById("btn-editar").addEventListener('click', function(){
+            var btnEditar = document.getElementById("btn-editar");
+            var btnSalvar = document.getElementById("btn-salvar");
+            var btns = document.querySelectorAll("td.remover-td");
+            var inputs = document.getElementsByTagName("input");
+
+            if(allHidden == false){
+                btnSalvar.hidden = true;
+                btnEditar.hidden = false;
+                for(var i = 0; i< inputs.length; i++){
+                    inputs[i].disabled = true;
+                }
+                for(var i = 0; i < btns.length; i++){
+                    btns[i].hidden = true;
+                }
+                document.getElementById("btn-pesquisar-cep").style.display = "none";
+                allHidden = true;
+            }else{
+                btnSalvar.hidden = false;
+                btnEditar.hidden = true;
+                for(var i = 0; i < btns.length; i++){
+                    btns[i].hidden = false;
+                }
+                for(var i = 0; i< inputs.length; i++){
+                    inputs[i].disabled = false;
+                }
+                document.getElementById("btn-pesquisar-cep").style.display = "flex";
+                allHidden = false;
+            }
+            
+        })
+
+        /*
+        document.getElementById("btn-salvar").addEventListener('click', function(){
+            
+        });
+        */
+
+    </script>
+    <!-- Javascript -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>

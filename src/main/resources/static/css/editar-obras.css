@@ -112,7 +112,7 @@ select:-webkit-autofill:focus {
   border: none;
 }
 
-table {
+.table-pessoas table {
   width: 100%;
   margin: 0;
   margin-top: 10px;
@@ -121,12 +121,12 @@ table {
   border-top: 1px solid #e0e0e0;
 }
 
-table tbody tr td {
+.table-pessoas table tbody tr td {
   padding: 10px;
   border-bottom: 1px solid #e0e0e0;
 }
 
-table tbody tr td h1 {
+.table-pessoas table tbody tr td h1 {
   color: #141121;
   font-size: 16px;
   font-weight: bold;
@@ -135,11 +135,58 @@ table tbody tr td h1 {
   margin-bottom: 5px;
 }
 
-table tbody tr td h2 {
+.table-pessoas table tbody tr td h2 {
   color: #444055;
   font-size: 16px;
   padding: 0;
   margin: 0;
+}
+
+.table-pessoas table tbody tr:hover {
+  background-color: #f8f6f6;
+  cursor: pointer;
+}
+
+.maquinas-ferramentas table {
+  width: 100%;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.maquinas-ferramentas table tbody tr th {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+}
+
+.maquinas-ferramentas table tbody tr th:hover {
+  cursor: default;
+}
+
+.maquinas-ferramentas table tbody tr td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+}
+
+.maquinas-ferramentas table tbody tr td h1 {
+  color: #141121;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.maquinas-ferramentas table tbody tr .td-maldita {
+  border: none;
+}
+
+.maquinas-ferramentas table tbody tr:hover {
+  background-color: #f8f6f6;
+  cursor: pointer;
 }
 
 .conteudo-cep {
@@ -223,5 +270,35 @@ table tbody tr td h2 {
 .btn-changes button:hover {
   background: #256ca5;
   cursor: pointer;
+}
+
+.btn-changes .btn-editar {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.info-data-diario {
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.info-data-diario h1 {
+  color: #141121;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.info-data-diario h2 {
+  color: #141121;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
 }
 /*# sourceMappingURL=editar-obras.css.map */

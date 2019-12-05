@@ -88,31 +88,81 @@
     }
 }
 
-table{
+
+
+.table-pessoas{
+    table{
     width: 100%;
     margin: 0;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 0;
     border-top: 1px solid rgb(224, 224, 224);
-    tbody{
-        tr{
-            td{
-                padding: 10px;
-                border-bottom: 1px solid rgb(224, 224, 224);
-                h1{
-                    color: #141121;
-                    font-size: 16px;
-                    font-weight: bold;
-                    padding: 0;
-                    margin: 0;
-                    margin-bottom: 5px;
-                } 
-                h2{
-                    color: #444055;
-                    font-size: 16px;
-                    padding: 0;
-                    margin: 0;
+        tbody{
+            tr{
+                td{
+                    padding: 10px;
+                    border-bottom: 1px solid rgb(224, 224, 224);
+                    h1{
+                        color: #141121;
+                        font-size: 16px;
+                        font-weight: bold;
+                        padding: 0;
+                        margin: 0;
+                        margin-bottom: 5px;
+                    } 
+                    h2{
+                        color: #444055;
+                        font-size: 16px;
+                        padding: 0;
+                        margin: 0;
+                    }
+                }
+                &:hover{
+                    background-color: rgb(248, 246, 246);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.maquinas-ferramentas{
+    table{
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 0;
+        border-top: 1px solid rgb(224, 224, 224);
+        tbody{
+            tr{
+                th{
+                    padding: 10px;
+                    border-bottom: 1px solid rgb(224, 224, 224);
+                    border-right: 1px solid rgb(224, 224, 224);
+                    &:hover{
+                        cursor: default;
+                    }
+                }
+                td{
+                    padding: 10px;
+                    border-bottom: 1px solid rgb(224, 224, 224);
+                    border-right: 1px solid rgb(224, 224, 224);
+                    h1{
+                        color: #141121;
+                        font-size: 16px;
+                        padding: 0;
+                        margin: 0;
+                        margin-bottom: 5px;
+                    }
+                }
+                .td-maldita{
+                    border: none;
+                }
+                &:hover{
+                    background-color: rgb(248, 246, 246);
+                    cursor: pointer;
                 }
             }
         }
@@ -189,5 +239,32 @@ table{
             background: $fontTitleHover;
             cursor: pointer;
         }
+    }
+    .btn-editar{
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        border-radius: 50%;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+.info-data-diario{
+    margin-bottom: 20px;
+    margin-left: 10px;
+    h1{
+        color: #141121;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0;
+        margin: 0;
+    }
+    h2{
+        color: #141121;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
     }
 }

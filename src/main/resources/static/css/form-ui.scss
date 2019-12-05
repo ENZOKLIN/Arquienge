@@ -153,6 +153,24 @@
         &:focus{
             outline: none;
         }
+        &:disabled{
+            background-color: #FFF;
+        }
+    }
+}
+
+textarea{
+    margin-top: 10px;
+    width: 100%;
+    height: 125px;
+    border: 1px solid $borderGrey;
+    color: $fontSubtitle;
+    &:focus{
+        outline: none;
+    }
+    &:disabled{
+        background-color: #FFF;
+        border: none;
     }
 }
 
