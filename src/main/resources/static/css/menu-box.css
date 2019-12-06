@@ -67,4 +67,24 @@ select:-webkit-autofill:focus {
   margin: 0;
   padding: 5px;
 }
+
+.opcao-box a {
+  color: #141121;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.opcao-box .icon-box i {
+  color: #141121;
+}
+
+.opcao-box .icon-box i:hover {
+  color: #141121;
+}
+
+.opcao-box a:hover {
+  text-decoration: none;
+  color: #141121;
+}
+
 /*# sourceMappingURL=menu-box.css.map */

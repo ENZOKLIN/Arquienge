@@ -79,6 +79,14 @@ select:-webkit-autofill:focus {
   cursor: pointer;
 }
 
+.btn-diario .float .title-btn a {
+  text-decoration: none;
+}
+
+.btn-diario .float .title-btn a:hover {
+  text-decoration: none;
+}
+
 .padding {
   padding: 5px 10px !important;
 }

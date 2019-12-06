@@ -66,9 +66,9 @@
 
     <div class="menu-ul">
         <ul>
-            <li class="li-selected"><a th:href="@{/index}" style="color: #3A8DCF;"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
+            <li><a th:href="@{/index}"><i class="fas fa-home margin-icone"></i>Início</a></li>
             <li><a th:href="@{/cadastro/opcoes}"><i class="fas fa-address-card margin-icone"></i>Registrar</a></li>
-            <li><a th:href="@{/consulta/opcoes}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+            <li class="li-selected"><a th:href="@{/consulta/opcoes}" style="color: #3A8DCF;"><i class="fas fa-search margin-icone icone-menu"></i>Consultar</a></li>
             <li><a th:href="@{/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
         </ul>
     </div>
@@ -79,16 +79,6 @@
         </ul>
     </div>
 
-    <div class="info-area">
-        <h5>#Notificações</h5>
-        <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-    </div>
-
-    <div class="notificacoes" id="notificacoes">
-        <div class="notificacao">
-
-        </div>
-    </div>
 </div>
 <!-- SIDE MENU -->
 

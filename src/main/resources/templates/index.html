@@ -21,7 +21,7 @@
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
     <title>Arquienge</title>
 </head>
-<body style="background-color: #ebeff3;">
+<body>
 
 <!--
     <i class="fas fa-bars"></i>
@@ -77,16 +77,6 @@
         </ul>
     </div>
 
-    <div class="info-area">
-        <h5>#Notificações</h5>
-        <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-    </div>
-
-    <div class="notificacoes" id="notificacoes">
-        <div class="notificacao">
-
-        </div>
-    </div>
 </div>
 
 <!-- CONTEUDO -->
@@ -95,7 +85,7 @@
         <div class="row">
             <div class="col-md-12 p-0 position-relative">
                 <div class="opcao-box">
-                    <a th:href="@{/consulta/obras}">
+                    <a style="color: #141121;" th:href="@{/consulta/obras}">
                     <div class="icon-box">
                         <i class="fas fa-tractor"></i>
                     </div>
@@ -105,7 +95,7 @@
                     </a>
                 </div>
                 <div class="opcao-box">
-                    <a th:href="@{/consulta/obras}">
+                    <a style="color: #141121;" th:href="@{/consulta/obras}">
                     <div class="icon-box">
                         <i class="fas fa-paste"></i>
                     </div>
@@ -115,7 +105,7 @@
                     </a>
                 </div>
                 <div class="opcao-box" th:if="${engenheiro != null}">
-                    <a th:href="@{/cadastro/obra}">
+                    <a style="color: #141121;" th:href="@{/cadastro/obra}">
                     <div class="icon-box">
                         <i class="fas fa-tools"></i>
                     </div>
@@ -135,7 +125,7 @@
                     </a>
                 </div>
                 <div class="opcao-box" th:if="${proprietario != null}">
-                    <a th:href="@{/cadastro/funcionario}">
+                    <a style="color: #141121;" th:href="@{/cadastro/funcionario}">
                     <div class="icon-box">
                         <i class="far fa-id-card"></i>
                     </div>
@@ -145,7 +135,7 @@
                     </a>
                 </div>
                 <div class="opcao-box">
-                    <a th:href="@{/consulta/obras}">
+                    <a style="color: #141121;" th:href="@{/consulta/obras}">
                     <div class="icon-box">
                         <i class="fas fa-eye"></i>
                     </div>
