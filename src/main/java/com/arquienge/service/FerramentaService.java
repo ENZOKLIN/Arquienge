@@ -3,6 +3,7 @@ package com.arquienge.service;
 import com.arquienge.model.Ferramenta;
 import com.arquienge.repository.FerramentaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Service
+@Transactional
 public class FerramentaService {
 
     private final FerramentaRepository ferramentaRepository;
@@ -32,6 +34,10 @@ public class FerramentaService {
         if (isNull(ferramenta)) {
             throw new RuntimeException("Ferramenta não encontrada!");
         }
+        return ferramenta;
+    }
+    public Ferramenta findFerramentaById(Integer id){
+        Ferramenta ferramenta = ferramentaRepository.findFerramentaById(id);
         return ferramenta;
     }
 

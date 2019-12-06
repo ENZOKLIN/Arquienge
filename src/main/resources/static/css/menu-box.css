@@ -1,0 +1,70 @@
+* {
+  font-family: 'Helvetica  Neue', 'Helvetica', Neue;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #8195b4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #FFF inset;
+          box-shadow: 0 0 0px 1000px #FFF inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.box-menu-inicio {
+  width: 100%;
+  margin: 10px;
+}
+
+.opcao-box {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #e4d9d9;
+  border-radius: 3px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  float: left;
+}
+
+.opcao-box:hover {
+  -webkit-box-shadow: -1px 0px 15px -6px #cccccc;
+  box-shadow: -1px 0px 15px -6px #cccccc;
+  cursor: pointer;
+}
+
+.opcao-box .icon-box {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 10px 15px;
+  font-size: 32px;
+}
+
+.opcao-box .titulo-box {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid #e4d9d9;
+}
+
+.opcao-box .titulo-box h1 {
+  color: #141121;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+  padding: 5px;
+}
+/*# sourceMappingURL=menu-box.css.map */

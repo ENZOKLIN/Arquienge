@@ -3,6 +3,8 @@ package com.arquienge.service;
 import com.arquienge.model.Maquina;
 import com.arquienge.repository.MaquinaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Service
+@Transactional
 public class MaquinaService {
 
     private final MaquinaRepository maquinaRepository;

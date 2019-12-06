@@ -18,7 +18,6 @@ public class FerramentasUsadas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     @Column(name = "usada", updatable = false)
     private boolean usada;
 
@@ -28,13 +27,11 @@ public class FerramentasUsadas {
 
     @JoinColumn(name = "id_diario")
     @ManyToOne
-    @NotNull
     private DiarioDeObra diarioDeObra;
 
 
     @JoinColumn(name = "id_ferramenta")
     @ManyToOne
-    @NotNull
     private Ferramenta ferramenta;
 
 

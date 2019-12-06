@@ -5,6 +5,7 @@ import com.arquienge.model.DiarioDeObra;
 import com.arquienge.repository.DiarioDeObraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Service
+@Transactional
 public class DiarioDeObraService {
 
     @Autowired
@@ -30,6 +32,9 @@ public class DiarioDeObraService {
         }
         return diariosdeobra;
     }
+    public DiarioDeObra findDiarioById(Integer id){
+        return diarioDeObraRepository.findDiarioById(id);
+    }
 
     public Optional<DiarioDeObra> selectById(Integer id) {
         Optional<DiarioDeObra> diariodeobra = diarioDeObraRepository.findById(id);
@@ -41,5 +46,9 @@ public class DiarioDeObraService {
 
     public List<DiarioDeObra> findDiariosByObraId(Integer id){
         return diarioDeObraRepository.findDiarioDeObrasByObraId(id);
+    }
+
+    public void saveDiario(DiarioDeObra diarioDeObra){
+        diarioDeObraRepository.save(diarioDeObra);
     }
 }

@@ -5,6 +5,7 @@ import com.arquienge.model.Funcionario;
 import com.arquienge.model.Proprietario;
 import com.arquienge.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Service
+@Transactional
 public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
 

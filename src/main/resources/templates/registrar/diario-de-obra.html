@@ -111,16 +111,22 @@
 
     <!-- SIDE MENU -->
     <div id="sideNav" class="sidenav">
-            
+
         <div class="info-perfil">
             <div class="foto-perfil" id="fotoPerfil">
                 <img th:src="@{/img/user-profile-pic.jpg}" alt="">
             </div>
-            <div class="nome-perfil" id="nomePerfl">
-                <h2>Enzo Klin</h2>
+            <div class="nome-perfil" id="nomePerflEngenheiro" th:if="${engenheiro != null}">
+                <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}">Engenheiro Não Encontrado</h2>
             </div>
-            <div class="cargo-perfil" id="cargoPerfil">
-                <h3>Administrador(a)</h3>
+            <div class="nome-perfil" id="nomePerflProprietario" th:if="${proprietario != null}">
+                <h2 th:text="${proprietario.nome + ' ' + proprietario.sobrenome}">Proprietário Não Encontrado</h2>
+            </div>
+            <div class="cargo-perfil" id="cargoPerfil" th:if="${engenheiro != null}">
+                <h3>Engenheiro(a)</h3>
+            </div>
+            <div class="cargo-perfil" id="cargoPerfilProp" th:if="${proprietario != null}">
+                <h3>Proprietário(a)</h3>
             </div>
         </div>
 
@@ -131,33 +137,27 @@
 
         <div class="menu-ul">
             <ul>
-                <li><a href="/index.html"><i class="fas fa-home margin-icone"></i>Início</a></li>
-                <li class="li-selected"><a href="opcoes.html" style="color: #3A8DCF;"><i class="fas fa-address-card margin-icone icone-menu"></i>Registrar</a></li>
-                <li><a href="../consultar.html"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li><a href="../obras.html"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
-                <li><a href="../dashboard.html"><i class="fas fa-chart-line margin-icone"></i>Dashboard</a></li>
+                <li class="li-selected"><a th:href="@{/index}" style="color: #3A8DCF;"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
+                <li><a th:href="@{/cadastro/opcoes}"><i class="fas fa-address-card margin-icone"></i>Registrar</a></li>
+                <li><a th:href="@{/consulta/opcoes}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+                <li><a th:href="@{/consulta/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
             </ul>
         </div>
         <div class="menu-ul">
             <ul>
-                <li><a href="">Sair</a></li>
+                <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
+                <li><a th:if="${proprietario != null}" th:href="@{/logout/{id}(id=${proprietario.id_proprietario})}">Sair</a></li>
             </ul>
         </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a href="">Sobre o sistema</a></li>
-            </ul>
-        </div>
-       
+
         <div class="info-area">
             <h5>#Notificações</h5>
             <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-            <div style="clear: both;"></div>
         </div>
 
         <div class="notificacoes" id="notificacoes">
             <div class="notificacao">
-                <span>Bem vindo, Enzo!</span>
+
             </div>
         </div>
     </div>
@@ -177,7 +177,7 @@
                         </ul>
                     </div>
                 </div>
-            <form action="" id="regForm" class="col-md-8 p-0" th:object="${diariodeobra}">
+            <form th:action="@{/cadastro/diario/{id}(id=${obra.id_obra})}" th:method="POST" id="regForm" class="col-md-8 p-0" th:object="${diariodeobra}">
                 <!-- Formulários -->
                     <!-- Primeira guia -->
                     <div class="tab">
@@ -266,28 +266,31 @@
                     </div>
                     <!-- Primeira guia -->
                     <div class="tab">
-                        <div class="row p-0 m-0" th:object="${form}">
+                        <div class="row p-0 m-0" th:object="${form3}">
                             <!-- 1ª Coluna --->
                           <div class="col-md-6 p-0">
                               <div class="form-input margin-center">
-                               <label for="dtCriacao" style="margin-bottom: 10px;">Chamada de funcionários da obra</label>-->
-                              <label class="label-checkbox" th:each="maquinasUsadas : *{maquinasUsadas}">
-                                  <input type="checkbox" th:field="*{maquinasUsadas.usada}" checked="checked" th:value="${maquinasUsadas.usada}">
-                                  <span class="checkmark"></span>
+                               <label for="checkbox" style="margin-bottom: 10px;">Chamada de funcionários da obra</label>
+                              <label class="label-checkbox" id="checkbox" th:each="presenca, itemStat : *{presencas}">
+                              <h2 th:text="${obra.funcionarios[__${itemStat.index}__].nome}"></h2>
+                              <input type="checkbox" th:field="*{presencas[__${itemStat.index}__].presenca}" checked="checked">
+                              <span class="checkmark"></span>
                               </label>
                                </div>
                           </div>
 
-                           <!-- 2ª Coluna-->
                             <div class="col-md-6 p-0">
                                 <div class="form-input" th:object="${form}">
                                     <label for="horaCriacao" style="margin-bottom: 10px;">Máquinas usadas</label>
-                                    <div th:each="maquinasUsadas, itemStat : *{maquinasUsadas}">
-                                        <label class="label-checkbox" th:text="${obra.maquinas[__${itemStat.index}__].modelo}">
-                                            <input type="checkbox" th:field="*{maquinasUsadas[__${itemStat.index}__].maquina}" >
-                                            <span class="checkmark"></span>
+                                    <div>
+                                        <label class="label-qtd" th:each="maquinasusadas, itemStat : *{maquinasUsadas}">
+                                            <label class="label-checkbox">
+                                                <input type="checkbox" th:field="*{maquinasUsadas[__${itemStat.index}__].usada}" checked="checked">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <h2 th:text="${obra.machines[__${itemStat.index}__].modelo}"></h2>
+                                            <input type="number" th:field="*{maquinasUsadas[__${itemStat.index}__].qtd}" placeholder="Quantidade">
                                         </label>
-                                        <input type="number" th:field="*{maquinasUsadas[__${itemStat.index}__].qtd}" placeholder="Quantidade">
                                     </div>
                                 </div>
                             </div>
@@ -300,9 +303,12 @@
                                 <div class="form-input margin-center" th:object="${form2}">
                                     <label for="dtCriacao" style="margin-bottom: 10px;">Ferramentas utilizadas na obra</label>
                                     <div>
-                                        <label class="label-checkbox" th:each="ferramentasUsadas, itemStat : *{ferramentasUsadas}" th:text="${obra.ferramentas[__${itemStat.index}__].ferramenta}">
-                                            <input type="checkbox" checked="checked">
-                                            <span class="checkmark"></span>
+                                        <label class="label-qtd" th:each="ferramentasusadas, itemStat : *{ferramentasUsadas}">
+                                            <label class="label-checkbox">
+                                                <input type="checkbox" th:field="*{ferramentasUsadas[__${itemStat.index}__].usada}" checked="checked">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <h2 th:text="${obra.ferramentas[__${itemStat.index}__].ferramenta}"></h2>
                                             <input type="number" th:field="*{ferramentasUsadas[__${itemStat.index}__].qtd}" placeholder="Quantidade">
                                         </label>
                                     </div>

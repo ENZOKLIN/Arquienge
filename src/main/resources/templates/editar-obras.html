@@ -17,203 +17,200 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
-        <title>Detalhes da Obra | Arquienge</title>
+    <title>Detalhes da Obra | Arquienge</title>
 </head>
 <body>
 
-    <!--
-        <i class="fas fa-bars"></i>
-    -->
+<!--
+    <i class="fas fa-bars"></i>
+-->
 
-    <!-- BARRA TOPO -->
-    <div class="barra-topo">
-        <h4 style="text-align: center; " id="infoLocal" class="info-local">Informações da obra</h4>
-    </div>
+<!-- BARRA TOPO -->
+<div class="barra-topo">
+    <h4 style="text-align: center; " id="infoLocal" class="info-local">Informações da obra</h4>
+</div>
 
-    <!-- CLOSE MENU BTN -->
-    <div class="menuHamburger d-flex justify-content-center align-items-center"  onclick="window.location.href='/consulta/obras'" id="menuHamburger">
-        <i id="back" class="fas fa-chevron-left" style="color: #141121; font-size: 15px;"></i>
-    </div>
-    
-    <div class="conteudo">
-        
-    </div>
+<!-- CLOSE MENU BTN -->
+<div class="menuHamburger d-flex justify-content-center align-items-center"  onclick="window.location.href='/consulta/obras'" id="menuHamburger">
+    <i id="back" class="fas fa-chevron-left" style="color: #141121; font-size: 15px;"></i>
+</div>
 
-    <!-- CONTEUDO -->
-    <div class="btn-diario">
-        <div class="float">
-            <div class="icon-btn">
-                <i class="fas fa-tools"></i>
-            </div>
-            <div class="title-btn">
-                <a th:href="@{/cadastro/diario/{id}(id=${obra.id_obra})}">
+<div class="conteudo">
+
+</div>
+
+<!-- CONTEUDO -->
+<div class="btn-diario">
+    <div class="float">
+        <div class="icon-btn">
+            <i class="fas fa-tools"></i>
+        </div>
+        <div class="title-btn">
+            <a th:href="@{/cadastro/diario/{id}(id=${obra.id_obra})}">
                 <p>
                     Adicionar diário de obra
                 </p>
-                </a>
+            </a>
+        </div>
+    </div>
+</div>
+
+<form action="" th:object="${obra}">
+    <div class="barra-titulo">
+        <h4 class="info-local">Localização</h4>
+    </div>
+    <div class="container-fluid p-0 m-0">
+        <div class="row m-0 padding">
+            <div class="col-md-4 p-0 editar-campos">
+                <label for="cep">CEP</label>
+                <div class="conteudo-cep">
+                    <div class="input-cep">
+                        <input type="text" name="CEP" id="CEP" disabled th:field="${obra.endereco.cep}" th:value="${obra.endereco.cep}">
+                    </div>
+                    <div id="btn-pesquisar-cep" class="btn-pesquisar-cep align-items-center justify-content-center"
+                         onclick="pesquisacep(CEP.value)">
+                        Pesquisar
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <label for="cidade">Cidade</label>
+                <input type="text" name="cidade" id="cidade" disabled th:field="${obra.endereco.cidade}" th:value="${obra.endereco.cidade}">
+            </div>
+            <div class="col-md-4 m-0 editar-campos">
+                <label for="estado">Estado</label>
+                <input type="text" name="estado" id="estado" disabled th:field="${obra.endereco.uf}" th:value="${obra.endereco.uf}">
+                <label for="bairro">Bairro</label>
+                <input type="text" name="bairro" id="bairro" disabled th:field="${obra.endereco.bairro}" th:value="${obra.endereco.bairro}">
+            </div>
+            <div class="col-md-4 m-0 editar-campos">
+                <label for="rua">Rua</label>
+                <input type="text" name="rua" id="rua" disabled th:field="${obra.endereco.rua}" th:value="${obra.endereco.rua}">
+                <label for="numero">Número</label>
+                <input type="text" name="numero" id="numero" disabled th:field="${obra.endereco.numero}" th:value="${obra.endereco.numero}">
             </div>
         </div>
     </div>
-    
-    <form action="" th:object="${obra}">
-        <div class="barra-titulo">
-            <h4 class="info-local">Localização</h4>
-        </div>
-        <div class="container-fluid p-0 m-0">
-            <div class="row m-0 padding">
-                <div class="col-md-4 p-0 editar-campos">
-                    <label for="cep">CEP</label>
-                    <div class="conteudo-cep">
-                        <div class="input-cep">
-                            <input type="text" name="CEP" id="CEP" disabled th:value="${obra.endereco.cep}">
-                        </div>
-                        <div id="btn-pesquisar-cep" class="btn-pesquisar-cep align-items-center justify-content-center"
-                        onclick="pesquisacep(CEP.value)">
-                            Pesquisar
-                        </div>
-                        <div style="clear: both;"></div>
-                    </div>
-                    
-                    <label for="cidade">Cidade</label>
-                    <input type="text" name="cidade" id="cidade" disabled th:value="${obra.endereco.cidade}">
-                </div>
-                <div class="col-md-4 m-0 editar-campos">
-                    <label for="estado">Estado</label>
-                    <input type="text" name="estado" id="estado" disabled th:value="${obra.endereco.uf}">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" name="bairro" id="bairro" disabled th:value="${obra.endereco.bairro}">
-                </div>
-                <div class="col-md-4 m-0 editar-campos">
-                    <label for="rua">Rua</label>  
-                    <input type="text" name="rua" id="rua" disabled th:value="${obra.endereco.rua}">
-                    <label for="numero">Número</label>
-                    <input type="text" name="numero" id="numero" disabled th:value="${obra.endereco.numero}">
-                </div>
+    <div class="barra-titulo">
+        <h4 class="info-local">Datas</h4>
+    </div>
+    <div class="container-fluid p-0 m-0">
+        <div class="row m-0 padding">
+            <div class="col-md-4 p-0 editar-campos">
+                <label for="inicioObras">Início das obras</label>
+                <input type="text" name="inicioObras" id="inicioObras" disabled th:field="${obra.dt_inicio}" th:value="${dataInicio}">
+                <label for="previsaoTermino">Previsão de término das obras</label>
+                <input type="text" name="previsaoTermino" id="previsaoTermino" disabled th:field="${obra.dt_entrega}" th:value="${dataEntrega}">
+            </div>
+            <div class="col-md-4 m-0 editar-campos">
+
             </div>
         </div>
-        <div class="barra-titulo">
-            <h4 class="info-local">Datas</h4>
-        </div>
-        <div class="container-fluid p-0 m-0">
-            <div class="row m-0 padding">
-                <div class="col-md-4 p-0 editar-campos">
-                    <label for="inicioObras">Início das obras</label>
-                    <input type="text" name="inicioObras" id="inicioObras" disabled th:value="${dataInicio}">
-                    <label for="previsaoTermino">Previsão de término das obras</label>
-                    <input type="text" name="previsaoTermino" id="previsaoTermino" disabled th:value="${dataEntrega}">
-                </div>
-                <div class="col-md-4 m-0 editar-campos">
-                    
-                </div>
+    </div>
+    <div class="barra-titulo">
+        <h4 class="info-local">Funcionários</h4>
+    </div>
+    <div class="container-fluid p-0 m-0">
+        <div class="row m-0">
+            <div class="col-12 p-0 table-pessoas">
+                <table>
+                    <tbody>
+                    <tr th:each="funcionario : ${obra.funcionarios}">
+                        <td>
+                            <h1 th:text="${funcionario.nome + ' ' + funcionario.sobrenome}"></h1>
+                            <h2 th:text="${funcionario.cargo}"></h2>
+                        </td>
+                        <td class="td-maldita remover-td" hidden>
+                            <div class="d-flex justify-content-center align-items-center btn-remover">
+                                Remover
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="barra-titulo">
-            <h4 class="info-local">Funcionários</h4>
-        </div>
-        <div class="container-fluid p-0 m-0">
-            <div class="row m-0">
-                <div class="col-12 p-0 table-pessoas">
-                    <table>
-                        <tbody>
-                            <tr th:each="funcionario : ${obra.funcionarios}">
-                                <td>
-                                    <h1 th:text="${funcionario.nome + ' ' + funcionario.sobrenome}"></h1>
-                                    <h2 th:text="${funcionario.cargo}"></h2>
-                                </td>
-                                <td class="td-maldita remover-td" hidden>
-                                    <div class="d-flex justify-content-center align-items-center btn-remover">
-                                        Remover
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    </div>
+    <div class="barra-titulo">
+        <h4 class="info-local">Diários de obra</h4>
+    </div>
+    <div class="container-fluid p-0 m-0">
+        <div class="row m-0">
+            <div class="col-12 p-0 table-pessoas">
+                <table>
+                    <tbody>
+                    <tr th:each="diariodeobra : ${obra.diariosDeObra}">
+                        <td>
+                            <h1 th:text="${diariodeobra.dataCriacao + '  ás  ' + diariodeobra.horaCriacao}"></h1>
+                            <h2 th:text="${diariodeobra.descricao}"></h2>
+                        </td>
+                        <td class="td-maldita remover-td" hidden>
+                            <div class="d-flex justify-content-center align-items-center btn-remover">
+                                Remover
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="barra-titulo">
-            <h4 class="info-local">Diários de obra</h4>
-        </div>
-        <div class="container-fluid p-0 m-0">
-            <div class="row m-0">
-                <div class="col-12 p-0 table-pessoas">
-                    <table>
-                        <tbody>
-                            <tr th:each="diariodeobra : ${obra.diariosDeObra}">
-                                <td>
-                                    <h1 th:text="${diariodeobra.data_criacao}"></h1>
-                                    <h2 th:text="${diariodeobra.descricao}"></h2>
-                                </td>
-                                <td class="td-maldita remover-td" hidden>
-                                    <div class="d-flex justify-content-center align-items-center btn-remover">
-                                        Remover
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="btn-changes">
-            <button id="btn-salvar" hidden>
-                Salvar
-            </button>
-        </div>
-    </form>
+    </div>
     <div class="btn-changes">
-        <button id="btn-editar" class="btn-editar">
-            <i class="fas fa-pen"></i>
+        <button type="submit" id="btn-salvar" hidden>
+            Salvar
         </button>
     </div>
+</form>
+<div class="btn-changes">
+    <button id="btn-editar" class="btn-editar">
+        <i class="fas fa-pen"></i>
+    </button>
+</div>
 
-    <script th:src="@{/js/cep.js}"></script>
-    <script>
-        var allHidden = true;
-
-        document.getElementById("btn-editar").addEventListener('click', function(){
-            var btnEditar = document.getElementById("btn-editar");
-            var btnSalvar = document.getElementById("btn-salvar");
-            var btns = document.querySelectorAll("td.remover-td");
-            var inputs = document.getElementsByTagName("input");
-
-            if(allHidden == false){
-                btnSalvar.hidden = true;
-                for(var i = 0; i< inputs.length; i++){
-                    inputs[i].disabled = true;
-                }
-                for(var i = 0; i < btns.length; i++){
-                    btns[i].hidden = true;
-                }
-                document.getElementById("btn-pesquisar-cep").style.display = "none";
-                btnEditar.hidden = false;
-                allHidden = true;
-            }else{
-                btnSalvar.hidden = false;
-                for(var i = 0; i < btns.length; i++){
-                    btns[i].hidden = false;
-                }
-                for(var i = 0; i< inputs.length; i++){
-                    inputs[i].disabled = false;
-                }
-                document.getElementById("btn-pesquisar-cep").style.display = "flex";
-                btnEditar.hidden = true;
-                allHidden = false;
+<script th:src="@{/js/cep.js}"></script>
+<script>
+    var allHidden = true;
+    document.getElementById("btn-editar").addEventListener('click', function(){
+        var btnEditar = document.getElementById("btn-editar");
+        var btnSalvar = document.getElementById("btn-salvar");
+        var btns = document.querySelectorAll("td.remover-td");
+        var inputs = document.getElementsByTagName("input");
+        if(allHidden == false){
+            btnSalvar.hidden = true;
+            for(var i = 0; i< inputs.length; i++){
+                inputs[i].disabled = true;
             }
-            
-        })
+            for(var i = 0; i < btns.length; i++){
+                btns[i].hidden = true;
+            }
+            document.getElementById("btn-pesquisar-cep").style.display = "none";
+            btnEditar.hidden = false;
+            allHidden = true;
+        }else{
+            btnSalvar.hidden = false;
+            for(var i = 0; i < btns.length; i++){
+                btns[i].hidden = false;
+            }
+            for(var i = 0; i< inputs.length; i++){
+                inputs[i].disabled = false;
+            }
+            document.getElementById("btn-pesquisar-cep").style.display = "flex";
+            btnEditar.hidden = true;
+            allHidden = false;
+        }
 
-        /*
-        document.getElementById("btn-salvar").addEventListener('click', function(){
-            
-        });
-        */
-    </script>
-    <!-- Javascript -->
-    <script th:src="@{/js/script.js}"></script>
+    })
+    /*
+    document.getElementById("btn-salvar").addEventListener('click', function(){
+
+    });
+    */
+</script>
+<!-- Javascript -->
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

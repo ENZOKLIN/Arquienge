@@ -19,9 +19,8 @@ public class Presenca {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     @Column(name = "presenca", updatable = false)
-    private boolean presente;
+    private boolean presenca;
 
     @JoinColumn(name = "id_funcionario")
     @ManyToOne

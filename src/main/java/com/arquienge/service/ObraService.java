@@ -3,6 +3,7 @@ package com.arquienge.service;
 import com.arquienge.model.Obra;
 import com.arquienge.repository.ObraRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ObraService {
 
     private final ObraRepository obraRepository;

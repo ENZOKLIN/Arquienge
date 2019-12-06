@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -37,7 +37,7 @@
     </div>
 
     <!-- CLOSE MENU BTN -->
-    <div class="menuHamburger d-flex justify-content-center align-items-center"  onclick="window.location.href='editar-obras.html'" id="menuHamburger">
+    <div class="menuHamburger d-flex justify-content-center align-items-center"  onclick="window.location.href='consulta/obras'" id="menuHamburger">
         <i id="back" class="fas fa-chevron-left" style="color: #141121; font-size: 15px;"></i>
     </div>
     
@@ -49,7 +49,7 @@
         <h1>
             Feito em:
         </h1>
-        <h2>
+        <h2 th:text="${diario.dataCriacao + 'às' + diario.horaCriacao}">
             13/12/2019 às 19:30.
         </h2>
     </div>
@@ -62,13 +62,11 @@
             <div class="row m-0 padding">
                 <div class="col-md-4 p-0 editar-campos">
                     <label for="descricao">Descrição e ocorrências</label>
-                    <textarea disabled name="descricao" id="descricao" cols="40" rows="6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste iusto autem fuga inventore nam aspernatur nobis omnis aliquid saepe consequatur, enim voluptas corrupti accusantium, amet magnam veritatis similique repellendus labore?</textarea>
+                    <textarea disabled name="descricao" id="descricao" cols="40" rows="6" th:value-="${diario.descricao}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste iusto autem fuga inventore nam aspernatur nobis omnis aliquid saepe consequatur, enim voluptas corrupti accusantium, amet magnam veritatis similique repellendus labore?</textarea>
                 </div>
                 <div class="col-md-4 m-0 editar-campos">
                     <label for="clima">Clima predominante</label>
-                    <input type="text" name="clima" id="clima" disabled value="Chuvoso">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" name="bairro" id="bairro" disabled value="Rio Vermelho">
+                    <input type="text" name="clima" id="clima" disabled value="Chuvoso"th:value-="${diario.clima}" >
                 </div>
             </div>
         </div>
@@ -81,20 +79,9 @@
                     <table>
                         <tbody>
                             <tr>
-                                <td>
-                                    <h1>Lucas Bueno</h1>
-                                    <h2>Pedreiro</h2>
-                                </td>
-                                <td class="td-maldita remover-td" hidden>
-                                    <div class="d-flex justify-content-center align-items-center btn-remover">
-                                        Remover
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h1>Bárbara Martins</h1>
-                                    <h2>Pedreiro</h2>
+                                <td th:each="${presenca : presencas}">
+                                    <h1 th:text="${presenca.funcionario.nome + ' ' + presenca.funcionario.sobrenome}">Lucas Bueno</h1>
+                                    <h2 th:text="${presenca.funcionario.sobrenome">Pedreiro</h2>
                                 </td>
                                 <td class="td-maldita remover-td" hidden>
                                     <div class="d-flex justify-content-center align-items-center btn-remover">
@@ -114,8 +101,8 @@
             <div class="row m-0">
                 <div class="col-12 p-0 maquinas-ferramentas">
                     <table>
-                        <tr>
-                            <th>Ferramenta</th>
+                        <tr th:each="${ferramentausadas : diario.ferramentasUsadas}">
+                            <th th:text="${ferramentausadas.}">Ferramenta</th>
                             <th>Quantidade</th>
                         </tr>
                         <tr>

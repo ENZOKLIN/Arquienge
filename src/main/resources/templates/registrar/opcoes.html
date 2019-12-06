@@ -16,142 +16,142 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/29a74e2c62.js" crossorigin="anonymous"></script>
     <title>Opções de Registro | Arquienge</title>
 </head>
 <body style="background-color: #ebeff3;">
 
-    <!--
-        <i class="fas fa-bars"></i>
-    -->
+<!--
+    <i class="fas fa-bars"></i>
+-->
 
-    <!-- BARRA TOPO -->
-    <div class="barra-topo">
-        <h4 style="text-align: center; " id="infoLocal" class="info-local">Registrar</h4>
-    </div>
+<!-- BARRA TOPO -->
+<div class="barra-topo">
+    <h4 style="text-align: center; " id="infoLocal" class="info-local">Registrar</h4>
+</div>
 
-    <!-- CLOSE MENU BTN -->
-    <div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
-        <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
-    </div>
+<!-- CLOSE MENU BTN -->
+<div class="menuHamburger d-flex justify-content-center align-items-center" id="menuHamburger" onclick="openClose()">
+    <i id="menu-hamburger-img" class="im im-menu" style="color: #141121; font-size: 15px;"></i>
+</div>
 
-    <!-- SIDE MENU -->
-    <div id="sideNav" class="sidenav">
-            
-        <div class="info-perfil">
-            <div class="foto-perfil" id="fotoPerfil">
-                <img th:src="@{/img/user-profile-pic.jpg}" alt="">
-            </div>
-            <div class="nome-perfil" id="nomePerflEngenheiro" th:if="${engenheiro != null}">
-                <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}">Engenheiro Não Encontrado</h2>
-            </div>
-            <div class="nome-perfil" id="nomePerflProprietario" th:if="${proprietario != null}">
-                <h2 th:text="${proprietario.nome + ' ' + proprietario.sobrenome}">Proprietário Não Encontrado</h2>
-            </div>
-            <div class="cargo-perfil" id="cargoPerfil" th:if="${engenheiro != null}">
-                <h3>Engenheiro(a)</h3>
-            </div>
-            <div class="cargo-perfil" id="cargoPerfilProp" th:if="${proprietario != null}">
-                <h3>Proprietário(a)</h3>
-            </div>
-        </div>
+<!-- SIDE MENU -->
+<div id="sideNav" class="sidenav">
 
-        <div class="info-area">
-            <h5>#Menu</h5>
-            <div style="clear: both;"></div>
+    <div class="info-perfil">
+        <div class="foto-perfil" id="fotoPerfil">
+            <img th:src="@{/img/user-profile-pic.jpg}" alt="">
         </div>
-
-        <div class="menu-ul">
-            <ul>
-                <li><a th:href="@{/index}" style="color: #3A8DCF;"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
-                <li class="li-selected"><a th:href="@{/cadastro/opcoes}"><i class="fas fa-address-card margin-icone"></i>Registrar</a></li>
-                <li><a th:href="@{/consulta/opcoes}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
-                <li><a th:href="@{/consulta/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
-            </ul>
+        <div class="nome-perfil" id="nomePerflEngenheiro" th:if="${engenheiro != null}">
+            <h2 th:text="${engenheiro.nome + ' ' + engenheiro.sobrenome}">Engenheiro Não Encontrado</h2>
         </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
-                <li><a th:if="${proprietario != null}" th:href="@{/logout/{id}(id=${proprietario.id_proprietario})}">Sair</a></li>
-            </ul>
+        <div class="nome-perfil" id="nomePerflProprietario" th:if="${proprietario != null}">
+            <h2 th:text="${proprietario.nome + ' ' + proprietario.sobrenome}">Proprietário Não Encontrado</h2>
         </div>
-        <div class="menu-ul">
-            <ul>
-                <li><a href="">Sobre o sistema</a></li>
-            </ul>
+        <div class="cargo-perfil" id="cargoPerfil" th:if="${engenheiro != null}">
+            <h3>Engenheiro(a)</h3>
         </div>
-       
-        <div class="info-area">
-            <h5>#Notificações</h5>
-            <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
-            <div style="clear: both;"></div>
-        </div>
-
-        <div class="notificacoes" id="notificacoes">
+        <div class="cargo-perfil" id="cargoPerfilProp" th:if="${proprietario != null}">
+            <h3>Proprietário(a)</h3>
         </div>
     </div>
-    <!-- SIDE MENU -->
 
-    <!-- CONTEUDO -->
-    <div class="conteudo">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3" th:if="${proprietario != null}">
-                    <div class="box-option">
-                        <h2>Funcionários</h2>
-                        <div class="ft-box-option" style="background-image: url('/img/worker.jpg');">
+    <div class="info-area">
+        <h5>#Menu</h5>
+        <div style="clear: both;"></div>
+    </div>
 
-                        </div>
-                        <a th:href="@{/cadastro/funcionario}"><button>Registrar</button></a>
+    <div class="menu-ul">
+        <ul>
+            <li><a th:href="@{/index}" style="color: #3A8DCF;"><i class="fas fa-home margin-icone icone-menu"></i>Início</a></li>
+            <li class="li-selected"><a th:href="@{/cadastro/opcoes}"><i class="fas fa-address-card margin-icone"></i>Registrar</a></li>
+            <li><a th:href="@{/consulta/opcoes}"><i class="fas fa-search margin-icone"></i>Consultar</a></li>
+            <li><a th:href="@{/consulta/obras}"><i class="fas fa-hard-hat margin-icone" ></i>Obras</a> </li>
+        </ul>
+    </div>
+    <div class="menu-ul">
+        <ul>
+            <li><a th:if="${engenheiro != null}" th:href="@{/logout/{id}(id=${engenheiro.id_engenheiro})}">Sair</a></li>
+            <li><a th:if="${proprietario != null}" th:href="@{/logout/{id}(id=${proprietario.id_proprietario})}">Sair</a></li>
+        </ul>
+    </div>
+    <div class="menu-ul">
+        <ul>
+            <li><a href="">Sobre o sistema</a></li>
+        </ul>
+    </div>
+
+    <div class="info-area">
+        <h5>#Notificações</h5>
+        <button class="push-down" id="chevron-down"><i class="fas fa-chevron-down" style="color: rgb(68, 65, 90);" id="arrowNotificacao"></i></button>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="notificacoes" id="notificacoes">
+    </div>
+</div>
+<!-- SIDE MENU -->
+
+<!-- CONTEUDO -->
+<div class="conteudo">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3" th:if="${proprietario != null}">
+                <div class="box-option">
+                    <h2>Funcionários</h2>
+                    <div class="ft-box-option" style="background-image: url('/img/worker.jpg');">
+
                     </div>
-                </div>
-                <div class="col-lg-3" th:if="${proprietario != null}">
-                    <div class="box-option">
-                        <h2>Engenheiros</h2>
-                        <div class="ft-box-option admin" style="background-image: url('/img/admin.jpg');">
-                        </div>
-                        <a th:href="@{/cadastro/engenheiro}"><button>Registrar</button></a>
-                    </div>
-                </div>
-                <div class="col-lg-3" th:if="${engenheiro != null}">
-                    <div class="box-option">
-                        <h2>Máquinas</h2>
-                        <div class="ft-box-option maq" style="background-image: url('/img/machine.jpg');">
-                            
-                        </div>
-                        <a href="./maquina.html"><button>Registrar</button></a>
-                    </div>
-                </div>
-                <div class="col-lg-3" th:if="${engenheiro != null}">
-                    <div class="box-option">
-                        <h2>Ferramentas</h2>
-                        <div class="ft-box-option fer" style="background-image: url('/img/hardware.jpg');">
-                            
-                        </div>
-                        <a th:href="@{/cadastro/ferramenta/}"><button>Registrar</button></a>
-                    </div>
+                    <a th:href="@{/cadastro/funcionario}"><button>Registrar</button></a>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row" th:if="${engenheiro != null}">
-                <div class="col-lg-3">
-                    <div class="box-option">
-                        <h2>Obras</h2>
-                        <div class="ft-box-option obras" style="background-image: url('/img/construction.jpg');">
-                            
-                        </div>
-                        <a th:href="@{/cadastro/obra}"><button>Registrar</button></a>
+            <div class="col-lg-3" th:if="${proprietario != null}">
+                <div class="box-option">
+                    <h2>Engenheiros</h2>
+                    <div class="ft-box-option admin" style="background-image: url('/img/admin.jpg');">
                     </div>
+                    <a th:href="@{/cadastro/engenheiro}"><button>Registrar</button></a>
+                </div>
+            </div>
+            <div class="col-lg-3" th:if="${engenheiro != null}">
+                <div class="box-option">
+                    <h2>Máquinas</h2>
+                    <div class="ft-box-option maq" style="background-image: url('/img/machine.jpg');">
+
+                    </div>
+                    <a href="./maquina.html"><button>Registrar</button></a>
+                </div>
+            </div>
+            <div class="col-lg-3" th:if="${engenheiro != null}">
+                <div class="box-option">
+                    <h2>Ferramentas</h2>
+                    <div class="ft-box-option fer" style="background-image: url('/img/hardware.jpg');">
+
+                    </div>
+                    <a th:href="@{/cadastro/ferramenta/}"><button>Registrar</button></a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row" th:if="${engenheiro != null}">
+            <div class="col-lg-3">
+                <div class="box-option">
+                    <h2>Obras</h2>
+                    <div class="ft-box-option obras" style="background-image: url('/img/construction.jpg');">
 
-    <!-- Javascript -->
-    <script th:src="@{/js/script.js}"></script>
+                    </div>
+                    <a th:href="@{/cadastro/obra}"><button>Registrar</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

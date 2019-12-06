@@ -37,7 +37,7 @@ public class Obra {
     private Integer id_obra;
 
     // DETERMINANDO O NOME DA COLUNA NO BD "NOME-OBRA" E QUE É ÚNICA:
-    @Column(unique = true, name = "Nome_Obra")
+    @Column(name = "Nome_Obra")
     private String nome_obra;
 
     // USANDO A ANOTAÇÃO DATETIMEFORMAT PARA FORMATAR A DATA QUE SERÁ RECEBIDA NO ATRIBUTO:
@@ -82,7 +82,7 @@ public class Obra {
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE OBRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UMA OBRA PARA MUITAS MÁQUINAS):
     @OneToMany(mappedBy = "obra")
-    private List<Maquina> maquinas;
+    private List<Maquina> machines;
 
     // INSTANCIANDO UM OBJETO COMO ATRIBUTO NA CLASSE OBRA, PARA DETERMINAR A RELAÇÃO TANTO NA CLASSE,
     // QUANTO NO BANCO DE DADOS(UMA OBRA PARA MUITOS FUNCIONÁRIOS):

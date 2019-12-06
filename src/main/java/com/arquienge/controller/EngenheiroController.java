@@ -1,12 +1,10 @@
 package com.arquienge.controller;
 
-import com.arquienge.DTO.FerramentasDto;
-import com.arquienge.DTO.FerramentasUsadasDto;
-import com.arquienge.DTO.MaquinasDto;
-import com.arquienge.DTO.MaquinasUsadasDto;
+import com.arquienge.DTO.*;
 import com.arquienge.config.Logado;
 import com.arquienge.config.LogadoEstatico;
 import com.arquienge.model.*;
+import com.arquienge.repository.PresencaRepository;
 import com.arquienge.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.validation.Valid;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +31,13 @@ public class EngenheiroController {
     private final ProprietarioService proprietarioService;
     private final FuncionarioService funcionarioService;
     private final CarteiradeTrabalhoService carteiradeTrabalhoService;
+    private final DiarioDeObraService diarioDeObraService;
+    private final FerramentasUsadasService ferramentasUsadasService;
+    private final MaquinasUsadasService maquinasUsadasService;
+    private final PresencaRepository presencaRepository;
 
 
-    public EngenheiroController(EngenheiroService engenheiroService, EnderecoService enderecoService, MaquinaService maquinaService, ObraService obraService, FerramentaService ferramentaService, ProprietarioService proprietarioService, FuncionarioService funcionarioService, CarteiradeTrabalhoService carteiradeTrabalhoService) {
+    public EngenheiroController(EngenheiroService engenheiroService, EnderecoService enderecoService, MaquinaService maquinaService, ObraService obraService, FerramentaService ferramentaService, ProprietarioService proprietarioService, FuncionarioService funcionarioService, CarteiradeTrabalhoService carteiradeTrabalhoService, DiarioDeObraService diarioDeObraService, FerramentasUsadasService ferramentasUsadasService, MaquinasUsadasService maquinasUsadasService, PresencaRepository presencaRepository) {
         this.engenheiroService = engenheiroService;
         this.maquinaService = maquinaService;
         this.enderecoService = enderecoService;
@@ -47,6 +46,10 @@ public class EngenheiroController {
         this.proprietarioService = proprietarioService;
         this.funcionarioService = funcionarioService;
         this.carteiradeTrabalhoService = carteiradeTrabalhoService;
+        this.diarioDeObraService = diarioDeObraService;
+        this.ferramentasUsadasService = ferramentasUsadasService;
+        this.maquinasUsadasService = maquinasUsadasService;
+        this.presencaRepository = presencaRepository;
     }
 
     /* MAPEAMENTOS DE LOGIN E INDEX */
@@ -180,7 +183,7 @@ public class EngenheiroController {
                 FerramentasDto ferramentasDto = new FerramentasDto();
                 List<Maquina> maquinas = new ArrayList<>();
                 List<Ferramenta> ferramentas = new ArrayList<>();
-                for (int i = 1; i <= 5; i++) {
+                for (int i = 1; i <= 3; i++) {
                     maquinas.add(new Maquina());
                     maquinas.get(i - 1).setCod_maquina(i);
                     ferramentas.add(new Ferramenta());
@@ -213,7 +216,6 @@ public class EngenheiroController {
             redirectAttributes.addFlashAttribute("messageFailure", "Obra não pode ser cadastrada!");
             return "redirect:/cadastro/obra";
         }
-
         Logado logado = new Logado(false);
         if (LogadoEstatico.getId() != 0 && !LogadoEstatico.prop) {
             Optional<Engenheiro> engenheiro = engenheiroService.selectById(logado.getId());
@@ -226,24 +228,27 @@ public class EngenheiroController {
             } else {
                 enderecoService.saveEndereco(endereco);
                 obraService.saveObra(obra);
-                for (Maquina maquina : form.getMachines()) {
-                    maquina.setObra(obra);
-                    maquinaService.saveMaquina(maquina);
-                    for (Ferramenta ferramenta : form2.getFerramentas()) {
+                for (Ferramenta ferramenta : form2.getFerramentas()) {
+                    if(ferramenta != null) {
                         ferramenta.setObra(obra);
+                        obra.getFerramentas().add(ferramenta);
                         ferramentaService.saveFerramenta(ferramenta);
                     }
                 }
+                for (Maquina maquina : form.getMachines()) {
+                   if(maquina != null) {
+                       maquina.setObra(obra);
+                       maquinaService.saveMaquina(maquina);
+                   }
+                }
+                synchronized(obra.getFuncionarios()) {
                     for (Funcionario funcionario : obra.getFuncionarios()) {
-                        if (funcionario.getObra() != null) {
-                            obraService.deleteObra(obra);
-                            enderecoService.deleteEndereco(endereco);
-                            redirectAttributes.addFlashAttribute("messageError", "Um dos funcionários selecionados já está trabalhando em outra obra.");
-                        } else {
+                        if (funcionario != null) {
                             funcionario.setObra(obra);
                             funcionarioService.saveFuncionario(funcionario);
                         }
                     }
+                }
                 redirectAttributes.addFlashAttribute("messageSucess", "Obra salva com sucesso!");
                 return new ModelAndView("redirect:/cadastro/obra");
             }
@@ -362,30 +367,34 @@ public class EngenheiroController {
 
     }
 
-    @GetMapping(value = "/cadastro/diario/{id}")
-    public ModelAndView createDiario(@PathVariable Integer id) {
+    @GetMapping(value = "/cadastro/diario/{idString}")
+    public ModelAndView createDiario(@PathVariable String idString) {
         if (LogadoEstatico.getEmail() != null) {
             if (!LogadoEstatico.prop && LogadoEstatico.getId() != 0) {
                 ModelAndView view = new ModelAndView("registrar/diario-de-obra.html");
+                Integer id = Integer.parseInt(idString);
                 Obra obra = obraService.selectObrabyId_obra(id);
                 Logado logado = new Logado(false);
                 List<Presenca> presencas = new ArrayList<>();
                 List<MaquinasUsadas> maquinasUsadas = new ArrayList<>();
                 List<FerramentasUsadas> ferramentasUsadas = new ArrayList<>();
-                for (Funcionario funcionario : obra.getFuncionarios()) {
-                    presencas.add(new Presenca());
-                    for (Ferramenta ferramenta : obra.getFerramentas()) {
-                        FerramentasUsadas ferramentasUsadas1 = new FerramentasUsadas();
-                        ferramentasUsadas1.setFerramenta(ferramenta);
-                        ferramentasUsadas.add(ferramentasUsadas1);
-                    }
-                    for (Maquina maquina : obra.getMaquinas()) {
-                        MaquinasUsadas maquinasUsadas1 = new MaquinasUsadas();
-                        maquinasUsadas1.setMaquina(maquina);
-                        maquinasUsadas.add(new MaquinasUsadas());
+                synchronized(obra.getFuncionarios()) {
+                    for (Funcionario funcionario : obra.getFuncionarios()) {
+                        presencas.add(new Presenca());
+                        for (Ferramenta ferramenta : obra.getFerramentas()) {
+                            FerramentasUsadas ferramentasUsadas1 = new FerramentasUsadas();
+                            ferramentasUsadas1.setFerramenta(ferramenta);
+                            ferramentasUsadas.add(ferramentasUsadas1);
+                        }
+                        for (Maquina maquina : obra.getMachines()) {
+                            MaquinasUsadas maquinasUsadas1 = new MaquinasUsadas();
+                            maquinasUsadas1.setMaquina(maquina);
+                            maquinasUsadas.add(new MaquinasUsadas());
+                        }
                     }
                 }
                 MaquinasUsadasDto maquinasUsadasDto = new MaquinasUsadasDto(maquinasUsadas);
+                PresencaDto presencaDto = new PresencaDto(presencas);
                 FerramentasUsadasDto ferramentasUsadasDto = new FerramentasUsadasDto(ferramentasUsadas);
                 Engenheiro engenheiro = engenheiroService.findEngenheiroById(logado.getId());
                 view.addObject("presencas", presencas);
@@ -393,6 +402,7 @@ public class EngenheiroController {
                 view.addObject("obra", obra);
                 view.addObject("form", maquinasUsadasDto);
                 view.addObject("form2", ferramentasUsadasDto);
+                view.addObject("form3", presencaDto);
                 view.addObject("diariodeobra", new DiarioDeObra());
                 return view;
             } else if (LogadoEstatico.prop && LogadoEstatico.getId() != null) {
@@ -401,6 +411,53 @@ public class EngenheiroController {
         }
         return new ModelAndView("redirect:/login");
     }
+
+    @PostMapping(value = "/cadastro/diario/{idString}")
+    public Object registrarDiario(@PathVariable String idString, @ModelAttribute MaquinasUsadasDto form, @ModelAttribute FerramentasUsadasDto form2, @ModelAttribute PresencaDto form3, DiarioDeObra diarioDeObra, BindingResult result, RedirectAttributes redirectAttributes){
+        Integer id = Integer.parseInt(idString);
+        Obra obra = obraService.selectObrabyId_obra(id);
+        diarioDeObra.setObra(obra);
+        diarioDeObraService.saveDiario(diarioDeObra);
+        for(Ferramenta ferramenta : obra.getFerramentas()){
+            for(FerramentasUsadas ferramentasUsadas : form2.getFerramentasUsadas()){
+                if(ferramentasUsadas.isUsada()) {
+                    ferramentasUsadas.setFerramenta(ferramenta);
+                    ferramentasUsadas.setDiarioDeObra(diarioDeObra);
+                    ferramentasUsadasService.saveFerramentaUsada(ferramentasUsadas);
+                }
+            }
+        }
+        for(Maquina maquina : obra.getMachines()){
+            for(MaquinasUsadas maquinasUsadas : form.getMaquinasUsadas()){
+                if(maquinasUsadas.isUsada()) {
+                    maquinasUsadas.setMaquina(maquina);
+                    maquinasUsadas.setDiarioDeObra(diarioDeObra);
+                    maquinasUsadasService.saveMaquinaUsada(maquinasUsadas);
+                }
+            }
+        }
+        for(Funcionario funcionario : obra.getFuncionarios()){
+            for(Presenca presenca : form3.getPresencas()){
+                if(presenca.isPresenca()) {
+                    presenca.setFuncionario(funcionario);
+                    presenca.setDiarioDeObra(diarioDeObra);
+                    presencaRepository.save(presenca);
+                }
+            }
+        }
+
+        return "redirect:/consulta/obras";
+    }
+
+    @GetMapping(value = "/consulta/diario/{idString}")
+    public ModelAndView visualizar(@PathVariable String idString){
+        ModelAndView view = new ModelAndView("editar-diario");
+        Integer id = Integer.parseInt(idString);
+       DiarioDeObra diarioDeObra = diarioDeObraService.findDiarioById(id);
+        view.addObject("diario", diarioDeObra);
+        return view;
+    }
+
 
     @GetMapping(value = {"/cadastro/ferramenta/", "/cadastro/ferramenta"})
     public ModelAndView createFerramenta() {

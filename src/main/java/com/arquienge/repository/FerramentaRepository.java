@@ -15,6 +15,9 @@ public interface FerramentaRepository extends JpaRepository<Ferramenta, Integer>
     @Query(value = "SELECT FERRAMENTA.* FROM FERRAMENTA WHERE FERRAMENTA.FERRAMENTA = ?1", nativeQuery = true)
     Ferramenta findFerramentaByName(String nome);
 
+    @Query(value = "SELECT * FROM FERRAMENTA WHERE FERRAMENTA.ID = ?1", nativeQuery = true)
+    Ferramenta findFerramentaById(Integer id);
+
     @Query(value = "SELECT SUM(QUANTIDADE) FROM FERRAMENTA WHERE FERRAMENTA.ID_OBRA = ?1", nativeQuery = true)
     Integer findTotaldeFerramentasByObraId(Integer id);
 }
